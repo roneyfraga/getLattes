@@ -123,6 +123,7 @@ formacao2df <- function(lt){
   return(lt)
 }
 
+#------------------------------
 #' @title mostFrequent
 mostFrequent <- function(x) {
   ux <- unique(x)
