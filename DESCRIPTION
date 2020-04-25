@@ -1,0 +1,28 @@
+Package: getLattes
+Type: Package
+Title: Importar e Processar os Dados de Currrículos Lattes
+Version: 0.1.0
+Authors@R: 
+    c(person(given = "Roney",
+             family = "Fraga Souza",
+             role = c("aut", "cre"),
+             email = "roneyfraga@gmail.com"),
+      person(given = "Winicius",
+             family = "Sabino",
+             role = c("aut", "cre"),
+             email = "winiciuss15@gmail.com"))
+Maintainer: Roney Fraga Souza <roneyfraga@gmail.com>
+Description: Importar os dados de currículos lattes e processar esses dados.
+License: GPL-3
+Encoding: UTF-8
+LazyData: TRUE
+Imports: 
+  XML (>= 3.98),
+  parallel (>= 3.4.2),
+  tidyverse (>= 1.2.1),
+  pipeR (>= 0.6.1.3),
+  rlist (>= 0.4.6),
+  stringr (>= 1.2.0),
+  rio (>= 0.5.5),
+  quanteda (>= 1.5.1)
+RoxygenNote: 6.1.1
