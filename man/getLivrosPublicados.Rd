@@ -6,6 +6,28 @@
 \usage{
 getLivrosPublicados(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getLivrosPublicados
+Extract Published Books from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getLivrosPublicados(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getLivrosPublicados)
+ head(bind_rows(lt))
+ }
+}
 }

@@ -1,4 +1,22 @@
 #' @title getOrientacoesPosDoutorado
+#' @description Extract Academic Advisory (Post-Doctorate) from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getOrientacoesPosDoutorado(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getOrientacoesPosDoutorado)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getOrientacoesPosDoutorado
+#' @export 
 getOrientacoesPosDoutorado <- function(curriculo){
 
   #print(curriculo$id)

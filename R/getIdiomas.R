@@ -1,4 +1,22 @@
 #' @title getIdiomas
+#' @description Extract Languages from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getIdiomas(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getIdiomas)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getIdiomas
+#' @export 
 getIdiomas <- function(curriculo){
   #print(curriculo$id)
   ll <- curriculo$`DADOS-GERAIS`

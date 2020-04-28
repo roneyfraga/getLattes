@@ -1,4 +1,22 @@
 #' @title getPremiosTitulos
+#' @description Extract Awards and Medals from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getPremiosTitulos(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getPremiosTitulos)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getPremiosTitulos
+#' @export 
 getPremiosTitulos <- function(curriculo){
   #print(curriculo$id)
   ll <- curriculo$`DADOS-GERAIS`

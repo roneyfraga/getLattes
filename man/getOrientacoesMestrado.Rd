@@ -6,6 +6,28 @@
 \usage{
 getOrientacoesMestrado(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getOrientacoesMestrado
+Extract Academic Advisory (Master Thesis) from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getOrientacoesMestrado(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getOrientacoesMestrado)
+ head(bind_rows(lt))
+ }
+}
 }

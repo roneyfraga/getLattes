@@ -1,13 +1,32 @@
-#' Title
-#'
-#' @param dataframe
-#' @param journalName
-#' @param issn
-#'
-#' @return
-#' @export
-#'
-#' @examples
+#' @title normalizeJournals
+#' @description Normalize journals data: journal name, and ISSN. Two or more journals with the same ISSN will receive the most common Journal Name, then two or more journals with the same name will receive the most common ISSN.
+#' @param dataframe data imported with readLattes() then getArtigosPublicados()
+#' @param journalName variable with journal name
+#' @param issn variable with issn
+#' @return data frame
+#' @details DETAILS
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#' data(latesXML)
+#' al <- lapply(lattesXML, getArtigosPublicados) 
+#' adf <- bind_rows(al)
+#' 
+#' head(
+#'     normalizeByDoi(dataframe=adf, 
+#'               issn='issn', 
+#'               journalName= 'titulo.do.periodico.ou.revista') 
+#' 
+#'   }
+#'  }
+#' @seealso 
+#'  \code{\link[stringi]{stri_trans_general}}
+#'  \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}
+#' @rdname normalizeJournals
+#' @export 
+#' @importFrom stringi stri_trans_general
+#' @importFrom dplyr group_by arrange mutate ungroup
+#' @importFrom pipeR "%>>%"
 normalizeJournals <- function(dataframe, journalName='revista', issn='issn'){
 
   # recebe data frame com título da revista e issn
@@ -30,16 +49,16 @@ normalizeJournals <- function(dataframe, journalName='revista', issn='issn'){
   texto <- stringi::stri_trans_general(texto, "Latin-ASCII")
   a$revista <- texto
 
-  a %>%
-    dplyr::group_by(issn) %>%
-    dplyr::arrange(revista) %>%
+  a %>>%
+    dplyr::group_by(issn) %>>%
+    dplyr::arrange(revista) %>>%
     dplyr::mutate(revista = mostFrequent(revista)) %>>%
     ungroup() %>>%
     (. -> a)
 
-  a %>%
-    dplyr::group_by(revista) %>%
-    dplyr::arrange(issn) %>%
+  a %>>%
+    dplyr::group_by(revista) %>>%
+    dplyr::arrange(issn) %>>%
     dplyr::mutate(issn = mostFrequent(issn)) %>>%
     ungroup() %>>%
     (. -> a)

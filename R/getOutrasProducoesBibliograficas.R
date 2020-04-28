@@ -1,4 +1,22 @@
-#' @title getOutrasProducoesBibliograficas
+#' @title getOrientacoesPosDoutorado
+#' @description Extract Other Bibliographic Productions from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getOutrasProducoesBibliograficas(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getOutrasProducoesBibliograficas)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getOutrasProducoesBibliograficas
+#' @export 
 getOutrasProducoesBibliograficas <- function(curriculo){
 
   #print(curriculo$id)

@@ -6,6 +6,28 @@
 \usage{
 getCapitulosLivros(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getCapitulosLivros
+Extract Books Chapter from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getCapitulosLivros(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getCapitulosLivros)
+ head(bind_rows(lt))
+ }
+}
 }

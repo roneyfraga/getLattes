@@ -2,10 +2,32 @@
 % Please edit documentation in R/getOutrasProducoesBibliograficas.R
 \name{getOutrasProducoesBibliograficas}
 \alias{getOutrasProducoesBibliograficas}
-\title{getOutrasProducoesBibliograficas}
+\title{getOrientacoesPosDoutorado}
 \usage{
 getOutrasProducoesBibliograficas(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getOutrasProducoesBibliograficas
+Extract Other Bibliographic Productions from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getOutrasProducoesBibliograficas(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getOutrasProducoesBibliograficas)
+ head(bind_rows(lt))
+ }
+}
 }

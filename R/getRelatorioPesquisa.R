@@ -1,4 +1,22 @@
 #' @title getRelatorioPesquisa
+#' @description Extract Research Report from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getRelatorioPesquisa(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getRelatorioPesquisa)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getRelatorioPesquisa
+#' @export 
 getRelatorioPesquisa <- function(curriculo){
 
   #print(curriculo$id)

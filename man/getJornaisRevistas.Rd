@@ -6,6 +6,28 @@
 \usage{
 getJornaisRevistas(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getJornaisRevistas
+Extract Newspapers and Magazines from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getJornaisRevistas(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getJornaisRevistas)
+ head(bind_rows(lt))
+ }
+}
 }

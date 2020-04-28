@@ -1,4 +1,22 @@
 #' @title getArtigosPublicados
+#' @description Extract published papers from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getArtigosPublicados(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getArtigosPublicados)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getArtigosPublicados
+#' @export 
 getArtigosPublicados <- function(curriculo){
   #print(curriculo$id)
   lista = curriculo

@@ -6,6 +6,28 @@
 \usage{
 getDadosGerais(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getDadosGerais
+Extract General Data from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getDadosGerais(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getDadosGerais)
+ head(bind_rows(lt))
+ }
+}
 }

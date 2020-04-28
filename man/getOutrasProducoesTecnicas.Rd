@@ -6,6 +6,28 @@
 \usage{
 getOutrasProducoesTecnicas(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame
+}
 \description{
-getOutrasProducoesTecnicas
+Extract Other Technical Productions from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getOutrasProducoesTecnicas(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getOutrasProducoesTecnicas)
+ head(bind_rows(lt))
+ }
+}
 }

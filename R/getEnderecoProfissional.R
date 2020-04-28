@@ -1,4 +1,22 @@
 #' @title getEnderecoProfissional
+#' @description Extract Profissional Address from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getEnderecoProfissional(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getEnderecoProfissional)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getEnderecoProfissional
+#' @export 
 getEnderecoProfissional <- function(curriculo){
   #print(curriculo$id)
   ll <- curriculo$`DADOS-GERAIS`$ENDERECO
@@ -6,7 +24,7 @@ getEnderecoProfissional <- function(curriculo){
     ll <- ll$`ENDERECO-PROFISSIONAL`
     if(length(ll)>1){
       endereco <- as.data.frame(t(ll))
-      names(endereco) <- .vname(endereco)
+      names(endereco) <- tolower(gsub('-','\\.', names(endereco)))
       endereco$id <- curriculo$id
     } else { endereco <- NULL }
     return(endereco)

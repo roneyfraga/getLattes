@@ -1,15 +1,15 @@
-#' @title Lattes XMLs for tests
+#' @title Lattes XMLs list for tests
 #'
-#' @description Conjunto de 1000 curriculos lattes
+#' @description 500 Lattes XML curricula imported as list.
 #' @docType data
 #' @usage lattesXML
-#' @format Lista de curriculos lattes
+#' @format list
 #' @keywords lattes
 NULL
 
 #' @title Lattes ids for tests
 #'
-#' @description Conjunto de 1000 ids de 10 dígitos e 16 dígitos do lattees
+#' @description 500 Lattes curricula ids, with 10 digits (short) and 16 digits (long)
 #' @docType data
 #' @usage lattesID
 #' @format data.frame

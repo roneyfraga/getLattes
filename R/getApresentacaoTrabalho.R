@@ -1,4 +1,23 @@
 #' @title getApresentacaoTrabalho
+#' @description Extract academic's papers presentation, from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getApresentacaoTrabalho(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getApresentacaoTrabalho)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getApresentacaoTrabalho
+#' @export 
+#' @importFrom dplyr bind_cols bind_rows  
 getApresentacaoTrabalho <- function(curriculo){
 
   #print(curriculo$id)
@@ -82,7 +101,7 @@ getApresentacaoTrabalho <- function(curriculo){
     }else{
       ll3 <- NULL
       return(ll3)
-    } #AQUI
+    } 
   }else{
     ll3 <- NULL
     return(ll3)

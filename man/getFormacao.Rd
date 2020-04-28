@@ -6,6 +6,27 @@
 \usage{
 getFormacao(curriculo)
 }
+\arguments{
+\item{curriculo}{XML exported from Lattes imported to R as list.}
+}
+\value{
+list
+}
 \description{
-getFormacao
+Extract Profissional Formation from XML file converted to R list.
+}
+\details{
+Curriculum without this information will return NULL.
+}
+\examples{
+\dontrun{
+if(interactive()){
+ data(lattesXML)
+ # to import from one curriculum 
+ getFormacao(lattesXML[[999]])
+
+ # to import from two or more curricula
+ lt <- lapply(lattesXML, getFormacao)
+ }
+}
 }

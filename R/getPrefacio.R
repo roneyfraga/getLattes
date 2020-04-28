@@ -1,4 +1,22 @@
 #' @title getPrefacio
+#' @description Extract Preface from XML file converted to R list.
+#' @param curriculo XML exported from Lattes imported to R as list.
+#' @return data frame 
+#' @details Curriculum without this information will return NULL. 
+#' @examples 
+#' \dontrun{
+#' if(interactive()){
+#'  data(lattesXML)
+#'  # to import from one curriculum 
+#'  getPrefacio(lattesXML[[999]])
+#'
+#'  # to import from two or more curricula
+#'  lt <- lapply(lattesXML, getPrefacio)
+#'  head(bind_rows(lt))
+#'  }
+#' }
+#' @rdname getPrefacio
+#' @export 
 getPrefacio <- function(curriculo){
 
   #print(curriculo$id)
