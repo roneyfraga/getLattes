@@ -34,6 +34,11 @@ document()
 check() 
 install()
 
+# gerar o readme.md
+rmarkdown::render('README.Rmd')
+
+# ignorar: staff.R .DS_Store README.Rmd README.html 
+
 # _______________________________ 
 
 
@@ -63,5 +68,5 @@ str_c
 #' @importFrom rlang .data
 
 
-rmarkdown::render('README.Rmd')
+
 
