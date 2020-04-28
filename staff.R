@@ -63,4 +63,5 @@ str_c
 #' @importFrom rlang .data
 
 
-  rio (>= 0.5.5),
+rmarkdown::render('README.Rmd')
+
