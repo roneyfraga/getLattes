@@ -7,47 +7,81 @@
 
 <!-- badges: end -->
 
-The goal of getLattes is to import and manipulate data from Lattes
-curriculum plataform …
+The `getLattes` `R` package, written by [Roney Fraga
+Souza](roneyfraga.com) and [Winicius
+Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was
+built to extract data from the [Lattes](http://lattes.cnpq.br/)
+curriculum platform exported as `XML`.
+
+![](docs/lattes_xml_download.gif)
+
+The `XML` file needs to be extracted from `.zip`.
+
+To automate the download process, please see
+[CNPQ](https://github.com/josefson/CNPQ).
 
 ## Installation
 
 You can install the released version of getLattes from
-[CRAN](https://CRAN.R-project.org) with:
+[github](https://CRAN.R-project.org) with:
 
 ``` r
-install.packages("getLattes")
-```
+# install and load devtools from CRAN
+install.packages("devtools")
+library(devtools)
 
-## Example
-
-This is a basic example which shows you how to solve a common problem:
-
-``` r
+# install and load getLattes
+devtools::install_github("roneyfraga/getLattes")
 library(getLattes)
-## basic example code
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+## Import XML file as R list
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+
+# the file 6380212729787758.xml need to be in the R working directory 
+# to be sure run getwd() and dir()
+cl <- readLattes(filexml='6380212729787758.xml')
+
+# to import several files
+cls <- readLattes(filexml=list.files(pattern='.xml'))
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
+## Loaded data
 
-You can also embed plots, for example:
+To load 500 random curricula data imported as an R list.
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+``` r
+data(lattesXML)
+length(lattesXML)
+```
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub\!
+## Import general data
+
+``` r
+# to combine list of data frames in data frame
+library(dplyr)
+
+# to import from one curriculum 
+getDadosGerais(lattesXML[[499]])
+
+# to import from two or more curricula
+lt <- lapply(lattesXML, getDadosGerais)
+head(bind_rows(lt))
+```
+
+## Import Published Academic Papers
+
+``` r
+# to import from one curriculum 
+getArtigosPublicados(lattesXML[[462]]) 
+
+# to import from two or more curricula
+lt <- lapply(lattesXML, getArtigosPublicados)
+head(bind_rows(lt))
+```
+
+## Normalize informations
+
+See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to
+normalize publications data (journal title, ISSN and year).
