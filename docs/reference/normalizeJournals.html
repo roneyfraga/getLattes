@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>getAtuacoesProfissionais — getAtuacoesProfissionais • getLattes</title>
+<title>normalizeJournals — normalizeJournals • getLattes</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="getAtuacoesProfissionais — getAtuacoesProfissionais" />
-<meta property="og:description" content="Extract profissional links from XML file converted to R list." />
+<meta property="og:title" content="normalizeJournals — normalizeJournals" />
+<meta property="og:description" content="Normalize journals data: journal name, and ISSN. Two or more journals with the same ISSN will receive the most common Journal Name, then two or more journals with the same name will receive the most common ISSN." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -108,23 +108,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>getAtuacoesProfissionais</h1>
-    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/getAtuacoesProfissionais.R'><code>R/getAtuacoesProfissionais.R</code></a></small>
-    <div class="hidden name"><code>getAtuacoesProfissionais.Rd</code></div>
+    <h1>normalizeJournals</h1>
+    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/normalizeJournals.R'><code>R/normalizeJournals.R</code></a></small>
+    <div class="hidden name"><code>normalizeJournals.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract profissional links from XML file converted to R list.</p>
+    <p>Normalize journals data: journal name, and ISSN. Two or more journals with the same ISSN will receive the most common Journal Name, then two or more journals with the same name will receive the most common ISSN.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getAtuacoesProfissionais</span>(<span class='no'>curriculo</span>)</pre>
+    <pre class="usage"><span class='fu'>normalizeJournals</span>(<span class='no'>dataframe</span>, <span class='kw'>journalName</span> <span class='kw'>=</span> <span class='st'>"revista"</span>, <span class='kw'>issn</span> <span class='kw'>=</span> <span class='st'>"issn"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>curriculo</th>
-      <td><p>XML exported from Lattes imported to R as list.</p></td>
+      <th>dataframe</th>
+      <td><p>data imported with readLattes() then getArtigosPublicados()</p></td>
+    </tr>
+    <tr>
+      <th>journalName</th>
+      <td><p>variable with journal name</p></td>
+    </tr>
+    <tr>
+      <th>issn</th>
+      <td><p>variable with issn</p></td>
     </tr>
     </table>
 
@@ -133,20 +141,14 @@
     <p>data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Curriculum without this information will return NULL.</p>
+    <p>DETAILS</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/stringi/man/stri_trans_general.html'>stri_trans_general</a></code>
+ <code><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
- <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>lattesXML</span>)
- <span class='co'># to import from one curriculum </span>
- <span class='fu'>getAtuacoesProfissionais</span>(<span class='no'>lattesXML</span><span class='kw'>[[</span><span class='fl'>999</span>]])
-
- <span class='co'># to import from two or more curricula</span>
- <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>lattesXML</span>, <span class='no'>getAtuacoesProfissionais</span>)
- <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bind_rows</span>(<span class='no'>lt</span>))
- }
-}</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -154,6 +156,7 @@
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 

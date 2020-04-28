@@ -13,7 +13,7 @@ Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was
 built to extract data from the [Lattes](http://lattes.cnpq.br/)
 curriculum platform exported as `XML`.
 
-![](docs/lattes_xml_download.gif)
+![](http://roneyfraga.com/volume/gifs/lattes_xml_download.gif)
 
 The `XML` file needs to be extracted from `.zip`.
 

@@ -10,12 +10,13 @@
 #' if(interactive()){
 #' data(latesXML)
 #' al <- lapply(lattesXML, getArtigosPublicados) 
-#' adf <- bind_rows(al)
+#' adf <- dplyr::bind_rows(al)
 #' 
 #' head(
 #'     normalizeByDoi(dataframe=adf, 
 #'               issn='issn', 
 #'               journalName= 'titulo.do.periodico.ou.revista') 
+#' ) 
 #' 
 #'   }
 #'  }

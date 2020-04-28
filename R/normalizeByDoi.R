@@ -21,7 +21,8 @@
 #'               year='ano.do.artigo', 
 #'               issn='issn', 
 #'               paperTitle='titulo.do.artigo', 
-#'               journalName= 'titulo.do.periodico.ou.revista') 
+#'               journalName= 'titulo.do.periodico.ou.revista')
+#' ) 
 #' 
 #'   }
 #'  }
