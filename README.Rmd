@@ -1,31 +1,36 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # getLattes
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
-The `getLattes` `R` package, written by [Roney Fraga
-Souza](roneyfraga.com) and [Winicius
-Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was
-built to extract data from the [Lattes](http://lattes.cnpq.br/)
-curriculum platform exported as `XML`.
+The `getLattes` `R` package, written by [Roney Fraga Souza](roneyfraga.com) and [Winicius Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was built to extract data from the [Lattes](http://lattes.cnpq.br/) curriculum platform exported as `XML`. 
 
 ![](http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif)
 
 The `XML` file needs to be extracted from `.zip`.
 
-To automate the download process, please see [Captchas Negated by Python
-reQuests - CNPQ](https://github.com/josefson/CNPQ).
+To automate the download process, please see [Captchas Negated by Python reQuests - CNPQ](https://github.com/josefson/CNPQ).
 
 ## Installation
 
-You can install the released version of getLattes from
-[github](https://CRAN.R-project.org) with:
+You can install the released version of getLattes from [github](https://CRAN.R-project.org) with:
 
-``` r
+```{r eval=F, include=T}
 # install and load devtools from CRAN
 install.packages("devtools")
 library(devtools)
@@ -37,7 +42,7 @@ library(getLattes)
 
 ## Import XML file as R list
 
-``` r
+```{r eval=F, include=T}
 
 # the file 6380212729787758.xml need to be in the R working directory 
 # to be sure run getwd() and dir()
@@ -51,14 +56,15 @@ cls <- readLattes(filexml=list.files(pattern='.xml'))
 
 To load 500 random curricula data imported as an R list.
 
-``` r
+```{r eval=F}
 data(lattesXML)
 length(lattesXML)
 ```
 
 ## Import general data
 
-``` r
+
+```{r eval=F}
 # to combine list of data frames in data frame
 library(dplyr)
 
@@ -72,7 +78,7 @@ head(bind_rows(lt))
 
 ## Import Published Academic Papers
 
-``` r
+```{r eval=F}
 # to import from one curriculum 
 getArtigosPublicados(lattesXML[[462]]) 
 
@@ -83,5 +89,5 @@ head(bind_rows(lt))
 
 ## Normalize informations
 
-See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to
-normalize publications data (journal title, ISSN and year).
+See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to normalize publications data (journal title, ISSN and year).
+

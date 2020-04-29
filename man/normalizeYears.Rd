@@ -45,6 +45,7 @@ ead(
               issn='issn', 
               journalName= 'titulo.do.periodico.ou.revista',
               paperTitle='titulo.do.artigo') 
+) 
 
  }
 }

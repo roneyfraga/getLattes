@@ -69,4 +69,5 @@ getOrientacoesDoutorado <- function(curriculo){
     ll3 <- NULL
     return(ll3)
   }
+    if(length(ll3)>=1){ ll3 <- dplyr::mutate_if(ll3, is.factor, as.character) }
 }

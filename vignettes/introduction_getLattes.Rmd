@@ -1,0 +1,186 @@
+---
+title: "Introduction to getLattes"
+author: "Roney Fraga Souza"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to getLattes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+A plataforma [Lattes](http://lattes.cnpq.br/) hospeda currículos de pesquisadores brasileiros desde o final dos anos 1990, contendo mais de 5 milhões de currículos. Os dados dos currículos Lattes podem ser baixados para o formato `XML`, a complexidade desse processo de leitura motivou o desenvolvimento do pacote `getLattes`, que importar as informações dos arquivos `XML` para lista no software `R` e então tabular os dados do Lattes para `data.frame`.
+
+As principais informações contidas nos arquivos `XML`, e importados via `getLattes` são: 
+
+- Academics Papers Presentation `getApresentacaoTrabalho`  
+- Research Area `getAreasAtuacao`  
+- Published Papers `getArtigosPublicados`  
+- Profissional Links `getAtuacoesProfissionais`  
+- Ph.D. Examination Board's `getBancasDoutorado`  
+- Undergraduate Examination Board's `getBancasGraduacao`  
+- General Examination Board's `getBancasJulgadoras`  
+- Master Examination Board's `getBancasMestrado`  
+- Books Chapters `getCapitulosLivros`  
+- Short Duration Course `getCursoCurtaDuracao`
+- General Data `getDadosGerais`  
+- Profissional Address `getEnderecoProfissional`  
+- Events and Congresses `getEventosCongressos`  
+- Profissional Formation `getFormacao`  
+- Languages `getIdiomas`  
+- Newspapers and Magazines `getJornaisRevistas`  
+- Research Lines `getLinhaPesquisa`  
+- Published Books `getLivrosPublicados`  
+- Event's Organization `getOrganizacaoEvento`
+- Academic Advisory (Ph.D. Thesis) `getOrientacoesDoutorado`  
+- Academic Advisory (Master Thesis) `getOrientacoesMestrado`  
+- Academic Advisory (Other) `getOrientacoesOutras`  
+- Academic Advisory (Post Doctorate) `getOrientacoesPosDoutorado`  
+- Other Bibliographic Productions `getOutrasProducoesBibliograficas`  
+- Other Technical Productions `getOutrasProducoesTecnicas`  
+- Participation in Projects `getParticipacaoProjeto`  
+- Preface `getPrefacio`  
+- Awards and Medals `getPremiosTitulos`  
+- Technical Production `getProducaoTecnica`  
+- TV and Radio Program `getProgramaRadioTV`  
+- Research Report `getRelatorioPesquisa`    
+- Works in Event `getTrabalhosEventos`  
+
+A partir das funcionalidades apresentadas no presente pacote, o principal desafio para trabalhar com os dados do currículo Lattes passou a ser a download dos dados, que exigem o uso de Captchas. Para auxiliar nesse procedimento sugiro o uso do software [Captchas Negated by Python reQuests - CNPQ](https://github.com/josefson/CNPQ). A segunda barreira a ser superada é o gerenciamento e processamento de um grande volume de dados, todo a plataforma Lattes em arquivos `XML` totaliza mais de 200 GB. No presente documento iremos focar nas funcionalidades do pacote `getLattes`, cabendo ao leitor o processo de download e de gerenciamento dos arquivos.
+
+Segue exemplo de como baixar os dados no site do [Lattes](http://lattes.cnpq.br/).
+
+![](http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif)
+
+## Installation
+
+To install the released version of getLattes from [github](https://CRAN.R-project.org).
+
+```{r eval=F}
+# install and load devtools from CRAN
+install.packages("devtools")
+library(devtools)
+
+# install and load getLattes
+devtools::install_github("roneyfraga/getLattes")
+```
+
+Load `getLattes`.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+library(getLattes)
+
+# support packages
+library(dplyr)
+library(tibble)
+library(pipeR)
+```
+
+## Import XML curriculum data
+
+```{r eval=F, include=T}
+# the file 4984859173592703.xml need to be in the R working directory 
+# to be sure run getwd() and dir()
+cl <- readLattes(filexml='4984859173592703.xml')
+
+# to import several files
+cls <- readLattes(filexml=list.files(pattern='.xml'))
+```
+
+As example 500 random curricula data imported as an R list.
+
+```{r eval=T}
+data(lattesXML)
+length(lattesXML)
+names(lattesXML[[1]])
+```
+
+## get* functions
+
+To read data from only one curriculum any function `get*` can be done singly, to import data from two or more curricula is easier to use `get*` with `lapply`.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+# to import from one curriculum 
+getDadosGerais(lattesXML[[499]])
+```
+
+Import general data from 500 curricula. The output is a list of data frames, converted by an unique data frame with `bind_rows`.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lt <- lapply(lattesXML, getDadosGerais) 
+lt <- bind_rows(lt)
+glimpse(lt)
+```
+
+To write in a faster way, I will use pipe `%>>%` from `pipeR` package. 
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getDadosGerais) %>>% 
+    bind_rows %>>% 
+    glimpse
+```
+
+Where `. -> res` means the result was saved to `res` object.
+
+```{r eval=T}
+lapply(lattesXML, getDadosGerais) %>>% 
+    bind_rows %>>% 
+    (. -> res)
+
+glimpse(res)
+```
+
+## Advisors 
+
+Ph.D. Advisory
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getOrientacoesDoutorado) %>>% 
+    bind_rows %>>% 
+    glimpse()
+```
+
+Master Advisory
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getOrientacoesMestrado) %>>% 
+    bind_rows %>>% 
+    glimpse()
+```
+
+Post Doctorate
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getOrientacoesPosDoutorado) %>>% 
+    bind_rows %>>% 
+    glimpse()
+```
+
+Other
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getOrientacoesOutras) %>>% 
+    bind_rows %>>% 
+    glimpse()
+```
+
+## Published Academic Papers
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getArtigosPublicados) %>>% 
+    bind_rows %>>% 
+    glimpse()
+```
+
+## Normalize informations
+
+See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to normalize publications data (journal title, ISSN and year).
+
+

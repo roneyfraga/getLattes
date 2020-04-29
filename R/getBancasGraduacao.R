@@ -1,5 +1,5 @@
 #' @title getBancasGraduacao
-#' @description Extract Undergraduation Examination Board's from XML file converted to R list.
+#' @description Extract Undergraduate Examination Board's from XML file converted to R list.
 #' @param curriculo XML exported from Lattes imported to R as list.
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 

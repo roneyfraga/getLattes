@@ -17,15 +17,17 @@
 #' }
 #' @rdname getDadosGerais
 #' @export 
+#' @importFrom dplyr mutate_if
 getDadosGerais <- function(curriculo){
-  #print(curriculo$id)
-  ll <- curriculo$`DADOS-GERAIS`
-  if(any('NOME-COMPLETO' %in% names(ll$.attrs))){
-    if(length(ll)>1){
-      dados.gerais <- .getCharacter(ll$.attrs)
-      dados.gerais$id <- curriculo$id
-      dados.gerais$data.atualizacao <- curriculo$.attrs[['DATA-ATUALIZACAO']]
+    #print(curriculo$id)
+    ll <- curriculo$`DADOS-GERAIS`
+    if(any('NOME-COMPLETO' %in% names(ll$.attrs))){
+        if(length(ll)>1){
+            dados.gerais <- .getCharacter(ll$.attrs)
+            dados.gerais$id <- curriculo$id
+            dados.gerais$data.atualizacao <- curriculo$.attrs[['DATA-ATUALIZACAO']]
+            dados.gerais <- mutate_if(dados.gerais, is.factor, as.character)
+        } else { dados.gerais <- NULL }
     } else { dados.gerais <- NULL }
-  } else { dados.gerais <- NULL }
-  return(dados.gerais)
+    return(dados.gerais)
 }

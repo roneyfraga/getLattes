@@ -1,10 +1,9 @@
-README.html
-README.Rmd
 staff.R
 .Rproj
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-.xml
 inst/doc
+doc
+Meta

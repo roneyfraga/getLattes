@@ -1,4 +1,4 @@
-#' @title getOrientacoesPosDoutorado
+#' @title getOutrasProducoesBibliograficas
 #' @description Extract Other Bibliographic Productions from XML file converted to R list.
 #' @param curriculo XML exported from Lattes imported to R as list.
 #' @return data frame 

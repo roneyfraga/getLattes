@@ -1,5 +1,5 @@
 #' @title getAreasAtuacao
-#' @description Extract researh area from XML file converted to R list.
+#' @description Extract Research Area from XML file converted to R list.
 #' @param curriculo XML exported from Lattes imported to R as list.
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
