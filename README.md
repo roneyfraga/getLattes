@@ -85,4 +85,4 @@ head(bind_rows(lt))
 ## Normalize informations
 
 See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to
-normalize publications data (journal title, ISSN and year).
+normalize publications data (journal title, ISSN and year)..

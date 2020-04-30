@@ -86,9 +86,9 @@ getArtigosPublicados(lattesXML[[462]])
 # to import from two or more curricula
 lt <- lapply(lattesXML, getArtigosPublicados)
 head(bind_rows(lt))
+
 ```
 
 ## Normalize informations
 
-See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to normalize publications data (journal title, ISSN and year).
-
+See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to normalize publications data (journal title, ISSN and year)..
