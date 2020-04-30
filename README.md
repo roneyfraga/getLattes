@@ -38,13 +38,14 @@ library(getLattes)
 ## Import XML file as R list
 
 ``` r
+# the file 4984859173592703.xml is stored in datatest directory
+cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
 
-# the file 6380212729787758.xml need to be in the R working directory 
-# to be sure run getwd() and dir()
-cl <- readLattes(filexml='6380212729787758.xml')
+# import all Lattes XML files in datateste
+cls <- readLattes(filexml='*.xml$', path='datatest/')
 
-# to import several files
-cls <- readLattes(filexml=list.files(pattern='.xml'))
+# import all Lattes XML files in the working directory
+cls <- readLattes(filexml='*.xml$')
 ```
 
 ## Loaded data

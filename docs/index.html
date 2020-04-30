@@ -102,13 +102,14 @@
 <div id="import-xml-file-as-r-list" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-xml-file-as-r-list" class="anchor"></a>Import XML file as R list</h2>
-<div class="sourceCode" id="cb2"><pre class="r">
-<span class="co"># the file 6380212729787758.xml need to be in the R working directory </span>
-<span class="co"># to be sure run getwd() and dir()</span>
-<span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'6380212729787758.xml'</span>)
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># the file 4984859173592703.xml is stored in datatest directory</span>
+<span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'4984859173592703.xml'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
 
-<span class="co"># to import several files</span>
-<span class="no">cls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span>(<span class="kw">pattern</span><span class="kw">=</span><span class="st">'.xml'</span>))</pre></div>
+<span class="co"># import all Lattes XML files in datateste</span>
+<span class="no">cls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'*.xml$'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
+
+<span class="co"># import all Lattes XML files in the working directory</span>
+<span class="no">cls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'*.xml$'</span>)</pre></div>
 </div>
 <div id="loaded-data" class="section level2">
 <h2 class="hasAnchor">
