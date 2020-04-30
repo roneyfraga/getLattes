@@ -13,7 +13,7 @@ getBancasGraduacao(curriculo)
 data frame
 }
 \description{
-Extract Undergraduation Examination Board's from XML file converted to R list.
+Extract Undergraduate Examination Board's from XML file converted to R list.
 }
 \details{
 Curriculum without this information will return NULL.
@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getBancasGraduacao(lattesXML[[999]])
+ getBancasGraduacao(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getBancasGraduacao)

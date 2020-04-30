@@ -8,7 +8,7 @@
 #' if(interactive()){
 #'  data(lattesXML)
 #'  # to import from one curriculum 
-#'  getTrabalhosEventos(lattesXML[[999]])
+#'  getTrabalhosEventos(lattesXML[[499]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(lattesXML, getTrabalhosEventos)

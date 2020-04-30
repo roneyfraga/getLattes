@@ -31,22 +31,22 @@
 #' @importFrom dplyr group_by arrange mutate
 #' @importFrom pipeR "%>>%"
 #' @importFrom rlang .data
-normalizeYears <- function(dataframe,year2normalize='ano',issn='issn',journalName='revista',paperTitle='titulo'){
+normalizeYears <- function(dataframe,year2normalize='ano.do.artigo',issn='issn',journalName='titulo.do.periodico.ou.revista',paperTitle='titulo.do.artigo'){
 
-  # recebe data frame com título do artigo e issn,
-  # já normalizados, e checa anomalias no ano do artigo
+    a <- dataframe
+    a[,'ano'] <- dataframe[,year2normalize]
+    a[,'titulo'] <- dataframe[,paperTitle]
+    a[,'revista'] <- dataframe[,journalName]
+    a[,'ano_old'] <- dataframe[,year2normalize]
 
-  a <- dataframe
-  a[,'ano'] <- dataframe[,year2normalize]
-  a[,'titulo'] <- dataframe[,paperTitle]
-  a[,'revista'] <- dataframe[,journalName]
-  a[,'ano_old'] <- dataframe[,year2normalize]
+    a %>>% mutate_if(is.factor,as.character) %>>% (. -> a)
 
-  a  %>>%
-    dplyr::group_by(titulo,revista,issn) %>>%
-    dplyr::arrange(ano_old) %>>%
-    dplyr::mutate(ano = mostFrequent(ano_old)) %>>%
-    ungroup() %>>%
-    (. -> a)
-  a
+    a  %>>%
+        dplyr::group_by(titulo,revista,issn) %>>%
+        dplyr::arrange(ano_old) %>>%
+        dplyr::mutate(ano = mostFrequent(ano_old)) %>>%
+        ungroup() %>>%
+        (. -> a)
+
+    return(a)
 }

@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getOutrasProducoesTecnicas(lattesXML[[999]])
+ getOutrasProducoesTecnicas(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getOutrasProducoesTecnicas)

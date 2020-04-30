@@ -6,10 +6,10 @@
 \usage{
 normalizeYears(
   dataframe,
-  year2normalize = "ano",
+  year2normalize = "ano.do.artigo",
   issn = "issn",
-  journalName = "revista",
-  paperTitle = "titulo"
+  journalName = "titulo.do.periodico.ou.revista",
+  paperTitle = "titulo.do.artigo"
 )
 }
 \arguments{

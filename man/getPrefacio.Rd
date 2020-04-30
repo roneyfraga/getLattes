@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getPrefacio(lattesXML[[999]])
+ getPrefacio(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getPrefacio)

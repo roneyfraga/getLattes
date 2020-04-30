@@ -13,7 +13,7 @@ getAreasAtuacao(curriculo)
 data frame
 }
 \description{
-Extract researh area from XML file converted to R list.
+Extract Research Area from XML file converted to R list.
 }
 \details{
 Curriculum without this information will return NULL.
@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getAreasAtuacao(lattesXML[[999]])
+ getAreasAtuacao(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getAreasAtuacao)

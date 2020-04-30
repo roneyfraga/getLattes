@@ -2,7 +2,7 @@
 % Please edit documentation in R/getOutrasProducoesBibliograficas.R
 \name{getOutrasProducoesBibliograficas}
 \alias{getOutrasProducoesBibliograficas}
-\title{getOrientacoesPosDoutorado}
+\title{getOutrasProducoesBibliograficas}
 \usage{
 getOutrasProducoesBibliograficas(curriculo)
 }
@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getOutrasProducoesBibliograficas(lattesXML[[999]])
+ getOutrasProducoesBibliograficas(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getOutrasProducoesBibliograficas)

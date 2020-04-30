@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="getBancasGraduacao — getBancasGraduacao" />
-<meta property="og:description" content="Extract Undergraduation Examination Board's from XML file converted to R list." />
+<meta property="og:description" content="Extract Undergraduate Examination Board's from XML file converted to R list." />
 
 
 
@@ -126,7 +126,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Extract Undergraduation Examination Board's from XML file converted to R list.</p>
+    <p>Extract Undergraduate Examination Board's from XML file converted to R list.</p>
     </div>
 
     <pre class="usage"><span class='fu'>getBancasGraduacao</span>(<span class='no'>curriculo</span>)</pre>
@@ -152,7 +152,7 @@
 <span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>lattesXML</span>)
  <span class='co'># to import from one curriculum </span>
- <span class='fu'>getBancasGraduacao</span>(<span class='no'>lattesXML</span><span class='kw'>[[</span><span class='fl'>999</span>]])
+ <span class='fu'>getBancasGraduacao</span>(<span class='no'>lattesXML</span><span class='kw'>[[</span><span class='fl'>499</span>]])
 
  <span class='co'># to import from two or more curricula</span>
  <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>lattesXML</span>, <span class='no'>getBancasGraduacao</span>)

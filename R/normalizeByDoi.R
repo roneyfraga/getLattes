@@ -30,55 +30,71 @@
 #'  \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}
 #' @rdname normalizeByDoi
 #' @export 
-#' @importFrom dplyr group_by arrange mutate
+#' @importFrom dplyr group_by arrange mutate mutate_if rename
 #' @importFrom pipeR "%>>%"
 #' @importFrom tibble as_tibble
 #' @importFrom rlang .data
-normalizeByDoi <- function(dataframe,doi='doi',year='ano',issn='issn',paperTitle='titulo',journalName='revista'){
+normalizeByDoi <- function(dataframe,doi='doi',year='ano.do.artigo',issn='issn',paperTitle='titulo.do.artigo',journalName='titulo.do.periodico.ou.revista'){
 
-  data.frame(doi=dataframe[,'doi']) %>>% 
-      as_tibble %>>% 
-      mutate(doi=as.character(doi)) %>>% 
-      (. -> a)
+    dataframe$key <- 1:nrow(dataframe)
 
-  a[,'revista'] <- as.character(dataframe[,journalName])
-  a[,'issn'] <- as.character(dataframe[,issn])
-  a[,'ano'] <- as.character(dataframe[,year])
-  a[,'titulo'] <- as.character(dataframe[,paperTitle])
+    data.frame(key=dataframe[,'key']) %>>% (as_tibble(.) -> a)
 
-  # no[DOI,Revista,ISSN,Ano]
-  a[ is.na(a$doi) | a$doi=='' , 'doi'] <- paste0('noDOI_',1:nrow(a[ is.na(a$doi) | a$doi=='', 'doi']))
-  a[ is.na(a$revista) | a$revista=='' , 'revista'] <- paste0('noRevsita_',1:nrow(a[ is.na(a$revista) | a$revista=='', 'revista']))
-  a[ is.na(a$issn) | a$issn=='' , 'issn'] <- paste0('noISSN_',1:nrow(a[ is.na(a$issn) | a$issn=='', 'issn']))
-  a[ is.na(a$ano) | a$ano=='' , 'issn'] <- paste0('noAno_',1:nrow(a[ is.na(a$ano) | a$ano=='', 'ano']))
+    a[,'doi'] <- dataframe[,doi]
+    a[,'revista'] <- dataframe[,journalName]
+    a[,'issn'] <- dataframe[,issn]
+    a[,'ano'] <- dataframe[,year]
+    a[,'titulo'] <- dataframe[,paperTitle]
 
-  a %>>%
-    dplyr::group_by(!! doi) %>>%
-    dplyr::arrange(titulo) %>>%
-    dplyr::mutate(titulo = mostFrequent(titulo)) %>>%
-    ungroup() %>>%
-    (. -> a)
+    a %>>% mutate_if(is.factor,as.character) %>>% (. -> a)
 
-  a %>>%
-    dplyr::group_by(doi) %>>%
-    dplyr::arrange(revista) %>>%
-    dplyr::mutate(revista = mostFrequent(revista)) %>>%
-    ungroup() %>>%
-    (. -> a)
+    # no[DOI,Revista,ISSN,Ano]
+    a[ is.na(a$doi) | a$doi=='' , 'doi'] <- paste0('noDOI_',1:nrow(a[ is.na(a$doi) | a$doi=='', 'doi']))
+    a[ is.na(a$revista) | a$revista=='' , 'revista'] <- paste0('noRevsita_',1:nrow(a[ is.na(a$revista) | a$revista=='', 'revista']))
+    a[ is.na(a$issn) | a$issn=='' , 'issn'] <- paste0('noISSN_',1:nrow(a[ is.na(a$issn) | a$issn=='', 'issn']))
+    a[ is.na(a$ano) | a$ano=='' , 'issn'] <- paste0('noAno_',1:nrow(a[ is.na(a$ano) | a$ano=='', 'ano']))
 
-  a %>>%
-    dplyr::group_by(doi) %>>%
-    dplyr::arrange(issn) %>>%
-    dplyr::mutate(issn = mostFrequent(issn)) %>>%
-    ungroup() %>>%
-    (. -> a)
+    a %>>%
+        dplyr::group_by(doi) %>>%
+        dplyr::arrange(titulo) %>>%
+        dplyr::mutate(titulo = mostFrequent(titulo)) %>>%
+        ungroup() %>>%
+        (. -> a)
 
-  a %>>%
-    dplyr::group_by(doi) %>>%
-    dplyr::arrange(ano) %>>%
-    dplyr::mutate(ano = mostFrequent(ano)) %>>%
-    ungroup() %>>%
-    (. -> a)
+    a %>>%
+        dplyr::group_by(doi) %>>%
+        dplyr::arrange(revista) %>>%
+        dplyr::mutate(revista = mostFrequent(revista)) %>>%
+        ungroup() %>>%
+        (. -> a)
 
-  return(a)
+    a %>>%
+        dplyr::group_by(doi) %>>%
+        dplyr::arrange(issn) %>>%
+        dplyr::mutate(issn = mostFrequent(issn)) %>>%
+        ungroup() %>>%
+        (. -> a)
+
+    a %>>%
+        dplyr::group_by(doi) %>>%
+        dplyr::arrange(ano) %>>%
+        dplyr::mutate(ano = mostFrequent(ano)) %>>%
+        ungroup() %>>%
+        (. -> a)
+
+    a %>>% 
+        dplyr::rename( !! year := ano)  %>>%
+        dplyr::rename( !! journalName := revista ) %>>% 
+        dplyr::rename( !! paperTitle := titulo ) %>>% 
+        (. -> a)
+
+    dataframe %>>% 
+        dplyr::rename( !! paste0(paperTitle,'_old') := !! paperTitle) %>>% 
+        dplyr::rename( !! paste0(journalName,'_old') := !! journalName) %>>% 
+        dplyr::rename( !! paste0(year,'_old') := !! year) %>>% 
+        dplyr::rename( !! paste0(issn,'_old') := !! issn) %>>% 
+        left_join(a, by='key') %>>% 
+        select(-key) %>>% 
+        (return(.))
+
 }

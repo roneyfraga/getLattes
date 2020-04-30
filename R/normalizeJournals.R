@@ -26,43 +26,44 @@
 #' @rdname normalizeJournals
 #' @export 
 #' @importFrom stringi stri_trans_general
-#' @importFrom dplyr group_by arrange mutate ungroup
+#' @importFrom dplyr group_by arrange mutate ungroup mutate_if
 #' @importFrom pipeR "%>>%"
-normalizeJournals <- function(dataframe, journalName='revista', issn='issn'){
+normalizeJournals <- function(dataframe, journalName='titulo.do.periodico.ou.revista', issn='issn'){
 
-  # recebe data frame com título da revista e issn
+    a <- dataframe
+    a[,'revista'] <- dataframe[,journalName]
+    a[,'issn'] <- dataframe[,'issn']
 
-  a <- dataframe
-  a[,'revista'] <- dataframe[,journalName]
-  a[,'issn'] <- dataframe[,'issn']
+    a %>>% mutate_if(is.factor,as.character) %>>% (. -> a)
 
-  a[,paste0(issn,'_old')] <- a[,issn]
-  a[,paste0(journalName,'_old')] <- a[,journalName]
+    a[,paste0(issn,'_old')] <- a[,issn]
+    a[,paste0(journalName,'_old')] <- a[,journalName]
 
-  texto <- a$revista
-  texto <- tolower(texto)
-  texto <- gsub(" \\(.*\\)", "",texto)
-  texto <- gsub(" ,", ",", texto)
-  texto <- gsub("  ", " ", texto)
-  texto <- gsub('\\s+',' ', texto)
-  texto <- gsub("\\.$", "", texto)
-  texto <- gsub("^[[:space:]]+|[[:space:]]+$", "", texto)
-  texto <- stringi::stri_trans_general(texto, "Latin-ASCII")
-  a$revista <- texto
 
-  a %>>%
-    dplyr::group_by(issn) %>>%
-    dplyr::arrange(revista) %>>%
-    dplyr::mutate(revista = mostFrequent(revista)) %>>%
-    ungroup() %>>%
-    (. -> a)
+    texto <- a$revista
+    texto <- tolower(texto)
+    texto <- gsub(" \\(.*\\)", "",texto)
+    texto <- gsub(" ,", ",", texto)
+    texto <- gsub("  ", " ", texto)
+    texto <- gsub('\\s+',' ', texto)
+    texto <- gsub("\\.$", "", texto)
+    texto <- gsub("^[[:space:]]+|[[:space:]]+$", "", texto)
+    texto <- stringi::stri_trans_general(texto, "Latin-ASCII")
+    a$revista <- texto
 
-  a %>>%
-    dplyr::group_by(revista) %>>%
-    dplyr::arrange(issn) %>>%
-    dplyr::mutate(issn = mostFrequent(issn)) %>>%
-    ungroup() %>>%
-    (. -> a)
+    a %>>%
+        dplyr::group_by(issn) %>>%
+        dplyr::arrange(revista) %>>%
+        dplyr::mutate(revista = mostFrequent(revista)) %>>%
+        ungroup() %>>%
+        (. -> a)
 
-  a
+    a %>>%
+        dplyr::group_by(revista) %>>%
+        dplyr::arrange(issn) %>>%
+        dplyr::mutate(issn = mostFrequent(issn)) %>>%
+        ungroup() %>>%
+        (. -> a)
+
+    return(a)
 }

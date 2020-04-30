@@ -16,9 +16,22 @@ knitr::opts_chunk$set(
 )
 ```
 
-A plataforma [Lattes](http://lattes.cnpq.br/) hospeda currículos de pesquisadores brasileiros desde o final dos anos 1990, contendo mais de 5 milhões de currículos. Os dados dos currículos Lattes podem ser baixados para o formato `XML`, a complexidade desse processo de leitura motivou o desenvolvimento do pacote `getLattes`, que importar as informações dos arquivos `XML` para lista no software `R` e então tabular os dados do Lattes para `data.frame`.
+<!--
+Opções no chunk
 
-As principais informações contidas nos arquivos `XML`, e importados via `getLattes` são: 
+eval        incluir o resultado do código executado, pode ser logico ou numérico
+echo        mostrar o código 
+warning     mostrar mensagens de aviso
+error       mostrar mensagens de erro
+message     mostrar mensagens
+tidy        mostrar ajustar o código ao display, ignora identação
+comment     '##' ou qq símbolo, para os resultados dos códigos serem antecedidos por ##
+include     se falso, executa mas não inclui o chunk no relatório
+-->
+
+The [Lattes](http://lattes.cnpq.br/) platform has been hosting curricula of Brazilian researchers since the late 1990s, containing more than 5 million curricula. The data from the Lattes curricula can be downloaded to `XML` format, the complexity of this reading process motivated the development of the `getLattes` package, which imports the information from the `XML` files to a list in the `R` software and then tabulates the Lattes data to a `data.frame`.
+
+The main information contained in `XML` files, and imported via `getLattes`, are:
 
 - Academics Papers Presentation `getApresentacaoTrabalho`  
 - Research Area `getAreasAtuacao`  
@@ -53,9 +66,9 @@ As principais informações contidas nos arquivos `XML`, e importados via `getLa
 - Research Report `getRelatorioPesquisa`    
 - Works in Event `getTrabalhosEventos`  
 
-A partir das funcionalidades apresentadas no presente pacote, o principal desafio para trabalhar com os dados do currículo Lattes passou a ser a download dos dados, que exigem o uso de Captchas. Para auxiliar nesse procedimento sugiro o uso do software [Captchas Negated by Python reQuests - CNPQ](https://github.com/josefson/CNPQ). A segunda barreira a ser superada é o gerenciamento e processamento de um grande volume de dados, todo a plataforma Lattes em arquivos `XML` totaliza mais de 200 GB. No presente documento iremos focar nas funcionalidades do pacote `getLattes`, cabendo ao leitor o processo de download e de gerenciamento dos arquivos.
+From the functionalities presented in this package, the main challenge to work with the Lattes curriculum data is now to download the data, as there are Captchas. To download a lot of curricula I suggest the use of [Captchas Negated by Python reQuests - CNPQ](https://github.com/josefson/CNPQ). The second barrier to be overcome is the management and processing of a large volume of data, the whole Lattes platform in `XML` files totals over 200 GB. In this tutorial we will focus on the `getLattes` package features, being the reader responsible for download and manage the files.
 
-Segue exemplo de como baixar os dados no site do [Lattes](http://lattes.cnpq.br/).
+Follow an example of how to search and download data from the [Lattes](http://lattes.cnpq.br/) website.
 
 ![](http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif)
 
@@ -83,18 +96,43 @@ library(tibble)
 library(pipeR)
 ```
 
+## Extract XML from zip
+
+The variable to merge the table extract from any `get` function is the `id` variable. The `id` is 16 digits, unique to each curriculum. However, it is important to rename the `.xml` file from `curriculo.xml` to `[16 digits id].xml`. As Lattes has many versions of `XML` structure, the more consistent way to extract `id` is from the file name.
+
+
+```{r eval=F, echo=F}
+# delete '*.xml$' in datatet
+setwd('~/OneDrive/Rworkspace/getLattes/datatest')
+file.remove(list.files(pattern='*.xml$'))
+setwd('~/OneDrive/Rworkspace/getLattes')
+```
+
+```{r eval=F, warning=FALSE, message=FALSE}
+
+# the zip file(s) (is)are stored in datatest/
+unzipLattes(filezip='2854855744345507.zip', path='datatest/')
+unzipLattes(filezip='*.zip', path='datatest/')
+
+# the zip files are stored in the working directory
+unzipLattes(filezip='*.zip')
+```
+
 ## Import XML curriculum data
 
 ```{r eval=F, include=T}
-# the file 4984859173592703.xml need to be in the R working directory 
-# to be sure run getwd() and dir()
-cl <- readLattes(filexml='4984859173592703.xml')
 
-# to import several files
-cls <- readLattes(filexml=list.files(pattern='.xml'))
+# the file 4984859173592703.xml 
+cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
+
+# import several files
+cls <- readLattes(filexml='*.xml$', path='datatest/')
+
+# import xml files from working directory
+cls <- readLattes(filexml='*.xml$')
 ```
 
-As example 500 random curricula data imported as an R list.
+As example, 500 random curricula data `lattesXML` imported as an R list.
 
 ```{r eval=T}
 data(lattesXML)
@@ -102,16 +140,16 @@ length(lattesXML)
 names(lattesXML[[1]])
 ```
 
-## get* functions
+## `get` functions
 
-To read data from only one curriculum any function `get*` can be done singly, to import data from two or more curricula is easier to use `get*` with `lapply`.
+To read data from only one curriculum any function `get` can be executed singly, to import data from two or more curricula is easier to use `get` functions with `lapply`.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 # to import from one curriculum 
 getDadosGerais(lattesXML[[499]])
 ```
 
-Import general data from 500 curricula. The output is a list of data frames, converted by an unique data frame with `bind_rows`.
+Import general data from 500 curricula. The output is a list of data frames, converted by a unique data frame with `bind_rows`.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 lt <- lapply(lattesXML, getDadosGerais) 
@@ -119,7 +157,7 @@ lt <- bind_rows(lt)
 glimpse(lt)
 ```
 
-To write in a faster way, I will use pipe `%>>%` from `pipeR` package. 
+To write quickly, I will use pipe `%>>%` from `pipeR` package. 
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 lapply(lattesXML, getDadosGerais) %>>% 
@@ -137,7 +175,9 @@ lapply(lattesXML, getDadosGerais) %>>%
 glimpse(res)
 ```
 
-## Advisors 
+It is worth remembering that all variable names obtained by `get` functions are the transcription of the field names in the `XML` file, the `-` being replaced with `.` and the capital letters replaced with lower case letters.
+
+## Advisory
 
 Ph.D. Advisory
 
@@ -176,11 +216,87 @@ lapply(lattesXML, getOrientacoesOutras) %>>%
 ```{r eval=T, warning=FALSE, message=FALSE}
 lapply(lattesXML, getArtigosPublicados) %>>% 
     bind_rows %>>% 
-    glimpse()
+    as_tibble %>>% 
+    (. -> pub)
+
+head(pub)
 ```
 
-## Normalize informations
+## Normalize functions
 
-See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to normalize publications data (journal title, ISSN and year).
+The information obtained from the Lattes curriculum is not standardized, so each user inserts the information in certain predefined fields. The problem with such an approach is the errors when inserting the data, here are some examples:
+- two co-authors of an article, each one feeds his or her Lattes curriculum. However, each one can insert different ISSN codes for the same scientific journal, which can change the journal-title, one title as `(Print)` and the other as `(Online)`.
+- the two authors may insert different years for the same article.
+- the same two authors may mistype the journal-title.
+
+The functions `normalizeByDoi`, `normalizeByJournal`, and `normalizeByYear` correct most problems related to data entry errors.
+
+`normalizeByDoi` groups all articles together as the same DOI code and uses the most frequent information in the title, year, and journal's name.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+# use explict arguments
+normalizeByDoi( pub, doi='doi', year='ano.do.artigo', issn='issn', paperTitle='titulo.do.artigo', journalName='titulo.do.periodico.ou.revista')
+
+# use de defult data frame from getArtigosPublicados
+normalizeByDoi(pub)
+```
+
+Because not every article is DOI-coded, we can still normalize the journal name and ISSN with `normalizeByJournal`. The result is two new columns added, `issn_old` and `titulo.do.periodico.ou.revista_old` that allow us to analyze the results of the substitutions. The more curricula you analyze, the more useful the `normalize` functions are.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+# use explict arguments
+nj <- normalizeJournals(pub, issn='issn', journalName='titulo.do.periodico.ou.revista')
+
+# use de defult data frame from getArtigosPublicados
+nj <- normalizeJournals(pub)
+
+nj %>>% 
+    select(issn_old, issn, titulo.do.periodico.ou.revista_old, titulo.do.periodico.ou.revista) %>>% 
+    tail
+```
+
+Finally, if two papers have the same title and were published in the same journal, the year can be normalized with:
+
+```{r eval=T, warning=FALSE, message=FALSE}
+
+# use explict arguments
+ny <- normalizeYears(pub, year2normalize='ano.do.artigo',issn='issn',journalName='titulo.do.periodico.ou.revista',paperTitle='titulo.do.artigo')
+
+# use de defult variables names from getArtigosPublicados
+ny <- normalizeYears(pub)
+
+ny %>>% 
+    select(ano_old, ano, issn, titulo.do.periodico.ou.revista, titulo.do.artigo) %>>% 
+    head
+```
+
+To type less, we can do:
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getArtigosPublicados) %>>% 
+    bind_rows %>>% 
+    as_tibble %>>% 
+    normalizeByDoi %>>% 
+    normalizeJournals %>>% 
+    normalizeYears %>>% 
+    select(titulo.do.artigo,ano.do.artigo,issn,titulo.do.periodico.ou.revista,id) %>>% 
+    slice(1:10)
+```
+
+## Merge data
+
+To join the data from different tables the key is the variable `id`, which is a unique 16 digit code. 
+
+```{r eval=T, warning=FALSE, message=FALSE}
+lapply(lattesXML, getArtigosPublicados) %>>% 
+    bind_rows %>>% 
+    as_tibble %>>% 
+    normalizeByDoi %>>% 
+    normalizeJournals %>>% 
+    normalizeYears %>>% 
+    select(titulo.do.artigo,ano.do.artigo,issn,titulo.do.periodico.ou.revista,id) %>>% 
+    left_join( lapply(lattesXML, getDadosGerais) %>>% bind_rows %>>% select(id,nome.completo,pais.de.nascimento)) %>>%   
+    slice(1:10)
+```
 
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>getOrganizacaoEvento — getOrganizacaoEvento • getLattes</title>
+<title>unzipLattes — unzipLattes • getLattes</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="getOrganizacaoEvento — getOrganizacaoEvento" />
-<meta property="og:description" content="Extract Event's Organization from XML file converted to R list." />
+<meta property="og:title" content="unzipLattes — unzipLattes" />
+<meta property="og:description" content="Unzip Lattes file to XML preserving 16 digits id as the file name." />
 
 
 
@@ -120,45 +120,34 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>getOrganizacaoEvento</h1>
-    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/getOrganizacaoEvento.R'><code>R/getOrganizacaoEvento.R</code></a></small>
-    <div class="hidden name"><code>getOrganizacaoEvento.Rd</code></div>
+    <h1>unzipLattes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/unzipLattes.R'><code>R/unzipLattes.R</code></a></small>
+    <div class="hidden name"><code>unzipLattes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract Event's Organization from XML file converted to R list.</p>
+    <p>Unzip Lattes file to XML preserving 16 digits id as the file name.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getOrganizacaoEvento</span>(<span class='no'>curriculo</span>)</pre>
+    <pre class="usage"><span class='fu'>unzipLattes</span>(<span class='kw'>filezip</span> <span class='kw'>=</span> <span class='st'>"*.zip$"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>curriculo</th>
-      <td><p>XML exported from Lattes imported to R as list.</p></td>
+      <th>filezip</th>
+      <td><p>Zip files in your local machine.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Directory with zip files.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Curriculum without this information will return NULL.</p>
+    <p>Only zip files with 16 digits Lattes ids will be extracted.</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
- <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>lattesXML</span>)
- <span class='co'># to import from one curriculum </span>
- <span class='fu'>getOrganizacaoEvento</span>(<span class='no'>lattesXML</span><span class='kw'>[[</span><span class='fl'>499</span>]])
-
- <span class='co'># to import from two or more curricula</span>
- <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>lattesXML</span>, <span class='no'>getOrganizacaoEvento</span>)
- <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bind_rows</span>(<span class='no'>lt</span>))
- }
-}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getEnderecoProfissional(lattesXML[[999]])
+ getEnderecoProfissional(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getEnderecoProfissional)

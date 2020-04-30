@@ -1,34 +1,45 @@
 #' @title readLattes
 #' @description Import Lattes exported XML to R list.
-#' @param filexml XML file exported from Lattes.
+#' @param filexml XML file exported from Lattes, can be a pattern '*.xml$'.
+#' @param path Directory with xml files.
 #' @return list
 #' @details filexml XML file locally stored 
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
 #' # to import only one file
-#' readLattes(filexml='6380212729787758.xml')
+#' readLattes(filexml='4984859173592703.zip.xml')
 #' # to import several files
-#' readLattes(filexml=list.files(pattern='.xml'))
+#' readLattes(filexml='*.xml$'))
 #' }
 #' @rdname readLattes
 #' @export 
 #' @importFrom XML xmlParse xmlToList
-readLattes <- function(filexml){
+readLattes <- function(filexml='.xml$', path='.'){
 
-    curriculo <- vector('list', length(filexml))
+    if(path!='.'){ 
+        path_old <- getwd()
+        setwd(path) 
+    }
 
-    if( length(filexml)==1){
-        xmltoparse <- xmlParse(filexml) 
+    files <- list.files(pattern=filexml)
+
+    curriculo <- vector('list', length(files))
+
+    if( length(files)==1){
+        xmltoparse <- xmlParse(files) 
         curriculo <- xmlToList(xmltoparse, addAttributes = TRUE)
-        curriculo$id <- as.character(strsplit(filexml[[1]],'\\.')[[1]][1])
+        curriculo$id <- as.character(strsplit(files[[1]],'\\.')[[1]][1])
 
     }else{
-        for(i in seq_along(filexml)){
-            xmltoparse <- xmlParse(filexml[i]) 
+        for(i in seq_along(files)){
+            xmltoparse <- xmlParse(files[i]) 
             curriculo[[i]] <- xmlToList(xmltoparse, addAttributes = TRUE)
-            curriculo[[i]]$id <- as.character(strsplit(filexml[[i]],'\\.')[[1]][1])
+            curriculo[[i]]$id <- as.character(strsplit(files[[i]],'\\.')[[1]][1])
         }
     }
+
+    if(path!='.'){ setwd(path_old) }
+
     return(curriculo)
 }

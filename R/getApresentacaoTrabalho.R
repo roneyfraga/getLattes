@@ -8,7 +8,7 @@
 #' if(interactive()){
 #'  data(lattesXML)
 #'  # to import from one curriculum 
-#'  getApresentacaoTrabalho(lattesXML[[999]])
+#'  getApresentacaoTrabalho(lattesXML[[499]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(lattesXML, getApresentacaoTrabalho)
@@ -21,6 +21,9 @@
 getApresentacaoTrabalho <- function(curriculo){
 
     #print(curriculo$id)
+
+    if(is.na(curriculo)){ stop("Select a input file.")}
+    if(!is.list(curriculo)){ stop("Input file is not a curriculum list.")}
 
     ll <- curriculo$`PRODUCAO-TECNICA`
     nm <- names(ll)

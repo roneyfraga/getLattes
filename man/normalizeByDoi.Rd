@@ -7,10 +7,10 @@
 normalizeByDoi(
   dataframe,
   doi = "doi",
-  year = "ano",
+  year = "ano.do.artigo",
   issn = "issn",
-  paperTitle = "titulo",
-  journalName = "revista"
+  paperTitle = "titulo.do.artigo",
+  journalName = "titulo.do.periodico.ou.revista"
 )
 }
 \arguments{

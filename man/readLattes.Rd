@@ -4,10 +4,12 @@
 \alias{readLattes}
 \title{readLattes}
 \usage{
-readLattes(filexml)
+readLattes(filexml = ".xml$", path = ".")
 }
 \arguments{
-\item{filexml}{XML file exported from Lattes.}
+\item{filexml}{XML file exported from Lattes, can be a pattern '*.xml$'.}
+
+\item{path}{Directory with xml files.}
 }
 \value{
 list

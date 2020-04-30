@@ -23,7 +23,7 @@ Curriculum without this information will return NULL.
 if(interactive()){
  data(lattesXML)
  # to import from one curriculum 
- getOrganizacaoEvento(lattesXML[[999]])
+ getOrganizacaoEvento(lattesXML[[499]])
 
  # to import from two or more curricula
  lt <- lapply(lattesXML, getOrganizacaoEvento)

@@ -4,7 +4,11 @@
 \alias{normalizeJournals}
 \title{normalizeJournals}
 \usage{
-normalizeJournals(dataframe, journalName = "revista", issn = "issn")
+normalizeJournals(
+  dataframe,
+  journalName = "titulo.do.periodico.ou.revista",
+  issn = "issn"
+)
 }
 \arguments{
 \item{dataframe}{data imported with readLattes() then getArtigosPublicados()}

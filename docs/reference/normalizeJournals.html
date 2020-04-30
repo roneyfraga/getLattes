@@ -129,7 +129,11 @@
     <p>Normalize journals data: journal name, and ISSN. Two or more journals with the same ISSN will receive the most common Journal Name, then two or more journals with the same name will receive the most common ISSN.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>normalizeJournals</span>(<span class='no'>dataframe</span>, <span class='kw'>journalName</span> <span class='kw'>=</span> <span class='st'>"revista"</span>, <span class='kw'>issn</span> <span class='kw'>=</span> <span class='st'>"issn"</span>)</pre>
+    <pre class="usage"><span class='fu'>normalizeJournals</span>(
+  <span class='no'>dataframe</span>,
+  <span class='kw'>journalName</span> <span class='kw'>=</span> <span class='st'>"titulo.do.periodico.ou.revista"</span>,
+  <span class='kw'>issn</span> <span class='kw'>=</span> <span class='st'>"issn"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -129,14 +129,18 @@
     <p>Import Lattes exported XML to R list.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readLattes</span>(<span class='no'>filexml</span>)</pre>
+    <pre class="usage"><span class='fu'>readLattes</span>(<span class='kw'>filexml</span> <span class='kw'>=</span> <span class='st'>".xml$"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"."</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>filexml</th>
-      <td><p>XML file exported from Lattes.</p></td>
+      <td><p>XML file exported from Lattes, can be a pattern '*.xml$'.</p></td>
+    </tr>
+    <tr>
+      <th>path</th>
+      <td><p>Directory with xml files.</p></td>
     </tr>
     </table>
 

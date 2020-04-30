@@ -8,7 +8,7 @@
 #' if(interactive()){
 #'  data(lattesXML)
 #'  # to import from one curriculum 
-#'  getOrientacoesDoutorado(lattesXML[[999]])
+#'  getOrientacoesDoutorado(lattesXML[[499]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(lattesXML, getOrientacoesDoutorado)
