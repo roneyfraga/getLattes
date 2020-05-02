@@ -30,8 +30,9 @@
 #' @export 
 #' @importFrom dplyr group_by arrange mutate
 #' @importFrom pipeR "%>>%"
-#' @importFrom rlang .data
 normalizeYears <- function(dataframe,year2normalize='ano.do.artigo',issn='issn',journalName='titulo.do.periodico.ou.revista',paperTitle='titulo.do.artigo'){
+
+    titulo <- revista <- ano_old <- NULL
 
     a <- dataframe
     a[,'ano'] <- dataframe[,year2normalize]

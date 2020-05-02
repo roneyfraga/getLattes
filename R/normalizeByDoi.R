@@ -33,8 +33,9 @@
 #' @importFrom dplyr group_by arrange mutate mutate_if rename select left_join 
 #' @importFrom pipeR "%>>%"
 #' @importFrom tibble as_tibble
-#' @importFrom rlang .data
 normalizeByDoi <- function(dataframe,doi='doi',year='ano.do.artigo',issn='issn',paperTitle='titulo.do.artigo',journalName='titulo.do.periodico.ou.revista'){
+
+    titulo <- revista <- ano <- key <-  NULL
 
     dataframe$key <- 1:nrow(dataframe)
 

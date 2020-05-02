@@ -30,6 +30,8 @@
 #' @importFrom pipeR "%>>%"
 normalizeJournals <- function(dataframe, journalName='titulo.do.periodico.ou.revista', issn='issn'){
 
+    revista <- NULL
+
     a <- dataframe
     a[,'revista'] <- dataframe[,journalName]
     a[,'issn'] <- dataframe[,'issn']

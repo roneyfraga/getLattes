@@ -1,3 +1,4 @@
+^support.R$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
@@ -7,3 +8,5 @@
 ^doc$
 ^Meta$
 ^CRAN-RELEASE$
+^cran-comments\.md$
+^LICENSE\.md$
