@@ -39,7 +39,7 @@ Curriculum without this information will return NULL.
 \dontrun{
 if(interactive()){
 data(latesXML)
-al <- lapply(lattesXML, getArtigosPublicados) 
+al <- lapply(xmlsLattes, getArtigosPublicados) 
 adf <- bind_rows(al)
 
 head(

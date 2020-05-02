@@ -6,12 +6,12 @@
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
-#'  data(lattesXML)
+#'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getProgramaRadioTV(lattesXML[[499]])
+#'  getProgramaRadioTV(xmlsLattes[[499]])
 #'
 #'  # to import from two or more curricula
-#'  lt <- lapply(lattesXML, getProgramaRadioTV)
+#'  lt <- lapply(xmlsLattes, getProgramaRadioTV)
 #'  head(bind_rows(lt))
 #'  }
 #' }

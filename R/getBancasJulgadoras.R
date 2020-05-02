@@ -6,12 +6,12 @@
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
-#'  data(lattesXML)
+#'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getBancasJulgadoras(lattesXML[[499]])
+#'  getBancasJulgadoras(xmlsLattes[[499]])
 #'
 #'  # to import from two or more curricula
-#'  lt <- lapply(lattesXML, getBancasJulgadoras)
+#'  lt <- lapply(xmlsLattes, getBancasJulgadoras)
 #'  head(bind_rows(lt))
 #'  }
 #' }

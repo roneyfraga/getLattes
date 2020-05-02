@@ -2,8 +2,7 @@
 #'
 #' @description 500 Lattes XML curricula imported as list.
 #' @docType data
-#' @usage lattesXML
+#' @usage xmlsLattes
 #' @format list
 #' @keywords lattes
-NULL
-
+"xmlsLattes"

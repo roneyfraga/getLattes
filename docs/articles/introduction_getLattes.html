@@ -58,6 +58,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -82,7 +85,7 @@
       <h1 data-toc-skip>Introduction to getLattes</h1>
                         <h4 class="author">Roney Fraga Souza</h4>
             
-            <h4 class="date">2020-04-30</h4>
+            <h4 class="date">2020-05-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/roneyfraga/getLattes/blob/master/vignettes/introduction_getLattes.Rmd"><code>vignettes/introduction_getLattes.Rmd</code></a></small>
       <div class="hidden name"><code>introduction_getLattes.Rmd</code></div>
@@ -198,11 +201,11 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p>The variable to merge the table extract from any <code>get</code> function is the <code>id</code> variable. The <code>id</code> is 16 digits, unique to each curriculum. However, it is important to rename the <code>.xml</code> file from <code>curriculo.xml</code> to <code>[16 digits id].xml</code>. As Lattes has many versions of <code>XML</code> structure, the more consistent way to extract <code>id</code> is from the file name.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r">
 <span class="co"># the zip file(s) (is)are stored in datatest/</span>
-<span class="fu"><a href="https://rdrr.io/pkg/getLattes/man/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'2854855744345507.zip'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
-<span class="fu"><a href="https://rdrr.io/pkg/getLattes/man/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'*.zip'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
+<span class="fu"><a href="../reference/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'2854855744345507.zip'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
+<span class="fu"><a href="../reference/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'*.zip'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
 
 <span class="co"># the zip files are stored in the working directory</span>
-<span class="fu"><a href="https://rdrr.io/pkg/getLattes/man/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'*.zip'</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'*.zip'</span>)</pre></body></html></div>
 </div>
 <div id="import-xml-curriculum-data" class="section level2">
 <h2 class="hasAnchor">
@@ -216,11 +219,11 @@ include     se falso, executa mas não inclui o chunk no relatório
 
 <span class="co"># import xml files from working directory</span>
 <span class="no">cls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'*.xml$'</span>)</pre></body></html></div>
-<p>As example, 500 random curricula data <code>lattesXML</code> imported as an R list.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">lattesXML</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">lattesXML</span>)
+<p>As example, 500 random curricula data <code>xmlsLattes</code> imported as an R list.</p>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">xmlsLattes</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">xmlsLattes</span>)
 <span class="co">#&gt; [1] 500</span>
-<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">lattesXML</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">1</span>]])
 <span class="co">#&gt; [1] "DADOS-GERAIS"         "DADOS-COMPLEMENTARES" ".attrs"              </span>
 <span class="co">#&gt; [4] "id"</span></pre></body></html></div>
 </div>
@@ -229,7 +232,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <a href="#get-functions" class="anchor"></a><code>get</code> functions</h2>
 <p>To read data from only one curriculum any function <code>get</code> can be executed singly, to import data from two or more curricula is easier to use <code>get</code> functions with <code>lapply</code>.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># to import from one curriculum </span>
-<span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span>(<span class="no">lattesXML</span><span class="kw">[[</span><span class="fl">499</span>]])
+<span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">499</span>]])
 <span class="co">#&gt;   nome.completo nome.em.citacoes.bibliograficas nacionalidade</span>
 <span class="co">#&gt; 1    Rui Pretto                      PRETTO, R.             B</span>
 <span class="co">#&gt;   pais.de.nascimento uf.nascimento cidade.nascimento permissao.de.divulgacao</span>
@@ -237,11 +240,11 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt;   outras.informacoes.relevantes               id data.atualizacao</span>
 <span class="co">#&gt; 1                               0001028411019168         07122004</span></pre></body></html></div>
 <p>Import general data from 500 curricula. The output is a list of data frames, converted by a unique data frame with <code>bind_rows</code>.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getDadosGerais</span>)
+<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>)
 <span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">lt</span>)
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">lt</span>)
-<span class="co">#&gt; Observations: 499</span>
-<span class="co">#&gt; Variables: 14</span>
+<span class="co">#&gt; Rows: 499</span>
+<span class="co">#&gt; Columns: 14</span>
 <span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Fernando Migliorini Tenório", "Maria…</span>
 <span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "TENÓRIO, F. M.", "SILVA, M. C. J.", …</span>
 <span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B", "B", "B", "B", "B", "B", "B…</span>
@@ -257,11 +260,11 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ outras.informacoes.relevantes   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
 <span class="co">#&gt; $ texto.resumo.cv.rh              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
 <p>To write quickly, I will use pipe <code><a href="https://rdrr.io/pkg/pipeR/man/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> from <code>pipeR</code> package.</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">glimpse</span>
-<span class="co">#&gt; Observations: 499</span>
-<span class="co">#&gt; Variables: 14</span>
+<span class="co">#&gt; Rows: 499</span>
+<span class="co">#&gt; Columns: 14</span>
 <span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Fernando Migliorini Tenório", "Maria…</span>
 <span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "TENÓRIO, F. M.", "SILVA, M. C. J.", …</span>
 <span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B", "B", "B", "B", "B", "B", "B…</span>
@@ -277,13 +280,13 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ outras.informacoes.relevantes   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
 <span class="co">#&gt; $ texto.resumo.cv.rh              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
 <p>Where <code>. -&gt; res</code> means the result was saved to <code>res</code> object.</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     (<span class="no">.</span> <span class="kw">-&gt;</span> <span class="no">res</span>)
 
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">res</span>)
-<span class="co">#&gt; Observations: 499</span>
-<span class="co">#&gt; Variables: 14</span>
+<span class="co">#&gt; Rows: 499</span>
+<span class="co">#&gt; Columns: 14</span>
 <span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Fernando Migliorini Tenório", "Maria…</span>
 <span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "TENÓRIO, F. M.", "SILVA, M. C. J.", …</span>
 <span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B", "B", "B", "B", "B", "B", "B…</span>
@@ -304,20 +307,20 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h2 class="hasAnchor">
 <a href="#advisory" class="anchor"></a>Advisory</h2>
 <p>Ph.D. Advisory</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getOrientacoesDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Observations: 55</span>
-<span class="co">#&gt; Variables: 24</span>
-<span class="co">#&gt; $ natureza                    &lt;fct&gt; Tese de doutorado, Tese de doutorado, Tes…</span>
+<span class="co">#&gt; Rows: 55</span>
+<span class="co">#&gt; Columns: 24</span>
+<span class="co">#&gt; $ natureza                    &lt;chr&gt; "Tese de doutorado", "Tese de doutorado",…</span>
 <span class="co">#&gt; $ titulo                      &lt;chr&gt; "Condicionantes geológicos, geomorfológic…</span>
 <span class="co">#&gt; $ ano                         &lt;chr&gt; "2000", "2000", "2005", "2005", "2004", "…</span>
 <span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", "…</span>
-<span class="co">#&gt; $ idioma                      &lt;fct&gt; Português, Português, Português, Portuguê…</span>
-<span class="co">#&gt; $ home.page                   &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
+<span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
+<span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO",…</span>
-<span class="co">#&gt; $ doi                         &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
-<span class="co">#&gt; $ titulo.ingles               &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
+<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "CO_ORIENTADOR", "ORIENTADOR_PRINCIPAL", …</span>
 <span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Luiz Almeida Prado Bacelar", "Reiner Oli…</span>
 <span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "020200000009", "020200000009", "02020000…</span>
@@ -325,21 +328,21 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "31000282", "31000240", "31000240", "3100…</span>
 <span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "Engenharia Civil", "Geografia", "Geograf…</span>
 <span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "SIM", "NAO", "SIM", "NAO", "SIM", "NAO",…</span>
-<span class="co">#&gt; $ codigo.agencia.financiadora &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
+<span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "Fundação de Amparo à Pesquisa do Estado …</span>
 <span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "226", "163", "0", "398", "217", "150", "…</span>
 <span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "4484335621458630", "", "066901315042…</span>
 <span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ id                          &lt;chr&gt; "0000325690951570", "0000325690951570", "…</span>
-<span class="co">#&gt; $ codigo.orgao                &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ nome.orgao                  &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
+<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
+<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
 <p>Master Advisory</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getOrientacoesMestrado</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesMestrado</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Observations: 149</span>
-<span class="co">#&gt; Variables: 25</span>
-<span class="co">#&gt; $ natureza                    &lt;fct&gt; Dissertação de mestrado, Dissertação de m…</span>
+<span class="co">#&gt; Rows: 149</span>
+<span class="co">#&gt; Columns: 25</span>
+<span class="co">#&gt; $ natureza                    &lt;chr&gt; "Dissertação de mestrado", "Dissertação d…</span>
 <span class="co">#&gt; $ tipo                        &lt;chr&gt; "ACADEMICO", "ACADEMICO", "ACADEMICO", "A…</span>
 <span class="co">#&gt; $ titulo                      &lt;chr&gt; "O Papel da Formiga Sauva (Do Genero Atta…</span>
 <span class="co">#&gt; $ ano                         &lt;chr&gt; "1991", "1995", "1997", "1998", "1998", "…</span>
@@ -347,8 +350,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
 <span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO",…</span>
-<span class="co">#&gt; $ doi                         &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
-<span class="co">#&gt; $ titulo.ingles               &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
+<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "ORIENTADOR_PRINCIPAL", "ORIENTADOR_PRINC…</span>
 <span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Carlos Edgar de Deus", "Marcelo Eduardo …</span>
 <span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "020200000009", "020200000009", "02020000…</span>
@@ -360,44 +363,44 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "", "Coordenação de Aperfeiçoamento de Pe…</span>
 <span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "", "142", "153", "104", "136", "118", "1…</span>
 <span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "6211918426877457", "", "689326802882…</span>
-<span class="co">#&gt; $ nome.do.curso.ingles        &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , ,…</span>
+<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ id                          &lt;chr&gt; "0000325690951570", "0000325690951570", "…</span>
-<span class="co">#&gt; $ codigo.orgao                &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ nome.orgao                  &lt;fct&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
+<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
+<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
 <p>Post Doctorate</p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getOrientacoesPosDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesPosDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Observations: 6</span>
-<span class="co">#&gt; Variables: 22</span>
-<span class="co">#&gt; $ natureza                    &lt;fct&gt; Supervisão de pós-doutorado, Supervisão d…</span>
-<span class="co">#&gt; $ titulo                      &lt;fct&gt; , , , , , </span>
+<span class="co">#&gt; Rows: 6</span>
+<span class="co">#&gt; Columns: 22</span>
+<span class="co">#&gt; $ natureza                    &lt;chr&gt; "Supervisão de pós-doutorado", "Supervisã…</span>
+<span class="co">#&gt; $ titulo                      &lt;chr&gt; "", "", "", "", "", ""</span>
 <span class="co">#&gt; $ ano                         &lt;chr&gt; "2013", "2013", "2011", "2013", "2011", "…</span>
-<span class="co">#&gt; $ pais                        &lt;fct&gt; Brasil, Brasil, Brasil, Brasil, Brasil, B…</span>
-<span class="co">#&gt; $ idioma                      &lt;fct&gt; Português, Português, Português, Portuguê…</span>
-<span class="co">#&gt; $ home.page                   &lt;fct&gt; , , , , , </span>
-<span class="co">#&gt; $ flag.relevancia             &lt;fct&gt; NAO, NAO, NAO, NAO, NAO, NAO</span>
-<span class="co">#&gt; $ doi                         &lt;fct&gt; , , , , , </span>
-<span class="co">#&gt; $ titulo.ingles               &lt;fct&gt; , , , , , </span>
-<span class="co">#&gt; $ tipo.de.orientacao          &lt;fct&gt; , , , , , </span>
+<span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", "…</span>
+<span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
+<span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", ""</span>
+<span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO"</span>
+<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", ""</span>
+<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", ""</span>
+<span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "", "", "", "", "", ""</span>
 <span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Bruno Henriques Coutinho", "Anderson Mul…</span>
 <span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "020200000009", "020200000009", "06140000…</span>
 <span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Universidade Federal do Rio de Janeiro",…</span>
-<span class="co">#&gt; $ codigo.curso                &lt;fct&gt; , , , , , </span>
-<span class="co">#&gt; $ nome.do.curso               &lt;fct&gt; , , , , , </span>
+<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "", "", "", "", "", ""</span>
+<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "", "", "", "", "", ""</span>
 <span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "SIM", "NAO", "SIM", "SIM", "SIM", "SIM"</span>
-<span class="co">#&gt; $ codigo.agencia.financiadora &lt;fct&gt; , , , , , </span>
+<span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", "", "", "", ""</span>
 <span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "Conselho Nacional de Desenvolvimento Cie…</span>
-<span class="co">#&gt; $ numero.de.paginas           &lt;fct&gt; , , , , , </span>
-<span class="co">#&gt; $ numero.id.orientado         &lt;fct&gt; , , , , , </span>
-<span class="co">#&gt; $ nome.do.curso.ingles        &lt;fct&gt; , , , , , </span>
+<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "", "", "", "", "", ""</span>
+<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "", "", "", "", ""</span>
+<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", "", "", "", ""</span>
 <span class="co">#&gt; $ id                          &lt;chr&gt; "0000325690951570", "0000325690951570", "…</span></pre></body></html></div>
 <p>Other</p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getOrientacoesOutras</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesOutras</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Observations: 1,054</span>
-<span class="co">#&gt; Variables: 24</span>
+<span class="co">#&gt; Rows: 1,054</span>
+<span class="co">#&gt; Columns: 24</span>
 <span class="co">#&gt; $ natureza                     &lt;chr&gt; "MONOGRAFIA_DE_CONCLUSAO_DE_CURSO_APERFE…</span>
 <span class="co">#&gt; $ tipo                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ titulo                       &lt;chr&gt; "Estudo dos Aspectos da Aerofauna e Inve…</span>
@@ -406,9 +409,9 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ idioma                       &lt;chr&gt; "Português", "Português", "Português", "…</span>
 <span class="co">#&gt; $ home.page                    &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ flag.relevancia              &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO"…</span>
-<span class="co">#&gt; $ doi                          &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , …</span>
+<span class="co">#&gt; $ doi                          &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ titulo.ingles                &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
-<span class="co">#&gt; $ tipo.ingles                  &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , …</span>
+<span class="co">#&gt; $ tipo.ingles                  &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ nome.do.orientado            &lt;chr&gt; "Rodrigo Ribeiro Freitas", "Greicy Zacca…</span>
 <span class="co">#&gt; $ codigo.instituicao           &lt;chr&gt; "125200000006", "125200000006", "1252000…</span>
 <span class="co">#&gt; $ nome.da.instituicao          &lt;chr&gt; "Universidade do Extremo Sul Catarinense…</span>
@@ -419,14 +422,14 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ nome.da.agencia              &lt;chr&gt; "", "", "", "", "", "", "", "", "", "Con…</span>
 <span class="co">#&gt; $ tipo.de.orientacao.concluida &lt;chr&gt; "", "", "", "ORIENTADOR_PRINCIPAL", "ORI…</span>
 <span class="co">#&gt; $ numero.de.paginas            &lt;chr&gt; "", "", "", "25", "32", "18", "28", "31"…</span>
-<span class="co">#&gt; $ numero.id.orientado          &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , …</span>
-<span class="co">#&gt; $ nome.do.curso.ingles         &lt;fct&gt; , , , , , , , , , , , , , , , , , , , , …</span>
+<span class="co">#&gt; $ numero.id.orientado          &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
+<span class="co">#&gt; $ nome.do.curso.ingles         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ id                           &lt;chr&gt; "0000021871668960", "0000021871668960", …</span></pre></body></html></div>
 </div>
 <div id="published-academic-papers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#published-academic-papers" class="anchor"></a>Published Academic Papers</h2>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">as_tibble</span> <span class="kw">%&gt;&gt;%</span>
     (<span class="no">.</span> <span class="kw">-&gt;</span> <span class="no">pub</span>)
@@ -544,7 +547,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 5 1982    1982  "00218… Journal of Algebra (Pri… On weak commutativity between …</span>
 <span class="co">#&gt; 6 1983    1983  "02636… Journal of Hypertension  Plasma endogenous sodium pump …</span></pre></body></html></div>
 <p>To type less, we can do:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">as_tibble</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">normalizeByDoi</span> <span class="kw">%&gt;&gt;%</span>
@@ -570,14 +573,14 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h2 class="hasAnchor">
 <a href="#merge-data" class="anchor"></a>Merge data</h2>
 <p>To join the data from different tables the key is the variable <code>id</code>, which is a unique 16 digit code.</p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
+<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">as_tibble</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">normalizeByDoi</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">normalizeJournals</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">normalizeYears</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">titulo.do.artigo</span>,<span class="no">ano.do.artigo</span>,<span class="no">issn</span>,<span class="no">titulo.do.periodico.ou.revista</span>,<span class="no">id</span>) <span class="kw">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>( <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span> <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">id</span>,<span class="no">nome.completo</span>,<span class="no">pais.de.nascimento</span>)) <span class="kw">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/join.html">left_join</a></span>( <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span> <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">id</span>,<span class="no">nome.completo</span>,<span class="no">pais.de.nascimento</span>)) <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="fl">1</span>:<span class="fl">10</span>)
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;    titulo.do.artigo ano.do.artigo issn  titulo.do.perio… id    nome.completo</span>

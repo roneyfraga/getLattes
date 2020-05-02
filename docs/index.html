@@ -58,6 +58,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
@@ -115,8 +118,8 @@
 <h2 class="hasAnchor">
 <a href="#loaded-data" class="anchor"></a>Loaded data</h2>
 <p>To load 500 random curricula data imported as an R list.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">lattesXML</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">lattesXML</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">xmlsLattes</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">xmlsLattes</span>)</pre></div>
 </div>
 <div id="import-general-data" class="section level2">
 <h2 class="hasAnchor">
@@ -125,26 +128,26 @@
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 
 <span class="co"># to import from one curriculum </span>
-<span class="fu"><a href="reference/getDadosGerais.html">getDadosGerais</a></span>(<span class="no">lattesXML</span><span class="kw">[[</span><span class="fl">499</span>]])
+<span class="fu"><a href="reference/getDadosGerais.html">getDadosGerais</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">499</span>]])
 
 <span class="co"># to import from two or more curricula</span>
-<span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getDadosGerais</span>)
+<span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">lt</span>))</pre></div>
 </div>
 <div id="import-published-academic-papers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-published-academic-papers" class="anchor"></a>Import Published Academic Papers</h2>
 <div class="sourceCode" id="cb5"><pre class="r"><span class="co"># to import from one curriculum </span>
-<span class="fu"><a href="reference/getArtigosPublicados.html">getArtigosPublicados</a></span>(<span class="no">lattesXML</span><span class="kw">[[</span><span class="fl">462</span>]])
+<span class="fu"><a href="reference/getArtigosPublicados.html">getArtigosPublicados</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">462</span>]])
 
 <span class="co"># to import from two or more curricula</span>
-<span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">lattesXML</span>, <span class="no">getArtigosPublicados</span>)
+<span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getArtigosPublicados</span>)
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">lt</span>))</pre></div>
 </div>
 <div id="normalize-informations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#normalize-informations" class="anchor"></a>Normalize informations</h2>
-<p>See <code>normalizeByDoi</code>, <code>normalizeByJournal</code> and <code>normalizeByYear</code> to normalize publications data (journal title, ISSN and year)..</p>
+<p>See <code>normalizeByDoi</code>, <code>normalizeByJournal</code> and <code>normalizeByYear</code> to normalize publications data (journal title, ISSN and year).</p>
 </div>
 </div>
   </div>
@@ -162,9 +165,7 @@
 <div class="license">
 <h2>License</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
-</li>
+<li><a href="https://www.r-project.org/Licenses/GPL-3">GPL-3</a></li>
 </ul>
 </div>
 <div class="developers">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>getArtigosPublicados — getArtigosPublicados • getLattes</title>
+<title>Changelog • getLattes</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,7 @@
 
 
 
-<meta property="og:title" content="getArtigosPublicados — getArtigosPublicados" />
-<meta property="og:description" content="Extract published papers from XML file converted to R list." />
+<meta property="og:title" content="Changelog" />
 
 
 
@@ -59,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -123,51 +122,23 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>getArtigosPublicados</h1>
-    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/getArtigosPublicados.R'><code>R/getArtigosPublicados.R</code></a></small>
-    <div class="hidden name"><code>getArtigosPublicados.Rd</code></div>
+      <h1 data-toc-skip>Changelog <small></small></h1>
+      <small>Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div class="ref-description">
-    <p>Extract published papers from XML file converted to R list.</p>
-    </div>
-
-    <pre class="usage"><span class='fu'>getArtigosPublicados</span>(<span class='no'>curriculo</span>)</pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>curriculo</th>
-      <td><p>XML exported from Lattes imported to R as list.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>data frame</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Curriculum without this information will return NULL.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
- <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>xmlsLattes</span>)
- <span class='co'># to import from one curriculum </span>
- <span class='fu'>getArtigosPublicados</span>(<span class='no'>xmlsLattes</span><span class='kw'>[[</span><span class='fl'>499</span>]])
-
- <span class='co'># to import from two or more curricula</span>
- <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xmlsLattes</span>, <span class='no'>getArtigosPublicados</span>)
- <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bind_rows</span>(<span class='no'>lt</span>))
- }
-}</div></pre>
+    <div id="version-01" class="section level1">
+<h1 class="page-header" data-toc-text="0.1">
+<a href="#version-01" class="anchor"></a>Version 0.1</h1>
+<p>Implement functions</p>
+</div>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
 
 

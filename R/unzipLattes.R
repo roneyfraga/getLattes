@@ -10,6 +10,7 @@
 #' unzipLattes(filezip='*.zip', path='data/')
 #' }
 #' @export 
+#' @importFrom utils unzip
 unzipLattes <- function(filezip='*.zip$', path='.'){
 
     if(path!='.'){ 

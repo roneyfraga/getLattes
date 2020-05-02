@@ -6,6 +6,12 @@
 \usage{
 .getCharacter(x)
 }
+\arguments{
+\item{x}{XML exported from Lattes imported to R as list.}
+}
+\value{
+data frame.
+}
 \description{
-.getCharacter
+Extract variable names in import process (get functions).
 }

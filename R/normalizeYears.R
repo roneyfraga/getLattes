@@ -11,7 +11,7 @@
 #' \dontrun{
 #' if(interactive()){
 #' data(latesXML)
-#' l <- lapply(lattesXML, getArtigosPublicados) 
+#' l <- lapply(xmlsLattes, getArtigosPublicados) 
 #' df <- bind_rows(al) %>>% tbl_df
 #' 
 #' ead(

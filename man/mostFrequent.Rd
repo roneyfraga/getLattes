@@ -6,6 +6,12 @@
 \usage{
 mostFrequent(x)
 }
+\arguments{
+\item{x}{data frame.}
+}
+\value{
+data frame.
+}
 \description{
-mostFrequent
+Extract the most frequent ocorrence, helpfull to group_by.
 }

@@ -30,7 +30,7 @@ DETAILS
 \dontrun{
 if(interactive()){
 data(latesXML)
-al <- lapply(lattesXML, getArtigosPublicados) 
+al <- lapply(xmlsLattes, getArtigosPublicados) 
 adf <- dplyr::bind_rows(al)
 
 head(

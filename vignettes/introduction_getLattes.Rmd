@@ -132,12 +132,12 @@ cls <- readLattes(filexml='*.xml$', path='datatest/')
 cls <- readLattes(filexml='*.xml$')
 ```
 
-As example, 500 random curricula data `lattesXML` imported as an R list.
+As example, 500 random curricula data `xmlsLattes` imported as an R list.
 
 ```{r eval=T}
-data(lattesXML)
-length(lattesXML)
-names(lattesXML[[1]])
+data(xmlsLattes)
+length(xmlsLattes)
+names(xmlsLattes[[1]])
 ```
 
 ## `get` functions
@@ -146,13 +146,13 @@ To read data from only one curriculum any function `get` can be executed singly,
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 # to import from one curriculum 
-getDadosGerais(lattesXML[[499]])
+getDadosGerais(xmlsLattes[[499]])
 ```
 
 Import general data from 500 curricula. The output is a list of data frames, converted by a unique data frame with `bind_rows`.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lt <- lapply(lattesXML, getDadosGerais) 
+lt <- lapply(xmlsLattes, getDadosGerais) 
 lt <- bind_rows(lt)
 glimpse(lt)
 ```
@@ -160,7 +160,7 @@ glimpse(lt)
 To write quickly, I will use pipe `%>>%` from `pipeR` package. 
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getDadosGerais) %>>% 
+lapply(xmlsLattes, getDadosGerais) %>>% 
     bind_rows %>>% 
     glimpse
 ```
@@ -168,7 +168,7 @@ lapply(lattesXML, getDadosGerais) %>>%
 Where `. -> res` means the result was saved to `res` object.
 
 ```{r eval=T}
-lapply(lattesXML, getDadosGerais) %>>% 
+lapply(xmlsLattes, getDadosGerais) %>>% 
     bind_rows %>>% 
     (. -> res)
 
@@ -182,7 +182,7 @@ It is worth remembering that all variable names obtained by `get` functions are 
 Ph.D. Advisory
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getOrientacoesDoutorado) %>>% 
+lapply(xmlsLattes, getOrientacoesDoutorado) %>>% 
     bind_rows %>>% 
     glimpse()
 ```
@@ -190,7 +190,7 @@ lapply(lattesXML, getOrientacoesDoutorado) %>>%
 Master Advisory
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getOrientacoesMestrado) %>>% 
+lapply(xmlsLattes, getOrientacoesMestrado) %>>% 
     bind_rows %>>% 
     glimpse()
 ```
@@ -198,7 +198,7 @@ lapply(lattesXML, getOrientacoesMestrado) %>>%
 Post Doctorate
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getOrientacoesPosDoutorado) %>>% 
+lapply(xmlsLattes, getOrientacoesPosDoutorado) %>>% 
     bind_rows %>>% 
     glimpse()
 ```
@@ -206,7 +206,7 @@ lapply(lattesXML, getOrientacoesPosDoutorado) %>>%
 Other
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getOrientacoesOutras) %>>% 
+lapply(xmlsLattes, getOrientacoesOutras) %>>% 
     bind_rows %>>% 
     glimpse()
 ```
@@ -214,7 +214,7 @@ lapply(lattesXML, getOrientacoesOutras) %>>%
 ## Published Academic Papers
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getArtigosPublicados) %>>% 
+lapply(xmlsLattes, getArtigosPublicados) %>>% 
     bind_rows %>>% 
     as_tibble %>>% 
     (. -> pub)
@@ -273,7 +273,7 @@ ny %>>%
 To type less, we can do:
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getArtigosPublicados) %>>% 
+lapply(xmlsLattes, getArtigosPublicados) %>>% 
     bind_rows %>>% 
     as_tibble %>>% 
     normalizeByDoi %>>% 
@@ -288,14 +288,14 @@ lapply(lattesXML, getArtigosPublicados) %>>%
 To join the data from different tables the key is the variable `id`, which is a unique 16 digit code. 
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(lattesXML, getArtigosPublicados) %>>% 
+lapply(xmlsLattes, getArtigosPublicados) %>>% 
     bind_rows %>>% 
     as_tibble %>>% 
     normalizeByDoi %>>% 
     normalizeJournals %>>% 
     normalizeYears %>>% 
     select(titulo.do.artigo,ano.do.artigo,issn,titulo.do.periodico.ou.revista,id) %>>% 
-    left_join( lapply(lattesXML, getDadosGerais) %>>% bind_rows %>>% select(id,nome.completo,pais.de.nascimento)) %>>%   
+    left_join( lapply(xmlsLattes, getDadosGerais) %>>% bind_rows %>>% select(id,nome.completo,pais.de.nascimento)) %>>%   
     slice(1:10)
 ```
 

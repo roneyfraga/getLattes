@@ -53,8 +53,8 @@ cls <- readLattes(filexml='*.xml$')
 To load 500 random curricula data imported as an R list.
 
 ``` r
-data(lattesXML)
-length(lattesXML)
+data(xmlsLattes)
+length(xmlsLattes)
 ```
 
 ## Import general data
@@ -64,10 +64,10 @@ length(lattesXML)
 library(dplyr)
 
 # to import from one curriculum 
-getDadosGerais(lattesXML[[499]])
+getDadosGerais(xmlsLattes[[499]])
 
 # to import from two or more curricula
-lt <- lapply(lattesXML, getDadosGerais)
+lt <- lapply(xmlsLattes, getDadosGerais)
 head(bind_rows(lt))
 ```
 
@@ -75,14 +75,14 @@ head(bind_rows(lt))
 
 ``` r
 # to import from one curriculum 
-getArtigosPublicados(lattesXML[[462]]) 
+getArtigosPublicados(xmlsLattes[[462]]) 
 
 # to import from two or more curricula
-lt <- lapply(lattesXML, getArtigosPublicados)
+lt <- lapply(xmlsLattes, getArtigosPublicados)
 head(bind_rows(lt))
 ```
 
 ## Normalize informations
 
 See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to
-normalize publications data (journal title, ISSN and year)..
+normalize publications data (journal title, ISSN and year).

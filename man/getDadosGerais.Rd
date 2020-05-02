@@ -21,12 +21,12 @@ Curriculum without this information will return NULL.
 \examples{
 \dontrun{
 if(interactive()){
- data(lattesXML)
+ data(xmlsLattes)
  # to import from one curriculum 
- getDadosGerais(lattesXML[[499]])
+ getDadosGerais(xmlsLattes[[499]])
 
  # to import from two or more curricula
- lt <- lapply(lattesXML, getDadosGerais)
+ lt <- lapply(xmlsLattes, getDadosGerais)
  head(bind_rows(lt))
  }
 }
