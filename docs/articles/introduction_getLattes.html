@@ -85,7 +85,7 @@
       <h1 data-toc-skip>Introduction to getLattes</h1>
                         <h4 class="author">Roney Fraga Souza</h4>
             
-            <h4 class="date">2020-05-01</h4>
+            <h4 class="date">2020-05-02</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/roneyfraga/getLattes/blob/master/vignettes/introduction_getLattes.Rmd"><code>vignettes/introduction_getLattes.Rmd</code></a></small>
       <div class="hidden name"><code>introduction_getLattes.Rmd</code></div>
@@ -302,10 +302,9 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ outras.informacoes.relevantes   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
 <span class="co">#&gt; $ texto.resumo.cv.rh              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
 <p>It is worth remembering that all variable names obtained by <code>get</code> functions are the transcription of the field names in the <code>XML</code> file, the <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> being replaced with <code>.</code> and the capital letters replaced with lower case letters.</p>
-</div>
-<div id="advisory" class="section level2">
-<h2 class="hasAnchor">
-<a href="#advisory" class="anchor"></a>Advisory</h2>
+<div id="advisory" class="section level3">
+<h3 class="hasAnchor">
+<a href="#advisory" class="anchor"></a>Advisory</h3>
 <p>Ph.D. Advisory</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
@@ -425,6 +424,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ numero.id.orientado          &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ nome.do.curso.ingles         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ id                           &lt;chr&gt; "0000021871668960", "0000021871668960", …</span></pre></body></html></div>
+</div>
 </div>
 <div id="published-academic-papers" class="section level2">
 <h2 class="hasAnchor">

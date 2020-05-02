@@ -16,6 +16,9 @@ knitr::opts_chunk$set(
 # getLattes
 
 <!-- badges: start -->
+
+Cite the `getLattes`: [![DOI](https://zenodo.org/badge/258844181.svg)](https://zenodo.org/badge/latestdoi/258844181)
+
 <!-- badges: end -->
 
 The `getLattes` `R` package, written by [Roney Fraga Souza](roneyfraga.com) and [Winicius Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was built to extract data from the [Lattes](http://lattes.cnpq.br/) curriculum platform exported as `XML`. 

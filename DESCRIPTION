@@ -14,7 +14,7 @@ Authors@R:
              email = "winiciuss15@gmail.com"))
 Maintainer: Roney Fraga Souza <roneyfraga@gmail.com>
 Description: Import and process data from Lattes, the Brazilian platform for academic curriculum.
-License: GPL-3
+License: GPL-3 + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 RoxygenNote: 7.1.0
