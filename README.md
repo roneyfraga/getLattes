@@ -6,7 +6,6 @@
 <!-- badges: start -->
 
 [![DOI](https://zenodo.org/badge/258844181.svg)](https://zenodo.org/badge/latestdoi/258844181)
-
 <!-- badges: end -->
 
 The `getLattes` `R` package, written by [Roney Fraga
