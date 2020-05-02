@@ -38,10 +38,10 @@ getBancasGraduacao <- function(curriculo){
 
           if(any( names(x) %in% 'DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO')){
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO`),
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO`),
                              if(any(names(x) %in% 'DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO')){
                                if(length(x$`DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO`)
+                                 getCharacter(x$`DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-GRADUACAO`)
                                }
                              }
 
@@ -49,7 +49,7 @@ getBancasGraduacao <- function(curriculo){
 
             a <- which(names(x) == "PARTICIPANTE-BANCA" )
 
-            autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -81,7 +81,7 @@ getBancasGraduacao <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4, autores1, id1)
 

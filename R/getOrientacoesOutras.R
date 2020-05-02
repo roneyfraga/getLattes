@@ -38,15 +38,15 @@ getOrientacoesOutras <- function(curriculo){
 
           if(any( names(x) %in% 'DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDAS')){
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDAS`),
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-OUTRAS-ORIENTACOES-CONCLUIDAS`),
                              if(any(names(x) %in% 'DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDAS')){
                                if(length(x$`DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDAS`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDAS`)
+                                 getCharacter(x$`DETALHAMENTO-DE-OUTRAS-ORIENTACOES-CONCLUIDAS`)
                                }
                              }
             )
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,id1)
 

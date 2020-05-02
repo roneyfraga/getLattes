@@ -24,7 +24,7 @@ getFormacao <- function(curriculo){
     ll <- ll$`FORMACAO-ACADEMICA-TITULACAO`
 
     if(!is.null(ll)){
-      formacao <- lapply(ll, function(x){ if(!is.null(x)){ .getCharacter(x)} } )
+      formacao <- lapply(ll, function(x){ if(!is.null(x)){ getCharacter(x)} } )
       formacao$id <- curriculo$id
       return(formacao)
     }else{

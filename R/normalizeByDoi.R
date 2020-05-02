@@ -30,7 +30,7 @@
 #'  \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}
 #' @rdname normalizeByDoi
 #' @export 
-#' @importFrom dplyr group_by arrange mutate mutate_if rename
+#' @importFrom dplyr group_by arrange mutate mutate_if rename select left_join 
 #' @importFrom pipeR "%>>%"
 #' @importFrom tibble as_tibble
 #' @importFrom rlang .data

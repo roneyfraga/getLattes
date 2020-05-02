@@ -1,9 +1,9 @@
 
-#' @title .getCharacter
+#' @title getCharacter
 #' @description Extract variable names in import process (get functions).
 #' @param x XML exported from Lattes imported to R as list.
 #' @return data frame. 
-.getCharacter <- function(x){
+getCharacter <- function(x){
   x %>>%
     as.list(.) %>>%
     (do.call(rbind, .)) %>>%

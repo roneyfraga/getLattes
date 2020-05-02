@@ -23,7 +23,7 @@ getDadosGerais <- function(curriculo){
     ll <- curriculo$`DADOS-GERAIS`
     if(any('NOME-COMPLETO' %in% names(ll$.attrs))){
         if(length(ll)>1){
-            dados.gerais <- .getCharacter(ll$.attrs)
+            dados.gerais <- getCharacter(ll$.attrs)
             dados.gerais$id <- curriculo$id
             dados.gerais$data.atualizacao <- curriculo$.attrs[['DATA-ATUALIZACAO']]
             dados.gerais <- mutate_if(dados.gerais, is.factor, as.character)

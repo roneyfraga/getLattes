@@ -39,17 +39,17 @@ getOutrasProducoesTecnicas <- function(curriculo){
           if(any( names(x) %in% 'DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA')){
 
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA`) ,
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA`) ,
                              if(any(names(x) %in% 'DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA')){
                                if(length(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA`)
+                                 getCharacter(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA`)
                                }
                              }
             )
 
             a <- which(names(x) == "AUTORES" )
 
-            autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -81,7 +81,7 @@ getOutrasProducoesTecnicas <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,autores1,id1)
 

@@ -53,19 +53,19 @@ getParticipacaoProjeto <- function(curriculo){
 
                 ll4 <- bind_cols(
                   if(financiador){
-                    .getCharacter(x$`PROJETO-DE-PESQUISA`$`FINANCIADORES-DO-PROJETO`$`FINANCIADOR-DO-PROJETO`)
+                    getCharacter(x$`PROJETO-DE-PESQUISA`$`FINANCIADORES-DO-PROJETO`$`FINANCIADOR-DO-PROJETO`)
                   }else{
-                    .getCharacter(list(SEQUENCIA.FINANCIADOR = "",  CODIGO.INSTITUICAO = "", NOME.INSTITUICAO = "" , NATUREZA = "NAO_INFORMADO"))
+                    getCharacter(list(SEQUENCIA.FINANCIADOR = "",  CODIGO.INSTITUICAO = "", NOME.INSTITUICAO = "" , NATUREZA = "NAO_INFORMADO"))
                   },
-                  .getCharacter( x$`PROJETO-DE-PESQUISA`$.attrs),
-                  .getCharacter( x$.attrs))
+                  getCharacter( x$`PROJETO-DE-PESQUISA`$.attrs),
+                  getCharacter( x$.attrs))
 
                 a <- which(names(x$`PROJETO-DE-PESQUISA`$`EQUIPE-DO-PROJETO`) == "INTEGRANTES-DO-PROJETO" )
 
                 if( !is.null(x$`PROJETO-DE-PESQUISA`$`EQUIPE-DO-PROJETO`)){
                   autores <- lapply(a, function(z){
 
-                    .getCharacter(x$`PROJETO-DE-PESQUISA`$`EQUIPE-DO-PROJETO`[[z]])
+                    getCharacter(x$`PROJETO-DE-PESQUISA`$`EQUIPE-DO-PROJETO`[[z]])
                   })
 
                   autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
@@ -102,7 +102,7 @@ getParticipacaoProjeto <- function(curriculo){
                 }
 
 
-                id1 <-  .getCharacter(curriculo$id)
+                id1 <-  getCharacter(curriculo$id)
                 names(id1) <- "id"
 
                 ll6 <- bind_cols(ll4,autores1,id1)

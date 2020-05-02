@@ -26,7 +26,7 @@ getIdiomas <- function(curriculo){
       ll <- ll$`IDIOMAS`
 
       if(length(ll) >=1){
-        idm <- lapply(ll, function(x){ if(!is.null(x)){ .getCharacter(x)} } )
+        idm <- lapply(ll, function(x){ if(!is.null(x)){ getCharacter(x)} } )
         idm <- bind_rows(idm)
       }
       idm$id <- curriculo$id

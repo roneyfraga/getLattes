@@ -35,11 +35,11 @@ getJornaisRevistas <- function(curriculo){
 
       ll3 <- lapply(ll2, function(x){
 
-        ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DO-TEXTO`) ,
+        ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DO-TEXTO`) ,
 
                          if(any(names(x) %in% 'DETALHAMENTO-DO-TEXTO')){
                            if(length(x$`DETALHAMENTO-DO-TEXTO`) != 0){
-                             .getCharacter(x$`DETALHAMENTO-DO-TEXTO`)
+                             getCharacter(x$`DETALHAMENTO-DO-TEXTO`)
                            }
                          }
 
@@ -47,7 +47,7 @@ getJornaisRevistas <- function(curriculo){
 
         a <- which(names(x) == "AUTORES" )
 
-        autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+        autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
         autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -79,7 +79,7 @@ getJornaisRevistas <- function(curriculo){
           }
         }
 
-        id1 <-  .getCharacter(curriculo$id)
+        id1 <-  getCharacter(curriculo$id)
         names(id1) <- "id"
 
         ll6 <- bind_cols(ll4,autores1,id1)

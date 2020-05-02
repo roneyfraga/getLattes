@@ -39,18 +39,18 @@ getOutrasProducoesBibliograficas <- function(curriculo){
           if(any( names(x) %in% 'DADOS-BASICOS-DE-OUTRA-PRODUCAO')){
 
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DE-OUTRA-PRODUCAO`) ,
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-OUTRA-PRODUCAO`) ,
 
                              if(any(names(x) %in% 'DETALHAMENTO-DE-OUTRA-PRODUCAO')){
                                if(length(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO`)
+                                 getCharacter(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO`)
                                }
                              }
             )
 
             a <- which(names(x) == "AUTORES" )
 
-            autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -82,7 +82,7 @@ getOutrasProducoesBibliograficas <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,autores1,id1)
 

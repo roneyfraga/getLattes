@@ -25,7 +25,7 @@ getPremiosTitulos <- function(curriculo){
     ll <- ll$`PREMIOS-TITULOS`
 
     if(length(ll)>=1){
-      pret <- lapply(ll, function(x){ if(!is.null(x)){ .getCharacter(x)} } )
+      pret <- lapply(ll, function(x){ if(!is.null(x)){ getCharacter(x)} } )
       pret <- bind_rows(pret)
     }
     pret$id <- curriculo$id

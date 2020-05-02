@@ -39,18 +39,18 @@ getOrganizacaoEvento <- function(curriculo){
           if(any( names(x) %in% 'DADOS-BASICOS-DA-ORGANIZACAO-DE-EVENTO')){
 
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DA-ORGANIZACAO-DE-EVENTO`) ,
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DA-ORGANIZACAO-DE-EVENTO`) ,
 
                              if(any(names(x) %in% 'DETALHAMENTO-DA-ORGANIZACAO-DE-EVENTO')){
                                if(length(x$`DETALHAMENTO-DA-ORGANIZACAO-DE-EVENTO`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DA-ORGANIZACAO-DE-EVENTO`)
+                                 getCharacter(x$`DETALHAMENTO-DA-ORGANIZACAO-DE-EVENTO`)
                                }
                              }
             )
 
             a <- which(names(x) == "AUTORES" )
 
-            autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -82,7 +82,7 @@ getOrganizacaoEvento <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,autores1,id1)
 

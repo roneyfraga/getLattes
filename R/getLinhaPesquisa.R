@@ -54,19 +54,19 @@ getLinhaPesquisa <- function(curriculo){
               b <- lapply(a, function(z){
 
 
-                #.getCharacter(x[[z]])
+                #getCharacter(x[[z]])
                 if(any(names(x[[z]]) %in% 'PALAVRAS-CHAVE' | names(x[[z]])   %in% 'AREAS-DO-CONHECIMENTO'
                        | names(x[[z]])   %in% 'SETORES-DE-ATIVIDADE'
                 )){
-                  .getCharacter(x[[z]]$.attrs)
+                  getCharacter(x[[z]]$.attrs)
                 }else{
-                  .getCharacter(x[[z]])
+                  getCharacter(x[[z]])
                 }
 
               })
 
-              c <- lapply(b, function(z){ bind_cols(z,.getCharacter(x$.attrs),
-                                                    .getCharacter( list (id = curriculo$id ))
+              c <- lapply(b, function(z){ bind_cols(z,getCharacter(x$.attrs),
+                                                    getCharacter( list (id = curriculo$id ))
               )
 
 

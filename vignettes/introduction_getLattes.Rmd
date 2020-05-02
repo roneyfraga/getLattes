@@ -177,7 +177,7 @@ glimpse(res)
 
 It is worth remembering that all variable names obtained by `get` functions are the transcription of the field names in the `XML` file, the `-` being replaced with `.` and the capital letters replaced with lower case letters.
 
-## Advisory
+### Advisory
 
 Ph.D. Advisory
 

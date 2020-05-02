@@ -38,15 +38,15 @@ getOrientacoesPosDoutorado <- function(curriculo){
 
           if(any( names(x) %in% 'DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO')){
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO`),
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO`),
                              if(any(names(x) %in% 'DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO')){
                                if(length(x$`DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO`)
+                                 getCharacter(x$`DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-POS-DOUTORADO`)
                                }
                              }
             )
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,id1)
 

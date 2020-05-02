@@ -35,17 +35,17 @@ getArtigosPublicados <- function(curriculo){
 
           ll3 <- lapply(g, function(x){
 
-            ll4 <- bind_cols( .getCharacter(ll2[[x]]$`DADOS-BASICOS-DO-ARTIGO`),
+            ll4 <- bind_cols( getCharacter(ll2[[x]]$`DADOS-BASICOS-DO-ARTIGO`),
                               if(any( names(ll2[[x]]) %in% 'DETALHAMENTO-DO-ARTIGO') ){
                                 if(length(ll2[[x]]$`DETALHAMENTO-DO-ARTIGO`) != 0){
-                                  .getCharacter(ll2[[x]]$`DETALHAMENTO-DO-ARTIGO`)
+                                  getCharacter(ll2[[x]]$`DETALHAMENTO-DO-ARTIGO`)
                                 }
                               }
             )
 
             a <- which(names(ll2[[x]]) == "AUTORES" )
 
-            autores <- lapply(a, function(z){ .getCharacter(ll2[[x]][[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(ll2[[x]][[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -77,7 +77,7 @@ getArtigosPublicados <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
 
             ll6 <- bind_cols(ll4, autores1, id1)

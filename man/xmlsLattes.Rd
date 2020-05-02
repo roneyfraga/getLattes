@@ -11,6 +11,6 @@ list
 xmlsLattes
 }
 \description{
-500 Lattes XML curricula imported as list.
+500 random Lattes XML curricula imported as list.
 }
 \keyword{lattes}

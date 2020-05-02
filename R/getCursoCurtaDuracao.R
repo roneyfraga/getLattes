@@ -39,18 +39,18 @@ getCursoCurtaDuracao <- function(curriculo){
           if(any( names(x) %in% 'DADOS-BASICOS-DE-CURSOS-CURTA-DURACAO-MINISTRADO')){
 
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DE-CURSOS-CURTA-DURACAO-MINISTRADO`) ,
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-CURSOS-CURTA-DURACAO-MINISTRADO`) ,
 
                              if(any(names(x) %in% 'DETALHAMENTO-DE-CURSOS-CURTA-DURACAO-MINISTRADO')){
                                if(length(x$`DETALHAMENTO-DE-CURSOS-CURTA-DURACAO-MINISTRADO`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DE-CURSOS-CURTA-DURACAO-MINISTRADO`)
+                                 getCharacter(x$`DETALHAMENTO-DE-CURSOS-CURTA-DURACAO-MINISTRADO`)
                                }
                              }
             )
 
             a <- which(names(x) == "AUTORES" )
 
-            autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -82,7 +82,7 @@ getCursoCurtaDuracao <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,autores1,id1)
 

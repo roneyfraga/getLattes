@@ -52,17 +52,17 @@ getEventosCongressos <- function(curriculo){
             }
 
 
-            ll4 <- bind_cols( .getCharacter(ll2[[x]][[db]]),
+            ll4 <- bind_cols( getCharacter(ll2[[x]][[db]]),
                               if(any( names(ll2[[x]]) %in% partet) ){
                                 if(length(ll2[[x]][[dt]]) != 0){
-                                  .getCharacter(ll2[[x]][[dt]])
+                                  getCharacter(ll2[[x]][[dt]])
                                 }
                               }
             )
 
             a <- which(names(ll2[[x]]) == "PARTICIPANTE-DE-EVENTOS-CONGRESSOS" )
 
-            autores <- lapply(a, function(z){ .getCharacter(ll2[[x]][[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(ll2[[x]][[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -94,7 +94,7 @@ getEventosCongressos <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4, autores1, id1)
 

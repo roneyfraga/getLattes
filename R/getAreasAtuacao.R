@@ -27,7 +27,7 @@ getAreasAtuacao <- function(curriculo){
     if(!is.null(ll2)){
 
       if(length(ll2)>=1){
-        arat <- lapply(ll2, function(x){ if(!is.null(x)){ .getCharacter(x)} } )
+        arat <- lapply(ll2, function(x){ if(!is.null(x)){ getCharacter(x)} } )
         arat <- bind_rows(arat)
       }
       arat$id <- curriculo$id

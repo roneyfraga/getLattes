@@ -39,18 +39,18 @@ getRelatorioPesquisa <- function(curriculo){
           if(any( names(x) %in% 'DADOS-BASICOS-DO-RELATORIO-DE-PESQUISA')){
 
 
-            ll4 <- bind_cols(.getCharacter(x$`DADOS-BASICOS-DO-RELATORIO-DE-PESQUISA`) ,
+            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DO-RELATORIO-DE-PESQUISA`) ,
 
                              if(any(names(x) %in% 'DETALHAMENTO-DO-RELATORIO-DE-PESQUISA')){
                                if(length(x$`DETALHAMENTO-DO-RELATORIO-DE-PESQUISA`) != 0){
-                                 .getCharacter(x$`DETALHAMENTO-DO-RELATORIO-DE-PESQUISA`)
+                                 getCharacter(x$`DETALHAMENTO-DO-RELATORIO-DE-PESQUISA`)
                                }
                              }
             )
 
             a <- which(names(x) == "AUTORES" )
 
-            autores <- lapply(a, function(z){ .getCharacter(x[[z]])  })
+            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
 
             autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
 
@@ -82,7 +82,7 @@ getRelatorioPesquisa <- function(curriculo){
               }
             }
 
-            id1 <-  .getCharacter(curriculo$id)
+            id1 <-  getCharacter(curriculo$id)
             names(id1) <- "id"
             ll6 <- bind_cols(ll4,autores1,id1)
 

@@ -31,9 +31,9 @@ getAtuacoesProfissionais <- function(curriculo){
       if(qtde==1){
 
         attrs <- if(!any(names(ll2) %in% '.attrs') & any(names(ll2[[1]]) %in% '.attrs')){
-          .getCharacter(ll2[[1]][['.attrs']])
+          getCharacter(ll2[[1]][['.attrs']])
         } else{
-          .getCharacter(ll2[[1]])
+          getCharacter(ll2[[1]])
         }
         atv <- names(ll2[[1]])
         atv <- str_c(atv, collapse=',')
@@ -46,9 +46,9 @@ getAtuacoesProfissionais <- function(curriculo){
 
         attrs <- lapply(ll2, function(x){
           if(any(names(x) %in% '.attrs')){
-            .getCharacter(x[['.attrs']])
+            getCharacter(x[['.attrs']])
           } else{
-            .getCharacter(x)
+            getCharacter(x)
           }
         })
 
