@@ -5,7 +5,6 @@
 
 <!-- badges: start -->
 
-Cite the `getLattes`:
 [![DOI](https://zenodo.org/badge/258844181.svg)](https://zenodo.org/badge/latestdoi/258844181)
 
 <!-- badges: end -->
