@@ -9,7 +9,7 @@
 <!-- badges: end -->
 
 The `getLattes` `R` package, written by [Roney Fraga
-Souza](roneyfraga.com) and [Winicius
+Souza](http://roneyfraga.com) and [Winicius
 Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was
 built to extract data from the [Lattes](http://lattes.cnpq.br/)
 curriculum platform exported as `XML`.
