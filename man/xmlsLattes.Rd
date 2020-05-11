@@ -3,7 +3,7 @@
 \docType{data}
 \name{xmlsLattes}
 \alias{xmlsLattes}
-\title{Lattes XMLs list for tests}
+\title{Two Lattes Curricula for example}
 \format{
 list
 }
@@ -11,6 +11,6 @@ list
 xmlsLattes
 }
 \description{
-500 random Lattes XML curricula imported as list.
+Two Lattes curricula, from important researchers in my academic journey, imported as R list.
 }
-\keyword{lattes}
+\keyword{Lattes}

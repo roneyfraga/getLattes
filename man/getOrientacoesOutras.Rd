@@ -19,15 +19,13 @@ Extract Academic Advisory (Other) from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getOrientacoesOutras(xmlsLattes[[499]])
+ getOrientacoesOutras(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getOrientacoesOutras)
  head(bind_rows(lt))
  }
-}
 }

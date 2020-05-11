@@ -19,15 +19,13 @@ Extract Other Technical Productions from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getOutrasProducoesTecnicas(xmlsLattes[[499]])
+ getOutrasProducoesTecnicas(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getOutrasProducoesTecnicas)
  head(bind_rows(lt))
  }
-}
 }

@@ -19,15 +19,13 @@ Extract Books Chapter from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getCapitulosLivros(xmlsLattes[[499]])
+ getCapitulosLivros(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getCapitulosLivros)
  head(bind_rows(lt))
  }
-}
 }

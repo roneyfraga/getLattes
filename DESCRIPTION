@@ -13,7 +13,7 @@ Authors@R:
              role = c("aut"),
              email = "winiciuss15@gmail.com"))
 Maintainer: Roney Fraga Souza <roneyfraga@gmail.com>
-Description: Import and process data from Lattes, the Brazilian platform for academic curriculum.
+Description: Tool for import and process data from Lattes curriculum platform (<http://lattes.cnpq.br/>). The Brazilian government keeps an extensive base of curricula for academics from all over the country, with over 5 million registrations. The academic life of the Brazilian researcher, or related to Brazilian universities, is documented in Lattes. Some information that can be obtained: professional formation, research area, publications, academics advisories, projects, etc. 'getLattes' package allows work with Lattes data exported to XML format.
 License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
@@ -29,8 +29,8 @@ Imports:
     utils,
     dplyr,
     tibble,
-    rlang,
     pipeR,
+    rlang,
     rlist,
     stringr,
     stringi

@@ -4,7 +4,6 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
@@ -14,7 +13,6 @@
 #'  lt <- lapply(xmlsLattes, getProducaoTecnica)
 #'  head(bind_rows(lt))
 #'  }
-#' }
 #' @rdname getProducaoTecnica
 #' @export 
 getProducaoTecnica <- function(curriculo){

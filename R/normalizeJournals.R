@@ -6,7 +6,6 @@
 #' @return data frame
 #' @details DETAILS
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #' data(latesXML)
 #' al <- lapply(xmlsLattes, getArtigosPublicados) 
@@ -17,9 +16,7 @@
 #'               issn='issn', 
 #'               journalName= 'titulo.do.periodico.ou.revista') 
 #' ) 
-#' 
-#'   }
-#'  }
+#' }
 #' @seealso 
 #'  \code{\link[stringi]{stri_trans_general}}
 #'  \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}
@@ -29,6 +26,10 @@
 #' @importFrom dplyr group_by arrange mutate ungroup mutate_if
 #' @importFrom pipeR "%>>%"
 normalizeJournals <- function(dataframe, journalName='titulo.do.periodico.ou.revista', issn='issn'){
+
+    stopifnot(is.character(journalName), length(journalName) == 1)
+    stopifnot(is.character(issn), length(issn) == 1)
+    if (! is.data.frame(dataframe)) return(dataframe)
 
     revista <- NULL
 

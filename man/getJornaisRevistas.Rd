@@ -19,15 +19,13 @@ Extract Newspapers and Magazines from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getJornaisRevistas(xmlsLattes[[499]])
+ getJornaisRevistas(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getJornaisRevistas)
  head(bind_rows(lt))
  }
-}
 }

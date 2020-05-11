@@ -8,7 +8,7 @@
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getArtigosPublicados(xmlsLattes[[499]])
+#'  getArtigosPublicados(xmlsLattes[[2]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(xmlsLattes, getArtigosPublicados)

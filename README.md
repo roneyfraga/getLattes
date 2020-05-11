@@ -40,10 +40,10 @@ library(getLattes)
 
 ``` r
 # the file 4984859173592703.xml is stored in datatest directory
-cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
+# cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
 
 # import all Lattes XML files in datateste
-cls <- readLattes(filexml='*.xml$', path='datatest/')
+# cls <- readLattes(filexml='*.xml$', path='datatest/')
 
 # import all Lattes XML files in the working directory
 cls <- readLattes(filexml='*.xml$')
@@ -51,7 +51,8 @@ cls <- readLattes(filexml='*.xml$')
 
 ## Loaded data
 
-To load 500 random curricula data imported as an R list.
+To load 2 Lattes curricula, from important researchers in my academic
+journey, imported as R list.
 
 ``` r
 data(xmlsLattes)
@@ -65,7 +66,7 @@ length(xmlsLattes)
 library(dplyr)
 
 # to import from one curriculum 
-getDadosGerais(xmlsLattes[[499]])
+getDadosGerais(xmlsLattes[[2]])
 
 # to import from two or more curricula
 lt <- lapply(xmlsLattes, getDadosGerais)
@@ -76,7 +77,7 @@ head(bind_rows(lt))
 
 ``` r
 # to import from one curriculum 
-getArtigosPublicados(xmlsLattes[[462]]) 
+getArtigosPublicados(xmlsLattes[[2]]) 
 
 # to import from two or more curricula
 lt <- lapply(xmlsLattes, getArtigosPublicados)

@@ -10,7 +10,11 @@
 #' # to import only one file
 #' readLattes(filexml='4984859173592703.zip.xml')
 #' # to import several files
-#' readLattes(filexml='*.xml$'))
+#' readLattes(filexml='*.xml$')
+#' 
+#' # to specify a direferent directory
+#' # readLattes(filexml='*.xml$', path='data/)
+#' }
 #' }
 #' @rdname readLattes
 #' @export 

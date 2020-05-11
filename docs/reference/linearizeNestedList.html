@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>getLinhaPesquisa — getLinhaPesquisa • getLattes</title>
+<title>linearizeNestedList — linearizeNestedList • getLattes</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="getLinhaPesquisa — getLinhaPesquisa" />
-<meta property="og:description" content="Extract Research Lines from XML file converted to R list." />
+<meta property="og:title" content="linearizeNestedList — linearizeNestedList" />
+<meta property="og:description" content="Implements a recursive algorithm to linearize nested lists upto any arbitrary level of nesting." />
 
 
 
@@ -123,43 +123,84 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>getLinhaPesquisa</h1>
-    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/getLinhaPesquisa.R'><code>R/getLinhaPesquisa.R</code></a></small>
-    <div class="hidden name"><code>getLinhaPesquisa.Rd</code></div>
+    <h1>linearizeNestedList</h1>
+    <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/linearizeNestedList.R'><code>R/linearizeNestedList.R</code></a></small>
+    <div class="hidden name"><code>linearizeNestedList.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Extract Research Lines from XML file converted to R list.</p>
+    <p>Implements a recursive algorithm to linearize nested lists upto any arbitrary level of nesting.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getLinhaPesquisa</span>(<span class='no'>curriculo</span>)</pre>
+    <pre class="usage"><span class='fu'>linearizeNestedList</span>(
+  <span class='no'>nList</span>,
+  <span class='kw'>linearizeDataFrames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nameSep</span> <span class='kw'>=</span> <span class='st'>"/"</span>,
+  <span class='kw'>forceNames</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>curriculo</th>
-      <td><p>XML exported from Lattes imported to R as list.</p></td>
+      <th>nList</th>
+      <td><p>The input <code>list</code>.</p></td>
+    </tr>
+    <tr>
+      <th>linearizeDataFrames</th>
+      <td><p>Logical. TRUE the columns in <code>data.frame</code>s will the "linearized". Default <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>nameSep</th>
+      <td><p>Character to be the separation between names.  Default  "/".</p></td>
+    </tr>
+    <tr>
+      <th>forceNames</th>
+      <td><p>Logical. TRUE will rename list elements. Default <code>FALSE</code>.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Curriculum without this information will return NULL.</p>
+    <p>Implements a recursive algorithm to linearize nested lists upto any
+arbitrary level of nesting (limited by R's allowance for recursion-depth).
+By linearization, it is meant to bring all list branches emanating from
+any nth-nested trunk upto the top-level trunk s.t. the return value is a
+simple non-nested list having all branches emanating from this top-level
+branch.</p>
+<p>Since dataframes are essentially lists a boolean option is provided to
+switch on/off the linearization of dataframes. This has been found
+desirable in the author's experience.
+Also, one'd typically want to preserve names in the lists in a way as to
+clearly denote the association of any list element to it's nth-level
+history. As such we provide a clean and simple method of preserving names
+information of list elements. The names at any level of nesting are
+appended to the names of all preceding trunks using the `nameSep` option
+string as the seperator. The default `/` has been chosen to mimic the unix
+tradition of filesystem hierarchies. The default behavior works with
+existing names at any n-th level trunk, if found; otherwise, coerces simple
+numeric names corresponding to the position of a list element on the
+nth-trunk. Note, however, that this naming pattern does not ensure unique
+names for all elements in the resulting list. If the nested lists had
+non-unique names in a trunk the same would be reflected in the final list.
+Also, note that the function does not at all handle cases where `some`
+names are missing and some are not.
+Clearly, preserving the n-level hierarchy of branches in the element names
+may lead to names that are too long. Often, only the depth of a list
+element may only be important. To deal with this possibility a boolean
+option called `forceNames` has been provided. forceNames shall drop all
+original names in the lists and coerce simple numeric names which simply
+indicate the position of an element at the nth-level trunk as well as all
+preceding trunk numbers.</p>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+
+    <p><a href='https://sites.google.com/site/akhilsbehl/geekspace/articles/r/linearize_nested_lists_in_r'>https://sites.google.com/site/akhilsbehl/geekspace/articles/r/linearize_nested_lists_in_r</a></p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='https://rdrr.io/r/base/unlist.html'>unlist</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
- <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>xmlsLattes</span>)
- <span class='co'># to import from one curriculum </span>
- <span class='fu'>getLinhaPesquisa</span>(<span class='no'>xmlsLattes</span><span class='kw'>[[</span><span class='fl'>2</span>]])
-
- <span class='co'># to import from two or more curricula</span>
- <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xmlsLattes</span>, <span class='no'>getLinhaPesquisa</span>)
- <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bind_rows</span>(<span class='no'>lt</span>))
- }</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

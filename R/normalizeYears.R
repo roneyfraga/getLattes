@@ -8,7 +8,6 @@
 #' @return data frame
 #' @details DETAILS
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #' data(latesXML)
 #' l <- lapply(xmlsLattes, getArtigosPublicados) 
@@ -21,8 +20,6 @@
 #'               journalName= 'titulo.do.periodico.ou.revista',
 #'               paperTitle='titulo.do.artigo') 
 #' ) 
-#' 
-#'  }
 #' }
 #' @seealso 
 #'  \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}
@@ -31,6 +28,12 @@
 #' @importFrom dplyr group_by arrange mutate
 #' @importFrom pipeR "%>>%"
 normalizeYears <- function(dataframe,year2normalize='ano.do.artigo',issn='issn',journalName='titulo.do.periodico.ou.revista',paperTitle='titulo.do.artigo'){
+
+    stopifnot(is.character(year2normalize), length(year2normalize) == 1)
+    stopifnot(is.character(issn), length(issn) == 1)
+    stopifnot(is.character(journalName), length(journalName) == 1)
+    stopifnot(is.character(paperTitle), length(paperTitle) == 1)
+    if (! is.data.frame(dataframe)) return(dataframe)
 
     titulo <- revista <- ano_old <- NULL
 

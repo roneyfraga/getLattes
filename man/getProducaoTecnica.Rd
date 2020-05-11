@@ -19,7 +19,6 @@ Extract Technical Production from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
@@ -29,5 +28,4 @@ if(interactive()){
  lt <- lapply(xmlsLattes, getProducaoTecnica)
  head(bind_rows(lt))
  }
-}
 }

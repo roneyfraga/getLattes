@@ -19,15 +19,13 @@ Extract Ph.D. Examination Board's from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getBancasDoutorado(xmlsLattes[[499]])
+ getBancasDoutorado(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getBancasDoutorado)
  head(bind_rows(lt))
  }
-}
 }

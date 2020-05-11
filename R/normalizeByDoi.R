@@ -9,7 +9,6 @@
 #' @return data frame
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #' data(latesXML)
 #' al <- lapply(xmlsLattes, getArtigosPublicados) 
@@ -23,9 +22,7 @@
 #'               paperTitle='titulo.do.artigo', 
 #'               journalName= 'titulo.do.periodico.ou.revista')
 #' ) 
-#' 
-#'   }
-#'  }
+#' }
 #' @seealso 
 #'  \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}
 #' @rdname normalizeByDoi
@@ -34,6 +31,13 @@
 #' @importFrom pipeR "%>>%"
 #' @importFrom tibble as_tibble
 normalizeByDoi <- function(dataframe,doi='doi',year='ano.do.artigo',issn='issn',paperTitle='titulo.do.artigo',journalName='titulo.do.periodico.ou.revista'){
+
+    stopifnot(is.character(doi), length(doi) == 1)
+    stopifnot(is.character(year), length(year) == 1)
+    stopifnot(is.character(issn), length(issn) == 1)
+    stopifnot(is.character(paperTitle), length(paperTitle) == 1)
+    stopifnot(is.character(journalName), length(journalName) == 1)
+    if (! is.data.frame(dataframe)) return(dataframe)
 
     titulo <- revista <- ano <- key <-  NULL
 

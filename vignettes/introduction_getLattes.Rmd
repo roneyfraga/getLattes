@@ -103,16 +103,16 @@ The variable to merge the table extract from any `get` function is the `id` vari
 
 ```{r eval=F, echo=F}
 # delete '*.xml$' in datatet
-setwd('~/OneDrive/Rworkspace/getLattes/datatest')
-file.remove(list.files(pattern='*.xml$'))
-setwd('~/OneDrive/Rworkspace/getLattes')
+# setwd('~/OneDrive/Rworkspace/getLattes/datatest')
+# file.remove(list.files(pattern='*.xml$'))
+# setwd('~/OneDrive/Rworkspace/getLattes')
 ```
 
 ```{r eval=F, warning=FALSE, message=FALSE}
 
 # the zip file(s) (is)are stored in datatest/
-unzipLattes(filezip='2854855744345507.zip', path='datatest/')
-unzipLattes(filezip='*.zip', path='datatest/')
+# unzipLattes(filezip='2854855744345507.zip', path='datatest/')
+# unzipLattes(filezip='*.zip', path='datatest/')
 
 # the zip files are stored in the working directory
 unzipLattes(filezip='*.zip')
@@ -123,16 +123,16 @@ unzipLattes(filezip='*.zip')
 ```{r eval=F, include=T}
 
 # the file 4984859173592703.xml 
-cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
+# cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
 
 # import several files
-cls <- readLattes(filexml='*.xml$', path='datatest/')
+# cls <- readLattes(filexml='*.xml$', path='datatest/')
 
 # import xml files from working directory
 cls <- readLattes(filexml='*.xml$')
 ```
 
-As example, 500 random curricula data `xmlsLattes` imported as an R list.
+As example, 2 curricula data `xmlsLattes` imported as an R list.
 
 ```{r eval=T}
 data(xmlsLattes)
@@ -146,10 +146,10 @@ To read data from only one curriculum any function `get` can be executed singly,
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 # to import from one curriculum 
-getDadosGerais(xmlsLattes[[499]])
+getDadosGerais(xmlsLattes[[1]])
 ```
 
-Import general data from 500 curricula. The output is a list of data frames, converted by a unique data frame with `bind_rows`.
+Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with `bind_rows`.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 lt <- lapply(xmlsLattes, getDadosGerais) 
@@ -219,7 +219,7 @@ lapply(xmlsLattes, getArtigosPublicados) %>>%
     as_tibble %>>% 
     (. -> pub)
 
-head(pub)
+glimpse(pub)
 ```
 
 ## Normalize functions

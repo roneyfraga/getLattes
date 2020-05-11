@@ -33,7 +33,6 @@ FUNCTION_DESCRIPTION
 DETAILS
 }
 \examples{
-\dontrun{
 if(interactive()){
 data(latesXML)
 l <- lapply(xmlsLattes, getArtigosPublicados) 
@@ -46,8 +45,6 @@ ead(
               journalName= 'titulo.do.periodico.ou.revista',
               paperTitle='titulo.do.artigo') 
 ) 
-
- }
 }
 }
 \seealso{

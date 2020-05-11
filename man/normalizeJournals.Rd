@@ -27,7 +27,6 @@ Normalize journals data: journal name, and ISSN. Two or more journals with the s
 DETAILS
 }
 \examples{
-\dontrun{
 if(interactive()){
 data(latesXML)
 al <- lapply(xmlsLattes, getArtigosPublicados) 
@@ -38,9 +37,7 @@ head(
               issn='issn', 
               journalName= 'titulo.do.periodico.ou.revista') 
 ) 
-
-  }
- }
+}
 }
 \seealso{
 \code{\link[stringi]{stri_trans_general}}

@@ -19,15 +19,13 @@ Extract Events and Congresses from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getEventosCongressos(xmlsLattes[[499]])
+ getEventosCongressos(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getEventosCongressos)
  head(bind_rows(lt))
  }
-}
 }

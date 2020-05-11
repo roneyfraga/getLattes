@@ -4,16 +4,14 @@
 #' @return list
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getFormacao(xmlsLattes[[499]])
+#'  getFormacao(xmlsLattes[[2]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(xmlsLattes, getFormacao)
 #'  }
-#' }
 #' @rdname getFormacao
 #' @export 
 getFormacao <- function(curriculo){

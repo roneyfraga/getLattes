@@ -85,7 +85,7 @@
       <h1 data-toc-skip>Introduction to getLattes</h1>
                         <h4 class="author">Roney Fraga Souza</h4>
             
-            <h4 class="date">2020-05-04</h4>
+            <h4 class="date">2020-05-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/roneyfraga/getLattes/blob/master/vignettes/introduction_getLattes.Rmd"><code>vignettes/introduction_getLattes.Rmd</code></a></small>
       <div class="hidden name"><code>introduction_getLattes.Rmd</code></div>
@@ -201,8 +201,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p>The variable to merge the table extract from any <code>get</code> function is the <code>id</code> variable. The <code>id</code> is 16 digits, unique to each curriculum. However, it is important to rename the <code>.xml</code> file from <code>curriculo.xml</code> to <code>[16 digits id].xml</code>. As Lattes has many versions of <code>XML</code> structure, the more consistent way to extract <code>id</code> is from the file name.</p>
 <div class="sourceCode" id="cb3"><html><body><pre class="r">
 <span class="co"># the zip file(s) (is)are stored in datatest/</span>
-<span class="fu"><a href="../reference/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'2854855744345507.zip'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
-<span class="fu"><a href="../reference/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'*.zip'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
+<span class="co"># unzipLattes(filezip='2854855744345507.zip', path='datatest/')</span>
+<span class="co"># unzipLattes(filezip='*.zip', path='datatest/')</span>
 
 <span class="co"># the zip files are stored in the working directory</span>
 <span class="fu"><a href="../reference/unzipLattes.html">unzipLattes</a></span>(<span class="kw">filezip</span><span class="kw">=</span><span class="st">'*.zip'</span>)</pre></body></html></div>
@@ -212,95 +212,99 @@ include     se falso, executa mas não inclui o chunk no relatório
 <a href="#import-xml-curriculum-data" class="anchor"></a>Import XML curriculum data</h2>
 <div class="sourceCode" id="cb4"><html><body><pre class="r">
 <span class="co"># the file 4984859173592703.xml </span>
-<span class="no">cl</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'4984859173592703.xml'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
+<span class="co"># cl &lt;- readLattes(filexml='4984859173592703.xml', path='datatest/')</span>
 
 <span class="co"># import several files</span>
-<span class="no">cls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'*.xml$'</span>, <span class="kw">path</span><span class="kw">=</span><span class="st">'datatest/'</span>)
+<span class="co"># cls &lt;- readLattes(filexml='*.xml$', path='datatest/')</span>
 
 <span class="co"># import xml files from working directory</span>
 <span class="no">cls</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/readLattes.html">readLattes</a></span>(<span class="kw">filexml</span><span class="kw">=</span><span class="st">'*.xml$'</span>)</pre></body></html></div>
-<p>As example, 500 random curricula data <code>xmlsLattes</code> imported as an R list.</p>
+<p>As example, 2 curricula data <code>xmlsLattes</code> imported as an R list.</p>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">xmlsLattes</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">xmlsLattes</span>)
-<span class="co">#&gt; [1] 500</span>
+<span class="co">#&gt; [1] 2</span>
 <span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">1</span>]])
-<span class="co">#&gt; [1] "DADOS-GERAIS"         "DADOS-COMPLEMENTARES" ".attrs"              </span>
-<span class="co">#&gt; [4] "id"</span></pre></body></html></div>
+<span class="co">#&gt; [1] "DADOS-GERAIS"           "PRODUCAO-BIBLIOGRAFICA" "PRODUCAO-TECNICA"      </span>
+<span class="co">#&gt; [4] "OUTRA-PRODUCAO"         "DADOS-COMPLEMENTARES"   ".attrs"                </span>
+<span class="co">#&gt; [7] "id"</span></pre></body></html></div>
 </div>
 <div id="get-functions" class="section level2">
 <h2 class="hasAnchor">
 <a href="#get-functions" class="anchor"></a><code>get</code> functions</h2>
 <p>To read data from only one curriculum any function <code>get</code> can be executed singly, to import data from two or more curricula is easier to use <code>get</code> functions with <code>lapply</code>.</p>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="co"># to import from one curriculum </span>
-<span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">499</span>]])
-<span class="co">#&gt;   nome.completo nome.em.citacoes.bibliograficas nacionalidade</span>
-<span class="co">#&gt; 1    Rui Pretto                      PRETTO, R.             B</span>
-<span class="co">#&gt;   pais.de.nascimento uf.nascimento cidade.nascimento permissao.de.divulgacao</span>
-<span class="co">#&gt; 1             Brasil            RS       SANTA MARIA                     NAO</span>
-<span class="co">#&gt;   outras.informacoes.relevantes               id data.atualizacao</span>
-<span class="co">#&gt; 1                               0001028411019168         07122004</span></pre></body></html></div>
-<p>Import general data from 500 curricula. The output is a list of data frames, converted by a unique data frame with <code>bind_rows</code>.</p>
+<span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">1</span>]])
+<span class="co">#&gt;             nome.completo</span>
+<span class="co">#&gt; 1 Antonio Marcio Buainain</span>
+<span class="co">#&gt;                                                                                         nome.em.citacoes.bibliograficas</span>
+<span class="co">#&gt; 1 BUAINAIN, Antonio Marcio;Buainain, Antonio Márcio;Buainain, Antônio Márcio;BUAINAIN, ANTONIO;ANTONIO, MARCIO BUAINAIN</span>
+<span class="co">#&gt;   nacionalidade pais.de.nascimento uf.nascimento cidade.nascimento</span>
+<span class="co">#&gt; 1             B             Brasil            MS      Campo Grande</span>
+<span class="co">#&gt;   permissao.de.divulgacao data.falecimento sigla.pais.nacionalidade</span>
+<span class="co">#&gt; 1                     NAO                                       BRA</span>
+<span class="co">#&gt;   pais.de.nacionalidade                              orcid.id               id</span>
+<span class="co">#&gt; 1                Brasil https://orcid.org/0000-0002-1779-5589 3051627641386529</span>
+<span class="co">#&gt;   data.atualizacao</span>
+<span class="co">#&gt; 1         16042020</span></pre></body></html></div>
+<p>Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with <code>bind_rows</code>.</p>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>)
 <span class="no">lt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span>(<span class="no">lt</span>)
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">lt</span>)
-<span class="co">#&gt; Rows: 499</span>
-<span class="co">#&gt; Columns: 14</span>
-<span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Fernando Migliorini Tenório", "Maria…</span>
-<span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "TENÓRIO, F. M.", "SILVA, M. C. J.", …</span>
-<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B", "B", "B", "B", "B", "B", "B…</span>
-<span class="co">#&gt; $ pais.de.nascimento              &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil…</span>
-<span class="co">#&gt; $ uf.nascimento                   &lt;chr&gt; "PR", "BA", "", "BA", "AL", "AL", "MG…</span>
-<span class="co">#&gt; $ cidade.nascimento               &lt;chr&gt; "ARAPONGAS", "EUNAPOLIS", "", "Salvad…</span>
-<span class="co">#&gt; $ permissao.de.divulgacao         &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "N…</span>
-<span class="co">#&gt; $ id                              &lt;chr&gt; "0000000403000690", "0000002580990139…</span>
-<span class="co">#&gt; $ data.atualizacao                &lt;chr&gt; "29022008", "11102009", "28012015", "…</span>
-<span class="co">#&gt; $ data.falecimento                &lt;chr&gt; NA, "", "", "", "", NA, "", "", "", "…</span>
-<span class="co">#&gt; $ sigla.pais.nacionalidade        &lt;chr&gt; NA, NA, "BRA", NA, "BRA", NA, "BRA", …</span>
-<span class="co">#&gt; $ pais.de.nacionalidade           &lt;chr&gt; NA, NA, "Brasil", NA, "Brasil", NA, "…</span>
-<span class="co">#&gt; $ outras.informacoes.relevantes   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ texto.resumo.cv.rh              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
+<span class="co">#&gt; Rows: 2</span>
+<span class="co">#&gt; Columns: 13</span>
+<span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Antonio Marcio Buainain", "Jose Mari…</span>
+<span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "BUAINAIN, Antonio Marcio;Buainain, A…</span>
+<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B"</span>
+<span class="co">#&gt; $ pais.de.nascimento              &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ uf.nascimento                   &lt;chr&gt; "MS", "SP"</span>
+<span class="co">#&gt; $ cidade.nascimento               &lt;chr&gt; "Campo Grande", "São Paulo"</span>
+<span class="co">#&gt; $ permissao.de.divulgacao         &lt;chr&gt; "NAO", "NAO"</span>
+<span class="co">#&gt; $ data.falecimento                &lt;chr&gt; "", ""</span>
+<span class="co">#&gt; $ sigla.pais.nacionalidade        &lt;chr&gt; "BRA", "BRA"</span>
+<span class="co">#&gt; $ pais.de.nacionalidade           &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ orcid.id                        &lt;chr&gt; "https://orcid.org/0000-0002-1779-558…</span>
+<span class="co">#&gt; $ id                              &lt;chr&gt; "3051627641386529", "4984859173592703"</span>
+<span class="co">#&gt; $ data.atualizacao                &lt;chr&gt; "16042020", "20032020"</span></pre></body></html></div>
 <p>To write quickly, I will use pipe <code><a href="https://rdrr.io/pkg/pipeR/man/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> from <code>pipeR</code> package.</p>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="no">glimpse</span>
-<span class="co">#&gt; Rows: 499</span>
-<span class="co">#&gt; Columns: 14</span>
-<span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Fernando Migliorini Tenório", "Maria…</span>
-<span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "TENÓRIO, F. M.", "SILVA, M. C. J.", …</span>
-<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B", "B", "B", "B", "B", "B", "B…</span>
-<span class="co">#&gt; $ pais.de.nascimento              &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil…</span>
-<span class="co">#&gt; $ uf.nascimento                   &lt;chr&gt; "PR", "BA", "", "BA", "AL", "AL", "MG…</span>
-<span class="co">#&gt; $ cidade.nascimento               &lt;chr&gt; "ARAPONGAS", "EUNAPOLIS", "", "Salvad…</span>
-<span class="co">#&gt; $ permissao.de.divulgacao         &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "N…</span>
-<span class="co">#&gt; $ id                              &lt;chr&gt; "0000000403000690", "0000002580990139…</span>
-<span class="co">#&gt; $ data.atualizacao                &lt;chr&gt; "29022008", "11102009", "28012015", "…</span>
-<span class="co">#&gt; $ data.falecimento                &lt;chr&gt; NA, "", "", "", "", NA, "", "", "", "…</span>
-<span class="co">#&gt; $ sigla.pais.nacionalidade        &lt;chr&gt; NA, NA, "BRA", NA, "BRA", NA, "BRA", …</span>
-<span class="co">#&gt; $ pais.de.nacionalidade           &lt;chr&gt; NA, NA, "Brasil", NA, "Brasil", NA, "…</span>
-<span class="co">#&gt; $ outras.informacoes.relevantes   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ texto.resumo.cv.rh              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
+<span class="co">#&gt; Rows: 2</span>
+<span class="co">#&gt; Columns: 13</span>
+<span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Antonio Marcio Buainain", "Jose Mari…</span>
+<span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "BUAINAIN, Antonio Marcio;Buainain, A…</span>
+<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B"</span>
+<span class="co">#&gt; $ pais.de.nascimento              &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ uf.nascimento                   &lt;chr&gt; "MS", "SP"</span>
+<span class="co">#&gt; $ cidade.nascimento               &lt;chr&gt; "Campo Grande", "São Paulo"</span>
+<span class="co">#&gt; $ permissao.de.divulgacao         &lt;chr&gt; "NAO", "NAO"</span>
+<span class="co">#&gt; $ data.falecimento                &lt;chr&gt; "", ""</span>
+<span class="co">#&gt; $ sigla.pais.nacionalidade        &lt;chr&gt; "BRA", "BRA"</span>
+<span class="co">#&gt; $ pais.de.nacionalidade           &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ orcid.id                        &lt;chr&gt; "https://orcid.org/0000-0002-1779-558…</span>
+<span class="co">#&gt; $ id                              &lt;chr&gt; "3051627641386529", "4984859173592703"</span>
+<span class="co">#&gt; $ data.atualizacao                &lt;chr&gt; "16042020", "20032020"</span></pre></body></html></div>
 <p>Where <code>. -&gt; res</code> means the result was saved to <code>res</code> object.</p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getDadosGerais</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     (<span class="no">.</span> <span class="kw">-&gt;</span> <span class="no">res</span>)
 
 <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">res</span>)
-<span class="co">#&gt; Rows: 499</span>
-<span class="co">#&gt; Columns: 14</span>
-<span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Fernando Migliorini Tenório", "Maria…</span>
-<span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "TENÓRIO, F. M.", "SILVA, M. C. J.", …</span>
-<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B", "B", "B", "B", "B", "B", "B…</span>
-<span class="co">#&gt; $ pais.de.nascimento              &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil…</span>
-<span class="co">#&gt; $ uf.nascimento                   &lt;chr&gt; "PR", "BA", "", "BA", "AL", "AL", "MG…</span>
-<span class="co">#&gt; $ cidade.nascimento               &lt;chr&gt; "ARAPONGAS", "EUNAPOLIS", "", "Salvad…</span>
-<span class="co">#&gt; $ permissao.de.divulgacao         &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "N…</span>
-<span class="co">#&gt; $ id                              &lt;chr&gt; "0000000403000690", "0000002580990139…</span>
-<span class="co">#&gt; $ data.atualizacao                &lt;chr&gt; "29022008", "11102009", "28012015", "…</span>
-<span class="co">#&gt; $ data.falecimento                &lt;chr&gt; NA, "", "", "", "", NA, "", "", "", "…</span>
-<span class="co">#&gt; $ sigla.pais.nacionalidade        &lt;chr&gt; NA, NA, "BRA", NA, "BRA", NA, "BRA", …</span>
-<span class="co">#&gt; $ pais.de.nacionalidade           &lt;chr&gt; NA, NA, "Brasil", NA, "Brasil", NA, "…</span>
-<span class="co">#&gt; $ outras.informacoes.relevantes   &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ texto.resumo.cv.rh              &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
+<span class="co">#&gt; Rows: 2</span>
+<span class="co">#&gt; Columns: 13</span>
+<span class="co">#&gt; $ nome.completo                   &lt;chr&gt; "Antonio Marcio Buainain", "Jose Mari…</span>
+<span class="co">#&gt; $ nome.em.citacoes.bibliograficas &lt;chr&gt; "BUAINAIN, Antonio Marcio;Buainain, A…</span>
+<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B"</span>
+<span class="co">#&gt; $ pais.de.nascimento              &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ uf.nascimento                   &lt;chr&gt; "MS", "SP"</span>
+<span class="co">#&gt; $ cidade.nascimento               &lt;chr&gt; "Campo Grande", "São Paulo"</span>
+<span class="co">#&gt; $ permissao.de.divulgacao         &lt;chr&gt; "NAO", "NAO"</span>
+<span class="co">#&gt; $ data.falecimento                &lt;chr&gt; "", ""</span>
+<span class="co">#&gt; $ sigla.pais.nacionalidade        &lt;chr&gt; "BRA", "BRA"</span>
+<span class="co">#&gt; $ pais.de.nacionalidade           &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ orcid.id                        &lt;chr&gt; "https://orcid.org/0000-0002-1779-558…</span>
+<span class="co">#&gt; $ id                              &lt;chr&gt; "3051627641386529", "4984859173592703"</span>
+<span class="co">#&gt; $ data.atualizacao                &lt;chr&gt; "16042020", "20032020"</span></pre></body></html></div>
 <p>It is worth remembering that all variable names obtained by <code>get</code> functions are the transcription of the field names in the <code>XML</code> file, the <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> being replaced with <code>.</code> and the capital letters replaced with lower case letters.</p>
 <div id="advisory" class="section level3">
 <h3 class="hasAnchor">
@@ -309,42 +313,11 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Rows: 55</span>
+<span class="co">#&gt; Rows: 20</span>
 <span class="co">#&gt; Columns: 24</span>
 <span class="co">#&gt; $ natureza                    &lt;chr&gt; "Tese de doutorado", "Tese de doutorado",…</span>
-<span class="co">#&gt; $ titulo                      &lt;chr&gt; "Condicionantes geológicos, geomorfológic…</span>
-<span class="co">#&gt; $ ano                         &lt;chr&gt; "2000", "2000", "2005", "2005", "2004", "…</span>
-<span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", "…</span>
-<span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
-<span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO",…</span>
-<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "CO_ORIENTADOR", "ORIENTADOR_PRINCIPAL", …</span>
-<span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Luiz Almeida Prado Bacelar", "Reiner Oli…</span>
-<span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "020200000009", "020200000009", "02020000…</span>
-<span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Universidade Federal do Rio de Janeiro",…</span>
-<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "31000282", "31000240", "31000240", "3100…</span>
-<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "Engenharia Civil", "Geografia", "Geograf…</span>
-<span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "SIM", "NAO", "SIM", "NAO", "SIM", "NAO",…</span>
-<span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "Fundação de Amparo à Pesquisa do Estado …</span>
-<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "226", "163", "0", "398", "217", "150", "…</span>
-<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "4484335621458630", "", "066901315042…</span>
-<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ id                          &lt;chr&gt; "0000325690951570", "0000325690951570", "…</span>
-<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
-<p>Master Advisory</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesMestrado</span>) <span class="kw">%&gt;&gt;%</span>
-    <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Rows: 149</span>
-<span class="co">#&gt; Columns: 25</span>
-<span class="co">#&gt; $ natureza                    &lt;chr&gt; "Dissertação de mestrado", "Dissertação d…</span>
-<span class="co">#&gt; $ tipo                        &lt;chr&gt; "ACADEMICO", "ACADEMICO", "ACADEMICO", "A…</span>
-<span class="co">#&gt; $ titulo                      &lt;chr&gt; "O Papel da Formiga Sauva (Do Genero Atta…</span>
-<span class="co">#&gt; $ ano                         &lt;chr&gt; "1991", "1995", "1997", "1998", "1998", "…</span>
+<span class="co">#&gt; $ titulo                      &lt;chr&gt; "Redes de Comércio Justo e Solidário: Org…</span>
+<span class="co">#&gt; $ ano                         &lt;chr&gt; "2012", "2009", "2009", "2011", "2015", "…</span>
 <span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", "…</span>
 <span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
 <span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
@@ -352,58 +325,91 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
 <span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "ORIENTADOR_PRINCIPAL", "ORIENTADOR_PRINC…</span>
-<span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Carlos Edgar de Deus", "Marcelo Eduardo …</span>
-<span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "020200000009", "020200000009", "02020000…</span>
-<span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Universidade Federal do Rio de Janeiro",…</span>
-<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "31000240", "31000240", "31000240", "3100…</span>
-<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "Geografia", "Geografia", "Geografia", "G…</span>
-<span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "NAO", "SIM", "SIM", "SIM", "SIM", "SIM",…</span>
+<span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Isabel Fernandes Pinto Viegas", "Patríci…</span>
+<span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "001400000995", "007900000004", "00140000…</span>
+<span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Instituto de Economia - Unicamp", "Unive…</span>
+<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "90000012", "33070202", "90000017", "9000…</span>
+<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "Economia", "Ciência Econômica", "Desenvo…</span>
+<span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO",…</span>
+<span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", "", "", "", "", "", "", "", "0022…</span>
+<span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "", "", "", "", "", "", "", "", "", "Cons…</span>
+<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "", "", "", "", "", "", "229", "", "", ""…</span>
+<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "8711022590286430", "7566270566853161", "…</span>
+<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "Economy", "", "", "", "", "Economy",…</span>
+<span class="co">#&gt; $ id                          &lt;chr&gt; "3051627641386529", "3051627641386529", "…</span></pre></body></html></div>
+<p>Master Advisory</p>
+<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesMestrado</span>) <span class="kw">%&gt;&gt;%</span>
+    <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
+<span class="co">#&gt; Rows: 27</span>
+<span class="co">#&gt; Columns: 25</span>
+<span class="co">#&gt; $ natureza                    &lt;chr&gt; "Dissertação de mestrado", "Dissertação d…</span>
+<span class="co">#&gt; $ tipo                        &lt;chr&gt; "ACADEMICO", "ACADEMICO", "ACADEMICO", "A…</span>
+<span class="co">#&gt; $ titulo                      &lt;chr&gt; "Focalização de políticas públicas: Teori…</span>
+<span class="co">#&gt; $ ano                         &lt;chr&gt; "2004", "2003", "2006", "2005", "2008", "…</span>
+<span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", "…</span>
+<span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
+<span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO",…</span>
+<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "ORIENTADOR_PRINCIPAL", "ORIENTADOR_PRINC…</span>
+<span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Carolina Junqueira Homem de Mello", "Gil…</span>
+<span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "007900000004", "007900000004", "00790000…</span>
+<span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Universidade Estadual de Campinas", "Uni…</span>
+<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "33070202", "60008342", "60008342", "9000…</span>
+<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "Ciência Econômica", "Desenvolvimento Eco…</span>
+<span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO",…</span>
 <span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "", "Coordenação de Aperfeiçoamento de Pe…</span>
-<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "", "142", "153", "104", "136", "118", "1…</span>
-<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "6211918426877457", "", "689326802882…</span>
-<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
-<span class="co">#&gt; $ id                          &lt;chr&gt; "0000325690951570", "0000325690951570", "…</span>
-<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span>
-<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</span></pre></body></html></div>
+<span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", "…</span>
+<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "150", "237", "", "", "", "", "", "", "",…</span>
+<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "", "8747418319288543", "", "50941418…</span>
+<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "Economy", "Economy", "Economy", "", "Eco…</span>
+<span class="co">#&gt; $ id                          &lt;chr&gt; "3051627641386529", "3051627641386529", "…</span></pre></body></html></div>
 <p>Post Doctorate</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesPosDoutorado</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Rows: 6</span>
-<span class="co">#&gt; Columns: 22</span>
+<span class="co">#&gt; Rows: 3</span>
+<span class="co">#&gt; Columns: 24</span>
 <span class="co">#&gt; $ natureza                    &lt;chr&gt; "Supervisão de pós-doutorado", "Supervisã…</span>
-<span class="co">#&gt; $ titulo                      &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ ano                         &lt;chr&gt; "2013", "2013", "2011", "2013", "2011", "…</span>
-<span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", "…</span>
-<span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português", "P…</span>
-<span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO"</span>
-<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Bruno Henriques Coutinho", "Anderson Mul…</span>
-<span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "020200000009", "020200000009", "06140000…</span>
-<span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Universidade Federal do Rio de Janeiro",…</span>
-<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "SIM", "NAO", "SIM", "SIM", "SIM", "SIM"</span>
-<span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "Conselho Nacional de Desenvolvimento Cie…</span>
-<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", "", "", "", ""</span>
-<span class="co">#&gt; $ id                          &lt;chr&gt; "0000325690951570", "0000325690951570", "…</span></pre></body></html></div>
+<span class="co">#&gt; $ titulo                      &lt;chr&gt; "", "Avaliação de Impactos Socioeconômico…</span>
+<span class="co">#&gt; $ ano                         &lt;chr&gt; "2010", "2011", "2013"</span>
+<span class="co">#&gt; $ pais                        &lt;chr&gt; "Brasil", "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ idioma                      &lt;chr&gt; "Português", "Português", "Português"</span>
+<span class="co">#&gt; $ home.page                   &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ flag.relevancia             &lt;chr&gt; "NAO", "NAO", "NAO"</span>
+<span class="co">#&gt; $ doi                         &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ titulo.ingles               &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ tipo.de.orientacao          &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ nome.do.orientado           &lt;chr&gt; "Maria Ester Soares Dal Poz", "Divina Apa…</span>
+<span class="co">#&gt; $ codigo.instituicao          &lt;chr&gt; "003100000996", "007900000004", "00790000…</span>
+<span class="co">#&gt; $ nome.da.instituicao         &lt;chr&gt; "Instituto de Economia - Unicamp", "Unive…</span>
+<span class="co">#&gt; $ codigo.orgao                &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ nome.orgao                  &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ codigo.curso                &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ nome.do.curso               &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ flag.bolsa                  &lt;chr&gt; "NAO", "NAO", "NAO"</span>
+<span class="co">#&gt; $ codigo.agencia.financiadora &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ nome.da.agencia             &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ numero.de.paginas           &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ numero.id.orientado         &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ nome.do.curso.ingles        &lt;chr&gt; "", "", ""</span>
+<span class="co">#&gt; $ id                          &lt;chr&gt; "4984859173592703", "4984859173592703", "…</span></pre></body></html></div>
 <p>Other</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getOrientacoesOutras</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>()
-<span class="co">#&gt; Rows: 1,054</span>
+<span class="co">#&gt; Rows: 74</span>
 <span class="co">#&gt; Columns: 24</span>
-<span class="co">#&gt; $ natureza                     &lt;chr&gt; "MONOGRAFIA_DE_CONCLUSAO_DE_CURSO_APERFE…</span>
+<span class="co">#&gt; $ natureza                     &lt;chr&gt; "INICIACAO_CIENTIFICA", "INICIACAO_CIENT…</span>
 <span class="co">#&gt; $ tipo                         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
-<span class="co">#&gt; $ titulo                       &lt;chr&gt; "Estudo dos Aspectos da Aerofauna e Inve…</span>
-<span class="co">#&gt; $ ano                          &lt;chr&gt; "2005", "2005", "2002", "2002", "2002", …</span>
+<span class="co">#&gt; $ titulo                       &lt;chr&gt; "Fatores condicionantes aos investimento…</span>
+<span class="co">#&gt; $ ano                          &lt;chr&gt; "2000", "1988", "2000", "2003", "2003", …</span>
 <span class="co">#&gt; $ pais                         &lt;chr&gt; "Brasil", "Brasil", "Brasil", "Brasil", …</span>
 <span class="co">#&gt; $ idioma                       &lt;chr&gt; "Português", "Português", "Português", "…</span>
 <span class="co">#&gt; $ home.page                    &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
@@ -411,19 +417,19 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; $ doi                          &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ titulo.ingles                &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ tipo.ingles                  &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
-<span class="co">#&gt; $ nome.do.orientado            &lt;chr&gt; "Rodrigo Ribeiro Freitas", "Greicy Zacca…</span>
-<span class="co">#&gt; $ codigo.instituicao           &lt;chr&gt; "125200000006", "125200000006", "1252000…</span>
-<span class="co">#&gt; $ nome.da.instituicao          &lt;chr&gt; "Universidade do Extremo Sul Catarinense…</span>
-<span class="co">#&gt; $ codigo.curso                 &lt;chr&gt; "90000043", "90000043", "60138670", "900…</span>
-<span class="co">#&gt; $ nome.do.curso                &lt;chr&gt; "Gestão Ambiental", "Gestão Ambiental", …</span>
-<span class="co">#&gt; $ flag.bolsa                   &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NAO"…</span>
-<span class="co">#&gt; $ codigo.agencia.financiadora  &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
-<span class="co">#&gt; $ nome.da.agencia              &lt;chr&gt; "", "", "", "", "", "", "", "", "", "Con…</span>
-<span class="co">#&gt; $ tipo.de.orientacao.concluida &lt;chr&gt; "", "", "", "ORIENTADOR_PRINCIPAL", "ORI…</span>
-<span class="co">#&gt; $ numero.de.paginas            &lt;chr&gt; "", "", "", "25", "32", "18", "28", "31"…</span>
+<span class="co">#&gt; $ nome.do.orientado            &lt;chr&gt; "Daniela Silva Pires", "Jeane Shigueko U…</span>
+<span class="co">#&gt; $ codigo.instituicao           &lt;chr&gt; "001400000995", "001400000995", "0014000…</span>
+<span class="co">#&gt; $ nome.da.instituicao          &lt;chr&gt; "Instituto de Economia - Unicamp", "Inst…</span>
+<span class="co">#&gt; $ codigo.curso                 &lt;chr&gt; "90000014", "90000014", "90000014", "900…</span>
+<span class="co">#&gt; $ nome.do.curso                &lt;chr&gt; "Economia", "Economia", "Economia", "Eco…</span>
+<span class="co">#&gt; $ flag.bolsa                   &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "SIM"…</span>
+<span class="co">#&gt; $ codigo.agencia.financiadora  &lt;chr&gt; "", "", "", "", "", "037700000002", "", …</span>
+<span class="co">#&gt; $ nome.da.agencia              &lt;chr&gt; "", "", "", "", "", "Fundação de Amparo …</span>
+<span class="co">#&gt; $ tipo.de.orientacao.concluida &lt;chr&gt; "CO_ORIENTADOR", "CO_ORIENTADOR", "CO_OR…</span>
+<span class="co">#&gt; $ numero.de.paginas            &lt;chr&gt; "0", "0", "0", "0", "0", "", "", "", "",…</span>
 <span class="co">#&gt; $ numero.id.orientado          &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
 <span class="co">#&gt; $ nome.do.curso.ingles         &lt;chr&gt; "", "", "", "", "", "", "", "", "", "", …</span>
-<span class="co">#&gt; $ id                           &lt;chr&gt; "0000021871668960", "0000021871668960", …</span></pre></body></html></div>
+<span class="co">#&gt; $ id                           &lt;chr&gt; "3051627641386529", "3051627641386529", …</span></pre></body></html></div>
 </div>
 </div>
 <div id="published-academic-papers" class="section level2">
@@ -434,23 +440,32 @@ include     se falso, executa mas não inclui o chunk no relatório
     <span class="no">as_tibble</span> <span class="kw">%&gt;&gt;%</span>
     (<span class="no">.</span> <span class="kw">-&gt;</span> <span class="no">pub</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">pub</span>)
-<span class="co">#&gt; # A tibble: 6 x 23</span>
-<span class="co">#&gt;   natureza titulo.do.artigo ano.do.artigo pais.de.publica… idioma</span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt; </span>
-<span class="co">#&gt; 1 COMPLETO Modeling the sp… 2013          ""               Inglês</span>
-<span class="co">#&gt; 2 COMPLETO Photorefractive… 2011          ""               Portu…</span>
-<span class="co">#&gt; 3 COMPLETO Pump-induced re… 2015          ""               Inglês</span>
-<span class="co">#&gt; 4 COMPLETO Frozen waves: e… 2012          ""               Inglês</span>
-<span class="co">#&gt; 5 COMPLETO Desenvolvimento… 2013          ""               Portu…</span>
-<span class="co">#&gt; 6 COMPLETO Avaliação do Si… 2014          ""               Portu…</span>
-<span class="co">#&gt; # … with 18 more variables: meio.de.divulgacao &lt;chr&gt;,</span>
-<span class="co">#&gt; #   home.page.do.trabalho &lt;chr&gt;, flag.relevancia &lt;chr&gt;, doi &lt;chr&gt;,</span>
-<span class="co">#&gt; #   titulo.do.artigo.ingles &lt;chr&gt;, flag.divulgacao.cientifica &lt;chr&gt;,</span>
-<span class="co">#&gt; #   titulo.do.periodico.ou.revista &lt;chr&gt;, issn &lt;chr&gt;, volume &lt;chr&gt;,</span>
-<span class="co">#&gt; #   fasciculo &lt;chr&gt;, serie &lt;chr&gt;, pagina.inicial &lt;chr&gt;, pagina.final &lt;chr&gt;,</span>
-<span class="co">#&gt; #   local.de.publicacao &lt;chr&gt;, autores &lt;chr&gt;, autores.citacoes &lt;chr&gt;,</span>
-<span class="co">#&gt; #   autores.id &lt;chr&gt;, id &lt;chr&gt;</span></pre></body></html></div>
+<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">glimpse</a></span>(<span class="no">pub</span>)
+<span class="co">#&gt; Rows: 183</span>
+<span class="co">#&gt; Columns: 23</span>
+<span class="co">#&gt; $ natureza                       &lt;chr&gt; "COMPLETO", "COMPLETO", "COMPLETO", "C…</span>
+<span class="co">#&gt; $ titulo.do.artigo               &lt;chr&gt; "Notas sobre a produção de alimentos e…</span>
+<span class="co">#&gt; $ ano.do.artigo                  &lt;chr&gt; "1988", "1994", "1996", "2000", "2002"…</span>
+<span class="co">#&gt; $ pais.de.publicacao             &lt;chr&gt; "", "", "", "", "", "", "", "", "", ""…</span>
+<span class="co">#&gt; $ idioma                         &lt;chr&gt; "Português", "Inglês", "Português", "P…</span>
+<span class="co">#&gt; $ meio.de.divulgacao             &lt;chr&gt; "IMPRESSO", "IMPRESSO", "IMPRESSO", "I…</span>
+<span class="co">#&gt; $ home.page.do.trabalho          &lt;chr&gt; "", "", "", "", "[http://www.economia.…</span>
+<span class="co">#&gt; $ flag.relevancia                &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NA…</span>
+<span class="co">#&gt; $ doi                            &lt;chr&gt; "", "", "", "", "", "", "", "", "", ""…</span>
+<span class="co">#&gt; $ titulo.do.artigo.ingles        &lt;chr&gt; "", "", "", "", "", "", "", "", "", ""…</span>
+<span class="co">#&gt; $ flag.divulgacao.cientifica     &lt;chr&gt; "NAO", "NAO", "NAO", "NAO", "NAO", "NA…</span>
+<span class="co">#&gt; $ titulo.do.periodico.ou.revista &lt;chr&gt; "Revista Ensaios Economia", "Revista B…</span>
+<span class="co">#&gt; $ issn                           &lt;chr&gt; "", "00347140", "", "14139375", "15171…</span>
+<span class="co">#&gt; $ volume                         &lt;chr&gt; "4-5", "48", "1", "9", "4", "2", "1", …</span>
+<span class="co">#&gt; $ fasciculo                      &lt;chr&gt; "2-1", "4", "2", "", "2", "1", "1", ""…</span>
+<span class="co">#&gt; $ serie                          &lt;chr&gt; "", "", "", "", "2", "1", "1", "", "6"…</span>
+<span class="co">#&gt; $ pagina.inicial                 &lt;chr&gt; "111", "1", "14", "145", "305", "3", "…</span>
+<span class="co">#&gt; $ pagina.final                   &lt;chr&gt; "133", "20", "22", "153", "313", "47",…</span>
+<span class="co">#&gt; $ local.de.publicacao            &lt;chr&gt; "Belo Horizonte/Minas Gerais", "Rio de…</span>
+<span class="co">#&gt; $ autores                        &lt;chr&gt; "Antonio Marcio Buainain", "Antonio Ma…</span>
+<span class="co">#&gt; $ autores.citacoes               &lt;chr&gt; "BUAINAIN, Antonio Marcio;Buainain, An…</span>
+<span class="co">#&gt; $ autores.id                     &lt;chr&gt; "3051627641386529", "3051627641386529;…</span>
+<span class="co">#&gt; $ id                             &lt;chr&gt; "3051627641386529", "3051627641386529"…</span></pre></body></html></div>
 </div>
 <div id="normalize-functions" class="section level2">
 <h2 class="hasAnchor">
@@ -460,20 +475,20 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p><code>normalizeByDoi</code> groups all articles together as the same DOI code and uses the most frequent information in the title, year, and journal’s name.</p>
 <div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="co"># use explict arguments</span>
 <span class="fu"><a href="../reference/normalizeByDoi.html">normalizeByDoi</a></span>( <span class="no">pub</span>, <span class="kw">doi</span><span class="kw">=</span><span class="st">'doi'</span>, <span class="kw">year</span><span class="kw">=</span><span class="st">'ano.do.artigo'</span>, <span class="kw">issn</span><span class="kw">=</span><span class="st">'issn'</span>, <span class="kw">paperTitle</span><span class="kw">=</span><span class="st">'titulo.do.artigo'</span>, <span class="kw">journalName</span><span class="kw">=</span><span class="st">'titulo.do.periodico.ou.revista'</span>)
-<span class="co">#&gt; # A tibble: 847 x 28</span>
+<span class="co">#&gt; # A tibble: 183 x 28</span>
 <span class="co">#&gt;    natureza titulo.do.artig… ano.do.artigo_o… pais.de.publica… idioma</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt; </span>
-<span class="co">#&gt;  1 COMPLETO Modeling the sp… 2013             ""               Inglês</span>
-<span class="co">#&gt;  2 COMPLETO Photorefractive… 2011             ""               Portu…</span>
-<span class="co">#&gt;  3 COMPLETO Pump-induced re… 2015             ""               Inglês</span>
-<span class="co">#&gt;  4 COMPLETO Frozen waves: e… 2012             ""               Inglês</span>
-<span class="co">#&gt;  5 COMPLETO Desenvolvimento… 2013             ""               Portu…</span>
-<span class="co">#&gt;  6 COMPLETO Avaliação do Si… 2014             ""               Portu…</span>
-<span class="co">#&gt;  7 COMPLETO Pinhão manso (J… 2013             ""               Portu…</span>
-<span class="co">#&gt;  8 COMPLETO Município de Cé… 2013             ""               Portu…</span>
-<span class="co">#&gt;  9 COMPLETO Calculo do Indi… 2013             ""               Portu…</span>
-<span class="co">#&gt; 10 COMPLETO Milho (Zea Mays… 2012             ""               Portu…</span>
-<span class="co">#&gt; # … with 837 more rows, and 23 more variables: meio.de.divulgacao &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 COMPLETO Notas sobre a p… 1988             ""               Portu…</span>
+<span class="co">#&gt;  2 COMPLETO Structural adju… 1994             ""               Inglês</span>
+<span class="co">#&gt;  3 COMPLETO Agribusiness e … 1996             ""               Portu…</span>
+<span class="co">#&gt;  4 COMPLETO Propriedade int… 2000             ""               Portu…</span>
+<span class="co">#&gt;  5 COMPLETO Comentários sob… 2002             ""               Portu…</span>
+<span class="co">#&gt;  6 COMPLETO Does community-… 2001             ""               Inglês</span>
+<span class="co">#&gt;  7 COMPLETO In search of me… 2004             ""               Portu…</span>
+<span class="co">#&gt;  8 COMPLETO Desafios dos pr… 2003             ""               Portu…</span>
+<span class="co">#&gt;  9 COMPLETO Por que reforma… 2003             ""               Portu…</span>
+<span class="co">#&gt; 10 COMPLETO Software livre … 2004             ""               Portu…</span>
+<span class="co">#&gt; # … with 173 more rows, and 23 more variables: meio.de.divulgacao &lt;chr&gt;,</span>
 <span class="co">#&gt; #   home.page.do.trabalho &lt;chr&gt;, flag.relevancia &lt;chr&gt;, doi.x &lt;chr&gt;,</span>
 <span class="co">#&gt; #   titulo.do.artigo.ingles &lt;chr&gt;, flag.divulgacao.cientifica &lt;chr&gt;,</span>
 <span class="co">#&gt; #   titulo.do.periodico.ou.revista_old &lt;chr&gt;, issn_old &lt;chr&gt;, volume &lt;chr&gt;,</span>
@@ -485,20 +500,20 @@ include     se falso, executa mas não inclui o chunk no relatório
 
 <span class="co"># use de defult data frame from getArtigosPublicados</span>
 <span class="fu"><a href="../reference/normalizeByDoi.html">normalizeByDoi</a></span>(<span class="no">pub</span>)
-<span class="co">#&gt; # A tibble: 847 x 28</span>
+<span class="co">#&gt; # A tibble: 183 x 28</span>
 <span class="co">#&gt;    natureza titulo.do.artig… ano.do.artigo_o… pais.de.publica… idioma</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt; </span>
-<span class="co">#&gt;  1 COMPLETO Modeling the sp… 2013             ""               Inglês</span>
-<span class="co">#&gt;  2 COMPLETO Photorefractive… 2011             ""               Portu…</span>
-<span class="co">#&gt;  3 COMPLETO Pump-induced re… 2015             ""               Inglês</span>
-<span class="co">#&gt;  4 COMPLETO Frozen waves: e… 2012             ""               Inglês</span>
-<span class="co">#&gt;  5 COMPLETO Desenvolvimento… 2013             ""               Portu…</span>
-<span class="co">#&gt;  6 COMPLETO Avaliação do Si… 2014             ""               Portu…</span>
-<span class="co">#&gt;  7 COMPLETO Pinhão manso (J… 2013             ""               Portu…</span>
-<span class="co">#&gt;  8 COMPLETO Município de Cé… 2013             ""               Portu…</span>
-<span class="co">#&gt;  9 COMPLETO Calculo do Indi… 2013             ""               Portu…</span>
-<span class="co">#&gt; 10 COMPLETO Milho (Zea Mays… 2012             ""               Portu…</span>
-<span class="co">#&gt; # … with 837 more rows, and 23 more variables: meio.de.divulgacao &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 COMPLETO Notas sobre a p… 1988             ""               Portu…</span>
+<span class="co">#&gt;  2 COMPLETO Structural adju… 1994             ""               Inglês</span>
+<span class="co">#&gt;  3 COMPLETO Agribusiness e … 1996             ""               Portu…</span>
+<span class="co">#&gt;  4 COMPLETO Propriedade int… 2000             ""               Portu…</span>
+<span class="co">#&gt;  5 COMPLETO Comentários sob… 2002             ""               Portu…</span>
+<span class="co">#&gt;  6 COMPLETO Does community-… 2001             ""               Inglês</span>
+<span class="co">#&gt;  7 COMPLETO In search of me… 2004             ""               Portu…</span>
+<span class="co">#&gt;  8 COMPLETO Desafios dos pr… 2003             ""               Portu…</span>
+<span class="co">#&gt;  9 COMPLETO Por que reforma… 2003             ""               Portu…</span>
+<span class="co">#&gt; 10 COMPLETO Software livre … 2004             ""               Portu…</span>
+<span class="co">#&gt; # … with 173 more rows, and 23 more variables: meio.de.divulgacao &lt;chr&gt;,</span>
 <span class="co">#&gt; #   home.page.do.trabalho &lt;chr&gt;, flag.relevancia &lt;chr&gt;, doi.x &lt;chr&gt;,</span>
 <span class="co">#&gt; #   titulo.do.artigo.ingles &lt;chr&gt;, flag.divulgacao.cientifica &lt;chr&gt;,</span>
 <span class="co">#&gt; #   titulo.do.periodico.ou.revista_old &lt;chr&gt;, issn_old &lt;chr&gt;, volume &lt;chr&gt;,</span>
@@ -518,14 +533,14 @@ include     se falso, executa mas não inclui o chunk no relatório
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">issn_old</span>, <span class="no">issn</span>, <span class="no">titulo.do.periodico.ou.revista_old</span>, <span class="no">titulo.do.periodico.ou.revista</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">tail</span>
 <span class="co">#&gt; # A tibble: 6 x 4</span>
-<span class="co">#&gt;   issn_old issn     titulo.do.periodico.ou.revista… titulo.do.periodico.ou.revi…</span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                           &lt;chr&gt;                       </span>
-<span class="co">#&gt; 1 23180587 23180587 Revista de Pesquisa em Saúde    Revista de Pesquisa em Saúde</span>
-<span class="co">#&gt; 2 23180587 23180587 Revista de Pesquisa em Saúde    Revista de Pesquisa em Saúde</span>
-<span class="co">#&gt; 3 23180587 23180587 Revista de Pesquisa em Saúde    Revista de Pesquisa em Saúde</span>
-<span class="co">#&gt; 4 23401079 23401079 INTED 2015 PROCEEDINGS          INTED 2015 PROCEEDINGS      </span>
-<span class="co">#&gt; 5 23594330 23594330 Rev. de Atenção à Saúde         Rev. de Atenção à Saúde     </span>
-<span class="co">#&gt; 6 511 8    511 8    Revista Brasileira de Computaç… Revista Brasileira de Compu…</span></pre></body></html></div>
+<span class="co">#&gt;   issn_old issn    titulo.do.periodico.ou.revist… titulo.do.periodico.ou.revista</span>
+<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;                          &lt;chr&gt;                         </span>
+<span class="co">#&gt; 1 23587024 151950… REVISTA DE ESTUDOS SOCIAIS     REVISTA DE ESTUDOS SOCIAIS    </span>
+<span class="co">#&gt; 2 24112933 241129… INTERNATIONAL JOURNAL FOR INN… INTERNATIONAL JOURNAL FOR INN…</span>
+<span class="co">#&gt; 3 25265539 167916… REVISTA DE ECONOMIA E AGRONEG… REVISTA DE ECONOMIA E AGRONEG…</span>
+<span class="co">#&gt; 4 32345234 323452… LIINC em Revista               LIINC em Revista              </span>
+<span class="co">#&gt; 5 7891678X 789167… Asset Markets and Acess        Asset Markets and Acess       </span>
+<span class="co">#&gt; 6 7891678X 789167… Asset Markets and Acess        Asset Markets and Acess</span></pre></body></html></div>
 <p>Finally, if two papers have the same title and were published in the same journal, the year can be normalized with:</p>
 <div class="sourceCode" id="cb17"><html><body><pre class="r">
 <span class="co"># use explict arguments</span>
@@ -538,14 +553,14 @@ include     se falso, executa mas não inclui o chunk no relatório
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">ano_old</span>, <span class="no">ano</span>, <span class="no">issn</span>, <span class="no">titulo.do.periodico.ou.revista</span>, <span class="no">titulo.do.artigo</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">head</span>
 <span class="co">#&gt; # A tibble: 6 x 5</span>
-<span class="co">#&gt;   ano_old ano   issn    titulo.do.periodico.ou.… titulo.do.artigo               </span>
-<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;                    &lt;chr&gt;                          </span>
-<span class="co">#&gt; 1 1974    1974  "00066… Boletim Paulista de Geo… Formacao Macacu: variações tex…</span>
-<span class="co">#&gt; 2 1979    1979  ""      Revista Brasileira de H… Análise de Frequência de Chuva…</span>
-<span class="co">#&gt; 3 1980    1980  "00347… Revista Brasileira de G… Os Solos e Hidrologia das Enco…</span>
-<span class="co">#&gt; 4 1981    1981  ""      REVISTA BRASILEIRA DE H… Ritmos e Variabialidade das Pr…</span>
-<span class="co">#&gt; 5 1982    1982  "00218… Journal of Algebra (Pri… On weak commutativity between …</span>
-<span class="co">#&gt; 6 1983    1983  "02636… Journal of Hypertension  Plasma endogenous sodium pump …</span></pre></body></html></div>
+<span class="co">#&gt;   ano_old ano   issn    titulo.do.periodico.o… titulo.do.artigo                 </span>
+<span class="co">#&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;                  &lt;chr&gt;                            </span>
+<span class="co">#&gt; 1 1984    1984  ""      Revista Brasileira de… O melhoramento vegetal e os impa…</span>
+<span class="co">#&gt; 2 1986    1986  ""      Revista da ANPEC       O programa de estabilização e a …</span>
+<span class="co">#&gt; 3 1986    1986  "01041… Cadernos de Ciência &amp;… O desenvolvimento das biotecnolo…</span>
+<span class="co">#&gt; 4 1988    1988  ""      Revista Ensaios Econo… Notas sobre a produção de alimen…</span>
+<span class="co">#&gt; 5 1988    1988  ""      Temas Rurais           Estrutura agrária e irrigação no…</span>
+<span class="co">#&gt; 6 1988    1988  "01032… Revista de Economia e… O desenvolvimento da biotecnolog…</span></pre></body></html></div>
 <p>To type less, we can do:</p>
 <div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="no">xmlsLattes</span>, <span class="no">getArtigosPublicados</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="no">bind_rows</span> <span class="kw">%&gt;&gt;%</span>
@@ -556,18 +571,18 @@ include     se falso, executa mas não inclui o chunk no relatório
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span>(<span class="no">titulo.do.artigo</span>,<span class="no">ano.do.artigo</span>,<span class="no">issn</span>,<span class="no">titulo.do.periodico.ou.revista</span>,<span class="no">id</span>) <span class="kw">%&gt;&gt;%</span>
     <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice</a></span>(<span class="fl">1</span>:<span class="fl">10</span>)
 <span class="co">#&gt; # A tibble: 10 x 5</span>
-<span class="co">#&gt;    titulo.do.artigo           ano.do.artigo issn   titulo.do.periodico.o… id    </span>
-<span class="co">#&gt;    &lt;chr&gt;                      &lt;chr&gt;         &lt;chr&gt;  &lt;chr&gt;                  &lt;chr&gt; </span>
-<span class="co">#&gt;  1 Formacao Macacu: variaçõe… 1974          00066… Boletim Paulista de G… 00003…</span>
-<span class="co">#&gt;  2 Análise de Frequência de … 1979          noISS… Revista Brasileira de… 00003…</span>
-<span class="co">#&gt;  3 Os Solos e Hidrologia das… 1980          00347… Revista Brasileira de… 00003…</span>
-<span class="co">#&gt;  4 Ritmos e Variabialidade d… 1981          noISS… REVISTA BRASILEIRA DE… 00003…</span>
-<span class="co">#&gt;  5 On weak commutativity bet… 1982          00218… Journal of Algebra (P… 00005…</span>
-<span class="co">#&gt;  6 Plasma endogenous sodium … 1983          02636… Journal of Hypertensi… 00001…</span>
-<span class="co">#&gt;  7 Central Hypertensive Effe… 1984          00039… Archives Internationa… 00001…</span>
-<span class="co">#&gt;  8 Uma Nota Sobre A Estrutur… 1985          01028… Matemática Universitá… 00005…</span>
-<span class="co">#&gt;  9 Diagonal Embeddings Of Ni… 1986          00192… Illinois Journal of M… 00005…</span>
-<span class="co">#&gt; 10 A Grande Alma              1986          noISS… Crônicas: Este Mundo … 00002…</span></pre></body></html></div>
+<span class="co">#&gt;    titulo.do.artigo             ano.do.artigo issn  titulo.do.periodico… id     </span>
+<span class="co">#&gt;    &lt;chr&gt;                        &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;                &lt;chr&gt;  </span>
+<span class="co">#&gt;  1 O melhoramento vegetal e os… 1984          noIS… Revista Brasileira … 498485…</span>
+<span class="co">#&gt;  2 O desenvolvimento das biote… 1986          0104… Cadernos de Ciência… 498485…</span>
+<span class="co">#&gt;  3 O programa de estabilização… 1986          noIS… Revista da ANPEC     305162…</span>
+<span class="co">#&gt;  4 O desenvolvimento da biotec… 1988          0103… Revista de Economia… 498485…</span>
+<span class="co">#&gt;  5 Biotecnologia: conceituação… 1988          0103… Texto para Discussã… 498485…</span>
+<span class="co">#&gt;  6 Notas sobre a produção de a… 1988          noIS… Revista Ensaios Eco… 305162…</span>
+<span class="co">#&gt;  7 Estrutura agrária e irrigaç… 1988          noIS… Temas Rurais         305162…</span>
+<span class="co">#&gt;  8 Estrutura agrária e irrigaç… 1988          noIS… Revista de Temas Ru… 498485…</span>
+<span class="co">#&gt;  9 Estrutura Agrária e Irrigaç… 1989          0100… Revista Econômica d… 305162…</span>
+<span class="co">#&gt; 10 O Plano Nacional de Defensi… 1990          0044… Agricultura em São … 498485…</span></pre></body></html></div>
 </div>
 <div id="merge-data" class="section level2">
 <h2 class="hasAnchor">
@@ -585,16 +600,16 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; # A tibble: 10 x 7</span>
 <span class="co">#&gt;    titulo.do.artigo ano.do.artigo issn  titulo.do.perio… id    nome.completo</span>
 <span class="co">#&gt;    &lt;chr&gt;            &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;        </span>
-<span class="co">#&gt;  1 Formacao Macacu… 1974          0006… Boletim Paulist… 0000… Ana Luiza Co…</span>
-<span class="co">#&gt;  2 Análise de Freq… 1979          noIS… Revista Brasile… 0000… Ana Luiza Co…</span>
-<span class="co">#&gt;  3 Os Solos e Hidr… 1980          0034… Revista Brasile… 0000… Ana Luiza Co…</span>
-<span class="co">#&gt;  4 Ritmos e Variab… 1981          noIS… REVISTA BRASILE… 0000… Ana Luiza Co…</span>
-<span class="co">#&gt;  5 On weak commuta… 1982          0021… Journal of Alge… 0000… Norai Romeu …</span>
-<span class="co">#&gt;  6 Plasma endogeno… 1983          0263… Journal of Hype… 0000… Luiza Cristi…</span>
-<span class="co">#&gt;  7 Central Hyperte… 1984          0003… Archives Intern… 0000… Luiza Cristi…</span>
-<span class="co">#&gt;  8 Uma Nota Sobre … 1985          0102… Matemática Univ… 0000… Norai Romeu …</span>
-<span class="co">#&gt;  9 Diagonal Embedd… 1986          0019… Illinois Journa… 0000… Norai Romeu …</span>
-<span class="co">#&gt; 10 A Grande Alma    1986          noIS… Crônicas: Este … 0000… Ruy Magalhãe…</span>
+<span class="co">#&gt;  1 O melhoramento … 1984          noIS… Revista Brasile… 4984… Jose Maria F…</span>
+<span class="co">#&gt;  2 O desenvolvimen… 1986          0104… Cadernos de Ciê… 4984… Jose Maria F…</span>
+<span class="co">#&gt;  3 O programa de e… 1986          noIS… Revista da ANPEC 3051… Antonio Marc…</span>
+<span class="co">#&gt;  4 O desenvolvimen… 1988          0103… Revista de Econ… 4984… Jose Maria F…</span>
+<span class="co">#&gt;  5 Biotecnologia: … 1988          0103… Texto para Disc… 4984… Jose Maria F…</span>
+<span class="co">#&gt;  6 Notas sobre a p… 1988          noIS… Revista Ensaios… 3051… Antonio Marc…</span>
+<span class="co">#&gt;  7 Estrutura agrár… 1988          noIS… Temas Rurais     3051… Antonio Marc…</span>
+<span class="co">#&gt;  8 Estrutura agrár… 1988          noIS… Revista de Tema… 4984… Jose Maria F…</span>
+<span class="co">#&gt;  9 Estrutura Agrár… 1989          0100… Revista Econômi… 3051… Antonio Marc…</span>
+<span class="co">#&gt; 10 O Plano Naciona… 1990          0044… Agricultura em … 4984… Jose Maria F…</span>
 <span class="co">#&gt; # … with 1 more variable: pais.de.nascimento &lt;chr&gt;</span></pre></body></html></div>
 </div>
   </div>

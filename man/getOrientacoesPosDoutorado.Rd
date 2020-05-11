@@ -19,15 +19,13 @@ Extract Academic Advisory (Post-Doctorate) from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getOrientacoesPosDoutorado(xmlsLattes[[499]])
+ getOrientacoesPosDoutorado(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getOrientacoesPosDoutorado)
  head(bind_rows(lt))
  }
-}
 }

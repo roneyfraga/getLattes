@@ -17,3 +17,14 @@ Unzip Lattes file to XML preserving 16 digits id as the file name.
 \details{
 Only zip files with 16 digits Lattes ids will be extracted.
 }
+\examples{
+\dontrun{
+if(interactive()){
+
+unzipLattes(filezip='*.zip')
+ 
+# to import from a diferent directory
+# unzipLattes(filezip='*.zip', path='data/')
+ }
+}
+}

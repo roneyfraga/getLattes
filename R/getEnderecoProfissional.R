@@ -4,17 +4,15 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getEnderecoProfissional(xmlsLattes[[499]])
+#'  getEnderecoProfissional(xmlsLattes[[2]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(xmlsLattes, getEnderecoProfissional)
 #'  head(bind_rows(lt))
 #'  }
-#' }
 #' @rdname getEnderecoProfissional
 #' @export 
 getEnderecoProfissional <- function(curriculo){

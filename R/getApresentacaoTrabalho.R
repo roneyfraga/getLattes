@@ -4,17 +4,16 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getApresentacaoTrabalho(xmlsLattes[[499]])
+#'  getApresentacaoTrabalho(xmlsLattes2[[2]])
 #'
 #'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getApresentacaoTrabalho)
-#'  head(bind_rows(lt))
+#'  lapply(xmlsLattes, getApresentacaoTrabalho) %>>% 
+#'     bind_rows %>>% 
+#'     as_tibble
 #'  }
-#' }
 #' @rdname getApresentacaoTrabalho
 #' @export 
 #' @importFrom dplyr bind_cols bind_rows 

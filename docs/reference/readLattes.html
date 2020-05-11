@@ -154,6 +154,18 @@
 
     <p>filexml XML file locally stored</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
+<span class='co'># to import only one file</span>
+<span class='fu'>readLattes</span>(<span class='kw'>filexml</span><span class='kw'>=</span><span class='st'>'4984859173592703.zip.xml'</span>)
+<span class='co'># to import several files</span>
+<span class='fu'>readLattes</span>(<span class='kw'>filexml</span><span class='kw'>=</span><span class='st'>'*.xml$'</span>)
+
+<span class='co'># to specify a direferent directory</span>
+<span class='co'># readLattes(filexml='*.xml$', path='data/)</span>
+}
+}</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

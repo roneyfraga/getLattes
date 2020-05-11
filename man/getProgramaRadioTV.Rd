@@ -19,15 +19,13 @@ Extract TV and Radio Program from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getProgramaRadioTV(xmlsLattes[[499]])
+ getProgramaRadioTV(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getProgramaRadioTV)
  head(bind_rows(lt))
  }
-}
 }

@@ -6,8 +6,12 @@
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
-#' unzipLattes(filezip='*.zip', path='.')
-#' unzipLattes(filezip='*.zip', path='data/')
+#' 
+#' unzipLattes(filezip='*.zip')
+#'  
+#' # to import from a diferent directory
+#' # unzipLattes(filezip='*.zip', path='data/')
+#'  }
 #' }
 #' @export 
 #' @importFrom utils unzip

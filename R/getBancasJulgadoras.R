@@ -4,17 +4,15 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getBancasJulgadoras(xmlsLattes[[499]])
+#'  getBancasJulgadoras(xmlsLattes[[2]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(xmlsLattes, getBancasJulgadoras)
 #'  head(bind_rows(lt))
 #'  }
-#' }
 #' @rdname getBancasJulgadoras
 #' @export 
 getBancasJulgadoras <- function(curriculo){

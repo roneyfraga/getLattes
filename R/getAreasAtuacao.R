@@ -4,17 +4,15 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
 #' if(interactive()){
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
-#'  getAreasAtuacao(xmlsLattes[[499]])
+#'  getAreasAtuacao(xmlsLattes[[2]])
 #'
 #'  # to import from two or more curricula
 #'  lt <- lapply(xmlsLattes, getAreasAtuacao)
 #'  head(bind_rows(lt))
 #'  }
-#' }
 #' @rdname getAreasAtuacao
 #' @export 
 getAreasAtuacao <- function(curriculo){

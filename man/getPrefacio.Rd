@@ -19,15 +19,13 @@ Extract Preface from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getPrefacio(xmlsLattes[[499]])
+ getPrefacio(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getPrefacio)
  head(bind_rows(lt))
  }
-}
 }

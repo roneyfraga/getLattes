@@ -36,7 +36,6 @@ Normalize articles data: title, journal name, ISSN, and year by DOI code. The mo
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
 data(latesXML)
 al <- lapply(xmlsLattes, getArtigosPublicados) 
@@ -50,9 +49,7 @@ head(
               paperTitle='titulo.do.artigo', 
               journalName= 'titulo.do.periodico.ou.revista')
 ) 
-
-  }
- }
+}
 }
 \seealso{
 \code{\link[dplyr]{group_by}},\code{\link[dplyr]{arrange}},\code{\link[dplyr]{mutate}}

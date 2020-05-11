@@ -19,15 +19,13 @@ Extract Works in Event from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
 if(interactive()){
  data(xmlsLattes)
  # to import from one curriculum 
- getTrabalhosEventos(xmlsLattes[[499]])
+ getTrabalhosEventos(xmlsLattes[[2]])
 
  # to import from two or more curricula
  lt <- lapply(xmlsLattes, getTrabalhosEventos)
  head(bind_rows(lt))
  }
-}
 }
