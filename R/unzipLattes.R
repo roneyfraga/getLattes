@@ -2,6 +2,7 @@
 #' @description Unzip Lattes file to XML preserving 16 digits id as the file name.
 #' @param filezip Zip files in your local machine.
 #' @param path Directory with zip files.
+#' @return no return
 #' @details Only zip files with 16 digits Lattes ids will be extracted.  
 #' @examples 
 #' \dontrun{
@@ -9,9 +10,7 @@
 #' 
 #' unzipLattes(filezip='*.zip')
 #'  
-#' # to import from a diferent directory
-#' # unzipLattes(filezip='*.zip', path='data/')
-#'  }
+#' }
 #' }
 #' @export 
 #' @importFrom utils unzip

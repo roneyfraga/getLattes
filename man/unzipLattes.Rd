@@ -11,6 +11,9 @@ unzipLattes(filezip = "*.zip$", path = ".")
 
 \item{path}{Directory with zip files.}
 }
+\value{
+no return
+}
 \description{
 Unzip Lattes file to XML preserving 16 digits id as the file name.
 }
@@ -23,8 +26,6 @@ if(interactive()){
 
 unzipLattes(filezip='*.zip')
  
-# to import from a diferent directory
-# unzipLattes(filezip='*.zip', path='data/')
- }
+}
 }
 }
