@@ -151,17 +151,15 @@
     <p>Curriculum without this information will return NULL.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
+    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>xmlsLattes</span>)
  <span class='co'># to import from one curriculum </span>
- <span class='fu'>getAtuacoesProfissionais</span>(<span class='no'>xmlsLattes</span><span class='kw'>[[</span><span class='fl'>499</span>]])
+ <span class='fu'>getAtuacoesProfissionais</span>(<span class='no'>xmlsLattes</span><span class='kw'>[[</span><span class='fl'>2</span>]])
 
  <span class='co'># to import from two or more curricula</span>
  <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xmlsLattes</span>, <span class='no'>getAtuacoesProfissionais</span>)
  <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bind_rows</span>(<span class='no'>lt</span>))
- }
-}</div></pre>
+ }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
