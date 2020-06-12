@@ -1,7 +1,7 @@
 Package: getLattes
 Type: Package
 Title: Import and Process Data from the 'Lattes' Curriculum Platform
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(person(given = "Roney",
              family = "Fraga Souza",
