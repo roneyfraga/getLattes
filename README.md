@@ -23,8 +23,15 @@ reQuests - CNPQ](https://github.com/josefson/CNPQ).
 
 ## Installation
 
-You can install the released version of getLattes from
-[github](https://CRAN.R-project.org) with:
+Stable version from [CRAN](https://cran.r-project.org/).
+
+``` r
+install.packages('getLattes')
+library(getLattes)
+```
+
+Development version from
+[GitHub](https://github.com/roneyfraga/getLattes).
 
 ``` r
 # install and load devtools from CRAN

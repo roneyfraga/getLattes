@@ -93,8 +93,11 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of getLattes from <a href="https://CRAN.R-project.org">github</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install and load devtools from CRAN</span>
+<p>Stable version from <a href="https://cran.r-project.org/">CRAN</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">'getLattes'</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">getLattes</span>)</pre></div>
+<p>Development version from <a href="https://github.com/roneyfraga/getLattes">GitHub</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install and load devtools from CRAN</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"devtools"</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">devtools</span>)
 
@@ -105,7 +108,7 @@
 <div id="import-xml-file-as-r-list" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-xml-file-as-r-list" class="anchor"></a>Import XML file as R list</h2>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># the file 4984859173592703.xml is stored in datatest directory</span>
+<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># the file 4984859173592703.xml is stored in datatest directory</span>
 <span class="co"># cl &lt;- readLattes(filexml='4984859173592703.xml', path='datatest/')</span>
 
 <span class="co"># import all Lattes XML files in datateste</span>
@@ -118,13 +121,13 @@
 <h2 class="hasAnchor">
 <a href="#loaded-data" class="anchor"></a>Loaded data</h2>
 <p>To load 2 Lattes curricula, from important researchers in my academic journey, imported as R list.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">xmlsLattes</span>)
+<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span>(<span class="no">xmlsLattes</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="no">xmlsLattes</span>)</pre></div>
 </div>
 <div id="import-general-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-general-data" class="anchor"></a>Import general data</h2>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="co"># to combine list of data frames in data frame</span>
+<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># to combine list of data frames in data frame</span>
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 
 <span class="co"># to import from one curriculum </span>
@@ -137,7 +140,7 @@
 <div id="import-published-academic-papers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-published-academic-papers" class="anchor"></a>Import Published Academic Papers</h2>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="co"># to import from one curriculum </span>
+<div class="sourceCode" id="cb6"><pre class="r"><span class="co"># to import from one curriculum </span>
 <span class="fu"><a href="reference/getArtigosPublicados.html">getArtigosPublicados</a></span>(<span class="no">xmlsLattes</span><span class="kw">[[</span><span class="fl">2</span>]])
 
 <span class="co"># to import from two or more curricula</span>
@@ -156,6 +159,8 @@
     <div class="links">
 <h2>Links</h2>
 <ul class="list-unstyled">
+<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=getLattes">https://​cloud.r-project.org/​package=getLattes</a>
+</li>
 <li>Browse source code at <br><a href="https://github.com/roneyfraga/getLattes/">https://​github.com/​roneyfraga/​getLattes/​</a>
 </li>
 <li>Report a bug at <br><a href="https://github.com/roneyfraga/getLattes/issues">https://​github.com/​roneyfraga/​getLattes/​issues</a>
