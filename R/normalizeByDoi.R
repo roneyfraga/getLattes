@@ -55,7 +55,7 @@ normalizeByDoi <- function(dataframe,doi='doi',year='ano.do.artigo',issn='issn',
 
     # no[DOI,Revista,ISSN,Ano]
     a[ is.na(a$doi) | a$doi=='' , 'doi'] <- paste0('noDOI_',seq_len(sum(is.na(a$doi) | a$doi=='')))
-    a[ is.na(a$revista) | a$revista=='' , 'revista'] <- paste0('noRevsita_',seq_len(is.na(a$revista) | a$revista=='')))
+    a[ is.na(a$revista) | a$revista=='' , 'revista'] <- paste0('noRevsita_',seq_len(sum(is.na(a$revista) | a$revista=='')))
     a[ is.na(a$issn) | a$issn=='' , 'issn'] <- paste0('noISSN_',seq_len(sum(is.na(a$issn) | a$issn=='')))
     a[ is.na(a$ano) | a$ano=='' , 'issn'] <- paste0('noAno_',seq_len(sum(is.na(a$ano) | a$ano=='')))
 
