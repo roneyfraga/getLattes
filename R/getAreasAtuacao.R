@@ -15,24 +15,16 @@
 #'  }
 #' @rdname getAreasAtuacao
 #' @export 
-getAreasAtuacao <- function(curriculo){
-  #print(curriculo$id)
-  ll <- curriculo$`DADOS-GERAIS`
-  if(any(names(ll) %in% 'AREAS-DE-ATUACAO')){
+getAreasAtuacao <- function(curriculo) {
 
-    ll2 <- ll$`AREAS-DE-ATUACAO`
-
-    if(!is.null(ll2)){
-
-      if(length(ll2)>=1){
-        arat <- lapply(ll2, function(x){ if(!is.null(x)){ getCharacter(x)} } )
-        arat <- bind_rows(arat)
-      }
-      arat$id <- curriculo$id
-      return(arat)
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
-  } else{
-    arat <- NULL
-    return(arat)
-  }
+
+    xml_find_all(curriculo, ".//AREAS-DE-ATUACAO/AREA-DE-ATUACAO") %>>%
+        xml_attrs() %>>%
+        bind_rows() %>>%
+        janitor::clean_names() %>>%
+        mutate(id = getId(curriculo)) 
+
 }

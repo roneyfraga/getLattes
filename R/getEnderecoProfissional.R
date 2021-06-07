@@ -15,17 +15,16 @@
 #'  }
 #' @rdname getEnderecoProfissional
 #' @export 
-getEnderecoProfissional <- function(curriculo){
-  #print(curriculo$id)
-  ll <- curriculo$`DADOS-GERAIS`$ENDERECO
-  if(any('ENDERECO-PROFISSIONAL' %in% names(ll))){
-    ll <- ll$`ENDERECO-PROFISSIONAL`
-    if(length(ll)>1){
-      endereco <- as.data.frame(t(ll))
-      names(endereco) <- tolower(gsub('-','\\.', names(endereco)))
-      endereco$id <- curriculo$id
-    } else { endereco <- NULL }
-    return(endereco)
-  } else { endereco <- NULL }
-  return(endereco)
+getEnderecoProfissional <- function(curriculo) {
+
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+    }
+
+    xml_find_all(curriculo, ".//ENDERECO-PROFISSIONAL") %>>%
+        xml_attrs() %>>%
+        bind_rows() %>>%
+        janitor::clean_names() %>>%
+        dplyr::mutate(id = getId(curriculo))
 }
+

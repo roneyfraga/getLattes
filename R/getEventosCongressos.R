@@ -16,109 +16,56 @@
 #' @rdname getEventosCongressos
 #' @export 
 
-getEventosCongressos <- function(curriculo){
+getEventosCongressos <- function(curriculo) {
 
-  #     print(curriculo$id)
-
-  ll <- curriculo$`DADOS-COMPLEMENTARES`
-  nm <- names(ll)
-  encontro <- FALSE
-
-  if(any( nm %in% 'PARTICIPACAO-EM-EVENTOS-CONGRESSOS')){
-    ll2 <- ll$`PARTICIPACAO-EM-EVENTOS-CONGRESSOS`
-    nmll2 <- names(ll2)
-    if(any( nm %in% 'PARTICIPACAO-EM-EVENTOS-CONGRESSOS' )){
-
-      tnmll2 <- length(ll2)
-      if(tnmll2 > 0){
-
-        nomeVariavel <- names(table(unlist(nmll2)))
-        llfinal <- list()
-        for (y in 1:length(nomeVariavel)){
-          g <-  which(names(ll2) == nomeVariavel[y] )
-
-          ll3 <- lapply(g, function(x){
-
-            if(nomeVariavel[y] != 'OUTRAS-PARTICIPACOES-EM-EVENTOS-CONGRESSOS'){
-              db <- which(names(ll2[[x]]) == paste0('DADOS-BASICOS-DA-', nomeVariavel[y]) )
-              dt <- which(names(ll2[[x]]) == paste0('DETALHAMENTO-DA-', nomeVariavel[y]) )
-              partet <-  paste0('DETALHAMENTO-DA-', nomeVariavel[y])
-            }else{
-              db <- which(names(ll2[[x]]) == paste0('DADOS-BASICOS-DE-', nomeVariavel[y]) )
-              dt <- which(names(ll2[[x]]) == paste0('DETALHAMENTO-DE-', nomeVariavel[y]) )
-              partet <-  paste0('DETALHAMENTO-DE-', nomeVariavel[y])
-            }
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+    }
 
 
-            ll4 <- bind_cols( getCharacter(ll2[[x]][[db]]),
-                              if(any( names(ll2[[x]]) %in% partet) ){
-                                if(length(ll2[[x]][[dt]]) != 0){
-                                  getCharacter(ll2[[x]][[dt]])
-                                }
-                              }
-            )
+    xml_find_all(curriculo, ".//PARTICIPACAO-EM-CONGRESSO") %>>%
+        map(~ xml_find_all(., ".//DADOS-BASICOS-DA-PARTICIPACAO-EM-CONGRESSO")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        (. -> dados_basicos)
+        
+    xml_find_all(curriculo, ".//PARTICIPACAO-EM-CONGRESSO") %>>%
+        map(~ xml_find_all(., ".//DETALHAMENTO-DA-PARTICIPACAO-EM-CONGRESSO")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        (. -> detalhamento)
 
-            a <- which(names(ll2[[x]]) == "PARTICIPANTE-DE-EVENTOS-CONGRESSOS" )
+    xml_find_all(curriculo, ".//PARTICIPACAO-EM-CONGRESSO") %>>%
+        map(~ xml_find_all(., ".//PARTICIPANTE-DE-EVENTOS-CONGRESSOS")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        (. -> participantes)
 
-            autores <- lapply(a, function(z){ getCharacter(ll2[[x]][[z]])  })
+    xml_find_all(curriculo, ".//PARTICIPACAO-EM-CONGRESSO") %>>%
+        map(~ xml_find_all(., ".//PALAVRAS-CHAVE")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        map(~ .x %>>% dplyr::mutate(palavras_chave = paste(., collapse = ';'))) %>>%
+        map(~ .x %>>% dplyr::select(palavras_chave)) %>>%
+        (. -> palavras_chave)
 
-            autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
+    xml_find_all(curriculo, ".//PARTICIPACAO-EM-CONGRESSO") %>>%
+        map(~ xml_find_all(., ".//AREAS-DO-CONHECIMENTO")) %>>%
+        map(~ xml_children(.)) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        map(~ if (nrow(.x) == 0) { tibble(areas_conhecimento = NA) } else {.x})  %>>%
+        (. -> areas_conhecimento)
 
-            for(i in 1:length(autores)){
-              if (i == 1){
-                autores1$autores <- paste0(autores[[i]]$nome.completo.do.participante.de.eventos.congressos)
-                autores1$autores.citacoes<- paste0(autores[[i]]$nome.para.citacao.do.participante.de.eventos.congressos)
-                if (any(names(autores[[i]]) %in% "nro.id.cnpq")){
-                  if (autores[[i]]$nro.id.cnpq == ""){
-                    autores1$autores.id <- paste0("No.id")
-                  }else{
-                    autores1$autores.id <- paste0(autores[[i]]$nro.id.cnpq)
-                  }
-                }else{
-                  autores1$autores.id <- paste0("No.id")
-                }
-              }else{
-                autores1$autores <- paste0(autores1$autores, ", " , autores[[i]]$nome.completo.do.participante.de.eventos.congressos)
-                autores1$autores.citacoes <- paste0(autores1$autores.citacoes, "/ " , autores[[i]]$nome.para.citacao.do.participante.de.eventos.congressos)
-                if (any(names(autores[[i]]) %in% "nro.id.cnpq")){
-                  if (autores[[i]]$nro.id.cnpq == ""){
-                    autores1$autores.id <- paste0(autores1$autores.id, ", " , "No.id")
-                  }else{
-                    autores1$autores.id <- paste0(autores1$autores.id, ", " , autores[[i]]$nro.id.cnpq)
-                  }
-                }else{
-                  autores1$autores.id <- paste0(autores1$autores.id, ", " , "No.id")
-                }
-              }
-            }
-
-            id1 <-  getCharacter(curriculo$id)
-            names(id1) <- "id"
-            ll6 <- bind_cols(ll4, autores1, id1)
-
-
-          })
-
-          if(length(ll3) > 1 || length(g)  == 1 ){
-            ll3 <- bind_rows(ll3)
-            llfinal[[y]] <- ll3
-          }
-
-        } #FIM FOR NOME VARIAVEIS
-
-        llfinal2 <- bind_rows(llfinal)
-        return(llfinal2)
-      }
-
-      #       llfinal2 <- bind_rows(llfinal)
-      #       return(llfinal2)
-      #
-    }else{
-      ll3 <- NULL
-      return(ll3)
-    } #AQUI
-  }else{
-    ll3 <- NULL
-    return(ll3)
-  }
+    map2(dados_basicos, detalhamento, bind_cols) %>>%
+    map2(palavras_chave, bind_cols) %>>%
+        (pmap(list(., participantes), function(x, y) tibble(x, participantes = list(y)))) %>>%
+        (pmap(list(., areas_conhecimento), function(x, y) tibble(x, areas_conhecimento = list(y)))) %>>%
+        bind_rows() %>>%
+        dplyr::mutate(id = getId(curriculo))
 }

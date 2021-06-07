@@ -15,91 +15,45 @@
 #'  }
 #' @rdname getOutrasProducoesTecnicas
 #' @export 
-getOutrasProducoesTecnicas <- function(curriculo){
+getOutrasProducoesTecnicas <- function(curriculo) {
+    
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+    }
 
-  #print(curriculo$id)
+    xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
+        map(~ xml_find_all(., ".//DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        (. -> dados_basicos)
+        
+    xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
+        map(~ xml_find_all(., ".//DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        (. -> detalhamento)
 
-  ll <- curriculo$`PRODUCAO-TECNICA`
-  nm <- names(ll)
-  encontro <- FALSE
+    xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
+        map(~ xml_find_all(., ".//AUTORES")) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        (. -> autores)
 
-  if(any( nm %in% 'TRABALHO-TECNICO')){
-    ll2 <- ll
-    nmll2 <- names(ll2)
-    if(any( nmll2 %in% 'DEMAIS-TIPOS-DE-PRODUCAO-TECNICA')){
-      ll2 <- ll2$`DEMAIS-TIPOS-DE-PRODUCAO-TECNICA`
-      tnmll2 <- length(ll2)
-      if(tnmll2 > 0){
-        testelista <- list()
+    xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
+        map(~ xml_find_all(., ".//AREAS-DO-CONHECIMENTO")) %>>%
+        map(~ xml_children(.)) %>>%
+        map(~ xml_attrs(.)) %>>%
+        map(~ bind_rows(.)) %>>%
+        map(~ janitor::clean_names(.)) %>>%
+        map(~ if (nrow(.x) == 0) { tibble(areas_conhecimento = NA) } else {.x})  %>>%
+        (. -> areas_conhecimento)
 
-        ll3 <- lapply(ll2, function(x){
-
-          if(any( names(x) %in% 'DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA')){
-
-
-            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA`) ,
-                             if(any(names(x) %in% 'DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA')){
-                               if(length(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA`) != 0){
-                                 getCharacter(x$`DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA`)
-                               }
-                             }
-            )
-
-            a <- which(names(x) == "AUTORES" )
-
-            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
-
-            autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
-
-            for(i in 1:length(autores)){
-              if (i == 1){
-                autores1$autores <- paste0(autores[[i]]$nome.completo)
-                autores1$autores.citacoes<- paste0(autores[[i]]$nome.para.citacao)
-                if (any(names(autores[[i]]) %in% "nro.id.cnpq")){
-                  if (autores[[i]]$nro.id.cnpq == ""){
-                    autores1$autores.id <- paste0("No.id")
-                  }else{
-                    autores1$autores.id <- paste0(autores[[i]]$nro.id.cnpq)
-                  }
-                }else{
-                  autores1$autores.id <- paste0("No.id")
-                }
-              }else{
-                autores1$autores <- paste0(autores1$autores, ", " , autores[[i]]$nome.completo)
-                autores1$autores.citacoes <- paste0(autores1$autores.citacoes, "/ " , autores[[i]]$nome.para.citacao)
-                if (any(names(autores[[i]]) %in% "nro.id.cnpq")){
-                  if (autores[[i]]$nro.id.cnpq == ""){
-                    autores1$autores.id <- paste0(autores1$autores.id, ", " , "No.id")
-                  }else{
-                    autores1$autores.id <- paste0(autores1$autores.id, ", " , autores[[i]]$nro.id.cnpq)
-                  }
-                }else{
-                  autores1$autores.id <- paste0(autores1$autores.id, ", " , "No.id")
-                }
-              }
-            }
-
-            id1 <-  getCharacter(curriculo$id)
-            names(id1) <- "id"
-            ll6 <- bind_cols(ll4,autores1,id1)
-
-          }
-        })
-
-        if(length(ll3) > 1 || length(ll3)  == 1  ){
-          ll3 <- bind_rows(ll3)
-        }
-
-      }
-
-      return(ll3)
-
-    }else{
-      ll3 <- NULL
-      return(ll3)
-    } #AQUI
-  }else{
-    ll3 <- NULL
-    return(ll3)
-  }
+    map2(dados_basicos, detalhamento, bind_cols) %>>%
+        (pmap(list(., autores), function(x, y) tibble(x, autores = list(y)))) %>>%
+        (pmap(list(., areas_conhecimento), function(x, y) tibble(x, areas_conhecimento = list(y)))) %>>%
+        bind_rows() %>>%
+        dplyr::mutate(id = getId(curriculo))  
 }

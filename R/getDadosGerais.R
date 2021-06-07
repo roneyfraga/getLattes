@@ -4,7 +4,7 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' if(interactive()){
+#' if(interactive()) {
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
 #'  getDadosGerais(xmlsLattes[[2]])
@@ -16,16 +16,16 @@
 #' @rdname getDadosGerais
 #' @export 
 #' @importFrom dplyr mutate_if
-getDadosGerais <- function(curriculo){
-    #print(curriculo$id)
-    ll <- curriculo$`DADOS-GERAIS`
-    if(any('NOME-COMPLETO' %in% names(ll$.attrs))){
-        if(length(ll)>1){
-            dados.gerais <- getCharacter(ll$.attrs)
-            dados.gerais$id <- curriculo$id
-            dados.gerais$data.atualizacao <- curriculo$.attrs[['DATA-ATUALIZACAO']]
-            dados.gerais <- mutate_if(dados.gerais, is.factor, as.character)
-        } else { dados.gerais <- NULL }
-    } else { dados.gerais <- NULL }
-    return(dados.gerais)
+getDadosGerais <- function(curriculo) {
+
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+    }
+
+    xml_find_all(curriculo, ".//DADOS-GERAIS") %>>%
+        xml_attrs() %>>%
+        bind_rows() %>>%
+        janitor::clean_names() %>>%
+        mutate(id = getId(curriculo)) 
+
 }
