@@ -5,16 +5,21 @@
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
-#'  data(xmlsLattes)
+#'  
 #'  # to import from one curriculum 
-#'  getAreasAtuacao(xmlsLattes[[2]])
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getAreasAtuacao(curriculo)
 #'
-#'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getAreasAtuacao)
-#'  head(bind_rows(lt))
 #'  }
+#' @seealso 
+#'  \code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}}
+#'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}}
+#'  \code{\link[janitor]{clean_names}}
 #' @rdname getAreasAtuacao
 #' @export 
+#' @importFrom xml2 xml_find_all xml_attrs
+#' @importFrom dplyr bind_rows mutate
+#' @importFrom janitor clean_names
 #' @importFrom pipeR "%>>%"
 getAreasAtuacao <- function(curriculo) {
 

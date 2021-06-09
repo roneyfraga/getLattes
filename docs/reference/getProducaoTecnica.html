@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">getLattes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -80,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -106,7 +106,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/roneyfraga/getLattes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
     <p>Extract Technical Production from XML file converted to R list.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>getProducaoTecnica</span>(<span class='no'>curriculo</span>)</pre>
+    <pre class="usage"><span class='fu'>getProducaoTecnica</span><span class='op'>(</span><span class='va'>curriculo</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,17 +149,23 @@
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Curriculum without this information will return NULL.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='http://xml2.r-lib.org/reference/xml_find_all.html'>xml_find_all</a></code>,<code><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></code>
+ <code><a href='https://purrr.tidyverse.org/reference/map.html'>map</a></code>,<code><a href='https://purrr.tidyverse.org/reference/map2.html'>map2</a></code>
+ <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>
+ <code><a href='https://rdrr.io/pkg/janitor/man/clean_names.html'>clean_names</a></code>
+ <code><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
- <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>xmlsLattes</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+ 
  <span class='co'># to import from one curriculum </span>
- <span class='fu'>getProducaoTecnica</span>(<span class='no'>xmlsLattes</span><span class='kw'>[[</span><span class='fl'>499</span>]])
+ <span class='co'># curriculo &lt;- xml2::read_xml('file.xml')</span>
+ <span class='co'># getProducaoTecnica(curriculo)</span>
 
- <span class='co'># to import from two or more curricula</span>
- <span class='no'>lt</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span>(<span class='no'>xmlsLattes</span>, <span class='no'>getProducaoTecnica</span>)
- <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span>(<span class='fu'>bind_rows</span>(<span class='no'>lt</span>))
- }</div></pre>
+ <span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -175,7 +181,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

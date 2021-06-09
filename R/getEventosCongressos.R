@@ -5,16 +5,25 @@
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
-#'  data(xmlsLattes)
+#'  
 #'  # to import from one curriculum 
-#'  getEventosCongressos(xmlsLattes[[2]])
-#'
-#'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getEventosCongressos)
-#'  head(bind_rows(lt))
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getEventosCongressos(curriculo)
+#'  
 #'  }
+#' @seealso 
+#'  \code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}},\code{\link[xml2]{xml_children}}
+#'  \code{\link[purrr]{map}},\code{\link[purrr]{map2}}
+#'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{select}}
+#'  \code{\link[janitor]{clean_names}}
+#'  \code{\link[tibble]{tibble}}
 #' @rdname getEventosCongressos
 #' @export 
+#' @importFrom xml2 xml_find_all xml_attrs xml_children
+#' @importFrom purrr map map2 pmap
+#' @importFrom dplyr bind_rows mutate select bind_cols
+#' @importFrom janitor clean_names
+#' @importFrom tibble tibble
 #' @importFrom pipeR "%>>%"
 getEventosCongressos <- function(curriculo) {
 

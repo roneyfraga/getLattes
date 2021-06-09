@@ -30,6 +30,7 @@ Imports:
     tibble,
     pipeR,
     rlang,
-    janitor
+    janitor,
+    purrr
 Depends: 
     R (>= 4.1.0)

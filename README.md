@@ -26,8 +26,8 @@ reQuests - CNPQ](https://github.com/josefson/CNPQ).
 Stable version from [CRAN](https://cran.r-project.org/).
 
 ``` r
-install.packages('getLattes')
-library(getLattes)
+# install.packages('getLattes')
+# library(getLattes)
 ```
 
 Development version from
@@ -43,55 +43,40 @@ devtools::install_github("roneyfraga/getLattes")
 library(getLattes)
 ```
 
-## Import XML file as R list
+## Import XML file
 
 ``` r
-# the file 4984859173592703.xml is stored in datatest directory
-# cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
-
-# import all Lattes XML files in datateste
-# cls <- readLattes(filexml='*.xml$', path='datatest/')
-
-# import all Lattes XML files in the working directory
-cls <- readLattes(filexml='*.xml$')
+curriculo <- read_xml('data/4984859173592703.zip')
 ```
 
-## Loaded data
-
-To load 2 Lattes curricula, from important researchers in my academic
-journey, imported as R list.
-
-``` r
-data(xmlsLattes)
-length(xmlsLattes)
-```
-
-## Import general data
-
-``` r
-# to combine list of data frames in data frame
-library(dplyr)
-
-# to import from one curriculum 
-getDadosGerais(xmlsLattes[[2]])
-
-# to import from two or more curricula
-lt <- lapply(xmlsLattes, getDadosGerais)
-head(bind_rows(lt))
-```
-
-## Import Published Academic Papers
+## Extract data
 
 ``` r
 # to import from one curriculum 
-getArtigosPublicados(xmlsLattes[[2]]) 
-
-# to import from two or more curricula
-lt <- lapply(xmlsLattes, getArtigosPublicados)
-head(bind_rows(lt))
+getDadosGerais(curriculo)
+getArtigosPublicados(curriculo)
+getAreasAtuacao(curriculo)
+getArtigosPublicados(curriculo)
+getAtuacoesProfissionais(curriculo)
+getBancasDoutorado(curriculo)
+getBancasGraduacao(curriculo)
+getBancasMestrado(curriculo)
+getCapitulosLivros(curriculo)
+getDadosGerais(curriculo)
+getEnderecoProfissional(curriculo)
+getEventosCongressos(curriculo)
+getFormacaoDoutorado(curriculo)
+getFormacaoMestrado(curriculo)
+getFormacaoGraduacao(curriculo)
+getIdiomas(curriculo)
+getLinhaPesquisa(curriculo)
+getLivrosPublicados(curriculo)
+getOrganizacaoEventos(curriculo)
+getOrientacoesDoutorado(curriculo)
+getOrientacoesMestrado(curriculo)
+getOrientacoesPosDoutorado(curriculo)
+getOutrasProducoesTecnicas(curriculo)
+getParticipacaoProjeto(curriculo)
+getProducaoTecnica(curriculo)
+getId(curriculo)
 ```
-
-## Normalize informations
-
-See `normalizeByDoi`, `normalizeByJournal` and `normalizeByYear` to
-normalize publications data (journal title, ISSN and year).

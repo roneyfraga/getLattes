@@ -20,12 +20,17 @@ Curriculum without this information will return NULL.
 }
 \examples{
 if(interactive()) {
- data(xmlsLattes)
+ 
  # to import from one curriculum 
- getProducaoTecnica(xmlsLattes[[499]])
+ # curriculo <- xml2::read_xml('file.xml')
+ # getProducaoTecnica(curriculo)
 
- # to import from two or more curricula
- lt <- lapply(xmlsLattes, getProducaoTecnica)
- head(bind_rows(lt))
  }
+}
+\seealso{
+\code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}}
+ \code{\link[purrr]{map}},\code{\link[purrr]{map2}}
+ \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}},\code{\link[dplyr]{select}}
+ \code{\link[janitor]{clean_names}}
+ \code{\link[tibble]{tibble}}
 }

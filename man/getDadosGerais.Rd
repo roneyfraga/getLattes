@@ -20,12 +20,15 @@ Curriculum without this information will return NULL.
 }
 \examples{
 if(interactive()) {
- data(xmlsLattes)
+ 
  # to import from one curriculum 
- getDadosGerais(xmlsLattes[[2]])
-
- # to import from two or more curricula
- lt <- lapply(xmlsLattes, getDadosGerais)
- head(bind_rows(lt))
+ # curriculo <- xml2::read_xml('file.xml')
+ # getDadosGerais(curriculo)
+ 
  }
+}
+\seealso{
+\code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}}
+ \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}}
+ \code{\link[janitor]{clean_names}}
 }

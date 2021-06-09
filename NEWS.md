@@ -1,3 +1,8 @@
+Version 0.2.0
+===
+Complete update. I started to use `xml2`, `purrr` approach.
+Deleted `nomalize*` functions, they will be rewritten.
+
 Version 0.1.1
 ===
 Update citation informations.

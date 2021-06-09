@@ -5,16 +5,23 @@
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
-#'  data(xmlsLattes)
+#'  
 #'  # to import from one curriculum 
-#'  getIdiomas(xmlsLattes[[2]])
-#'
-#'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getIdiomas)
-#'  head(bind_rows(lt))
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getIdiomas(curriculo)
+#'  
 #'  }
+#' @seealso 
+#'  \code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_children}},\code{\link[xml2]{xml_attr}}
+#'  \code{\link[purrr]{map}}
+#'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}}
+#'  \code{\link[janitor]{clean_names}}
 #' @rdname getIdiomas
 #' @export 
+#' @importFrom xml2 xml_find_all xml_children xml_attrs
+#' @importFrom purrr map
+#' @importFrom dplyr bind_rows mutate
+#' @importFrom janitor clean_names
 #' @importFrom pipeR "%>>%"
 getIdiomas <- function(curriculo) {
 

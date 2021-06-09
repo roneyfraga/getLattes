@@ -2,17 +2,30 @@
 % Please edit documentation in R/getId.R
 \name{getId}
 \alias{getId}
-\title{getId}
+\title{FUNCTION_TITLE}
 \usage{
 getId(curriculo)
 }
+\arguments{
+\item{curriculo}{PARAM_DESCRIPTION}
+}
 \value{
-
+OUTPUT_DESCRIPTION
 }
 \description{
-getId
+FUNCTION_DESCRIPTION
+}
+\details{
+DETAILS
 }
 \examples{
-
- 
+\dontrun{
+if(interactive()){
+ #EXAMPLE1
+ }
+}
+}
+\seealso{
+\code{\link[xml2]{xml_attr}}
+ \code{\link[dplyr]{bind}},\code{\link[dplyr]{select}},\code{\link[dplyr]{pull}}
 }

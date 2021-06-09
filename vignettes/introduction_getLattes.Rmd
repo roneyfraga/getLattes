@@ -1,10 +1,8 @@
 ---
 title: "Introduction to getLattes"
-author: "Roney Fraga Souza"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to getLattes}
+  %\VignetteIndexEntry{introduction_getLattes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -33,38 +31,31 @@ The [Lattes](http://lattes.cnpq.br/) platform has been hosting curricula of Braz
 
 The main information contained in `XML` files, and imported via `getLattes`, are:
 
-- Academics Papers Presentation `getApresentacaoTrabalho`  
-- Research Area `getAreasAtuacao`  
-- Published Papers `getArtigosPublicados`  
-- Profissional Links `getAtuacoesProfissionais`  
-- Ph.D. Examination Board's `getBancasDoutorado`  
-- Undergraduate Examination Board's `getBancasGraduacao`  
-- General Examination Board's `getBancasJulgadoras`  
-- Master Examination Board's `getBancasMestrado`  
-- Books Chapters `getCapitulosLivros`  
-- Short Duration Course `getCursoCurtaDuracao`
-- General Data `getDadosGerais`  
-- Profissional Address `getEnderecoProfissional`  
-- Events and Congresses `getEventosCongressos`  
-- Profissional Formation `getFormacao`  
-- Languages `getIdiomas`  
-- Newspapers and Magazines `getJornaisRevistas`  
-- Research Lines `getLinhaPesquisa`  
-- Published Books `getLivrosPublicados`  
-- Event's Organization `getOrganizacaoEvento`
-- Academic Advisory (Ph.D. Thesis) `getOrientacoesDoutorado`  
-- Academic Advisory (Master Thesis) `getOrientacoesMestrado`  
-- Academic Advisory (Other) `getOrientacoesOutras`  
-- Academic Advisory (Post Doctorate) `getOrientacoesPosDoutorado`  
-- Other Bibliographic Productions `getOutrasProducoesBibliograficas`  
-- Other Technical Productions `getOutrasProducoesTecnicas`  
-- Participation in Projects `getParticipacaoProjeto`  
-- Preface `getPrefacio`  
-- Awards and Medals `getPremiosTitulos`  
-- Technical Production `getProducaoTecnica`  
-- TV and Radio Program `getProgramaRadioTV`  
-- Research Report `getRelatorioPesquisa`    
-- Works in Event `getTrabalhosEventos`  
+- Research Area `getAreasAtuacao()`  
+- Published Papers `getArtigosPublicados()`  
+- Profissional Links `getAtuacoesProfissionais()`  
+- Ph.D. Examination Board's `getBancasDoutorado()`  
+- Undergraduate Examination Board's `getBancasGraduacao()`  
+- Master Examination Board's `getBancasMestrado()`  
+- Books Chapters `getCapitulosLivros()`  
+- General Data `getDadosGerais()`  
+- Profissional Address `getEnderecoProfissional()`  
+- Events and Congresses `getEventosCongressos()`  
+- Profissional Formation (Ph.D. Thesis) `getFormacaoDoutorado()`  
+- Profissional Formation (Master Thesis) `getFormacaoMestrado()`  
+- Profissional Formation (Undergraduation) `getFormacaoGraduacao()`  
+- Languages `getIdiomas()`  
+- Research Lines `getLinhaPesquisa()`  
+- Published Books `getLivrosPublicados()`  
+- Event's Organization `getOrganizacaoEvento()`
+- Academic Advisory (Ph.D. Thesis) `getOrientacoesDoutorado()`  
+- Academic Advisory (Master Thesis) `getOrientacoesMestrado()`  
+- Academic Advisory (Post Doctorate) `getOrientacoesPosDoutorado()`  
+- Other Technical Productions `getOutrasProducoesTecnicas()`  
+- Participation in Projects `getParticipacaoProjeto()`  
+- Technical Production `getProducaoTecnica()`  
+- Patents `getPatentes()`  
+- Personal Lattes 16 digits identification `getId()`  
 
 From the functionalities presented in this package, the main challenge to work with the Lattes curriculum data is now to download the data, as there are Captchas. To download a lot of curricula I suggest the use of [Captchas Negated by Python reQuests - CNPQ](https://github.com/josefson/CNPQ). The second barrier to be overcome is the management and processing of a large volume of data, the whole Lattes platform in `XML` files totals over 200 GB. In this tutorial we will focus on the `getLattes` package features, being the reader responsible for download and manage the files.
 
@@ -77,8 +68,9 @@ Follow an example of how to search and download data from the [Lattes](http://la
 To install the released version of getLattes from [github](https://CRAN.R-project.org).
 
 ```{r eval=F}
+
 # install and load devtools from CRAN
-install.packages("devtools")
+# install.packages("devtools")
 library(devtools)
 
 # install and load getLattes
@@ -91,212 +83,186 @@ Load `getLattes`.
 library(getLattes)
 
 # support packages
+library(pipeR)
+library(xml2)
 library(dplyr)
 library(tibble)
-library(pipeR)
+library(purrr)
 ```
 
-## Extract XML from zip
+## Single curriculum
 
-The variable to merge the table extract from any `get` function is the `id` variable. The `id` is 16 digits, unique to each curriculum. However, it is important to rename the `.xml` file from `curriculo.xml` to `[16 digits id].xml`. As Lattes has many versions of `XML` structure, the more consistent way to extract `id` is from the file name.
+### Import 
 
-
-```{r eval=F, echo=F}
-# delete '*.xml$' in datatet
-# setwd('~/OneDrive/Rworkspace/getLattes/datatest')
-# file.remove(list.files(pattern='*.xml$'))
-# setwd('~/OneDrive/Rworkspace/getLattes')
-```
-
-```{r eval=F, warning=FALSE, message=FALSE}
-
-# the zip file(s) (is)are stored in datatest/
-# unzipLattes(filezip='2854855744345507.zip', path='datatest/')
-# unzipLattes(filezip='*.zip', path='datatest/')
-
-# the zip files are stored in the working directory
-unzipLattes(filezip='*.zip')
-```
-
-## Import XML curriculum data
+Using the `get*` functions to import data from a single curriculum is straightforward. The curriculum need to be imported into `R` by the `read_xml()` function from the `xml2` package. 
 
 ```{r eval=F, include=T}
-
-# the file 4984859173592703.xml 
-# cl <- readLattes(filexml='4984859173592703.xml', path='datatest/')
-
-# import several files
-# cls <- readLattes(filexml='*.xml$', path='datatest/')
-
-# import xml files from working directory
-cls <- readLattes(filexml='*.xml$')
+curriculo <- xml2::read_xml('4984859173592703.zip')
 ```
 
-As example, 2 curricula data `xmlsLattes` imported as an R list.
+### `get` functions
 
-```{r eval=T}
-data(xmlsLattes)
-length(xmlsLattes)
-names(xmlsLattes[[1]])
+```{r eval=F}
+getDadosGerais(curriculo)
+getArtigosPublicados(curriculo)
+getAreasAtuacao(curriculo)
+getArtigosPublicados(curriculo)
+getAtuacoesProfissionais(curriculo)
+getBancasDoutorado(curriculo)
+getBancasGraduacao(curriculo)
+getBancasMestrado(curriculo)
+getCapitulosLivros(curriculo)
+getDadosGerais(curriculo)
+getEnderecoProfissional(curriculo)
+getEventosCongressos(curriculo)
+getFormacaoDoutorado(curriculo)
+getFormacaoMestrado(curriculo)
+getFormacaoGraduacao(curriculo)
+getIdiomas(curriculo)
+getLinhaPesquisa(curriculo)
+getLivrosPublicados(curriculo)
+getOrganizacaoEventos(curriculo)
+getOrientacoesDoutorado(curriculo)
+getOrientacoesMestrado(curriculo)
+getOrientacoesPosDoutorado(curriculo)
+getOutrasProducoesTecnicas(curriculo)
+getParticipacaoProjeto(curriculo)
+getProducaoTecnica(curriculo)
+getId(curriculo)
 ```
 
-## `get` functions
+## Several curricula 
 
-To read data from only one curriculum any function `get` can be executed singly, to import data from two or more curricula is easier to use `get` functions with `lapply`.
+### Import
 
-```{r eval=T, warning=FALSE, message=FALSE}
-# to import from one curriculum 
-getDadosGerais(xmlsLattes[[1]])
-```
-
-Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with `bind_rows`.
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lt <- lapply(xmlsLattes, getDadosGerais) 
-lt <- bind_rows(lt)
-glimpse(lt)
-```
-
-To write quickly, I will use pipe `%>>%` from `pipeR` package. 
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getDadosGerais) %>>% 
-    bind_rows %>>% 
-    glimpse
-```
-
-Where `. -> res` means the result was saved to `res` object.
-
-```{r eval=T}
-lapply(xmlsLattes, getDadosGerais) %>>% 
-    bind_rows %>>% 
-    (. -> res)
-
-glimpse(res)
-```
-
-It is worth remembering that all variable names obtained by `get` functions are the transcription of the field names in the `XML` file, the `-` being replaced with `.` and the capital letters replaced with lower case letters.
-
-### Advisory
-
-Ph.D. Advisory
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getOrientacoesDoutorado) %>>% 
-    bind_rows %>>% 
-    glimpse()
-```
-
-Master Advisory
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getOrientacoesMestrado) %>>% 
-    bind_rows %>>% 
-    glimpse()
-```
-
-Post Doctorate
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getOrientacoesPosDoutorado) %>>% 
-    bind_rows %>>% 
-    glimpse()
-```
-
-Other
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getOrientacoesOutras) %>>% 
-    bind_rows %>>% 
-    glimpse()
-```
-
-## Published Academic Papers
-
-```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getArtigosPublicados) %>>% 
-    bind_rows %>>% 
-    as_tibble %>>% 
-    (. -> pub)
-
-glimpse(pub)
-```
-
-## Normalize functions
-
-The information obtained from the Lattes curriculum is not standardized, so each user inserts the information in certain predefined fields. The problem with such an approach is the errors when inserting the data, here are some examples:
-- two co-authors of an article, each one feeds his or her Lattes curriculum. However, each one can insert different ISSN codes for the same scientific journal, which can change the journal-title, one title as `(Print)` and the other as `(Online)`.
-- the two authors may insert different years for the same article.
-- the same two authors may mistype the journal-title.
-
-The functions `normalizeByDoi`, `normalizeByJournal`, and `normalizeByYear` correct most problems related to data entry errors.
-
-`normalizeByDoi` groups all articles together as the same DOI code and uses the most frequent information in the title, year, and journal's name.
-
-```{r eval=T, warning=FALSE, message=FALSE}
-# use explict arguments
-normalizeByDoi( pub, doi='doi', year='ano.do.artigo', issn='issn', paperTitle='titulo.do.artigo', journalName='titulo.do.periodico.ou.revista')
-
-# use de defult data frame from getArtigosPublicados
-normalizeByDoi(pub)
-```
-
-Because not every article is DOI-coded, we can still normalize the journal name and ISSN with `normalizeByJournal`. The result is two new columns added, `issn_old` and `titulo.do.periodico.ou.revista_old` that allow us to analyze the results of the substitutions. The more curricula you analyze, the more useful the `normalize` functions are.
-
-```{r eval=T, warning=FALSE, message=FALSE}
-# use explict arguments
-nj <- normalizeJournals(pub, issn='issn', journalName='titulo.do.periodico.ou.revista')
-
-# use de defult data frame from getArtigosPublicados
-nj <- normalizeJournals(pub)
-
-nj %>>% 
-    select(issn_old, issn, titulo.do.periodico.ou.revista_old, titulo.do.periodico.ou.revista) %>>% 
-    tail
-```
-
-Finally, if two papers have the same title and were published in the same journal, the year can be normalized with:
+To import data from two or more curricula it is easier to use `list.files()`, a native R function, or `dir_ls()` from `fs` package. As `xml2::read_xml()` allow to read a `xml` curriculum inside a `zip` files, we can insert both options in `pattern` argument.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 
-# use explict arguments
-ny <- normalizeYears(pub, year2normalize='ano.do.artigo',issn='issn',journalName='titulo.do.periodico.ou.revista',paperTitle='titulo.do.artigo')
+files <- list.files(path = '../data/', pattern = '*.xml$|*.zip', full.names = T)
 
-# use de defult variables names from getArtigosPublicados
-ny <- normalizeYears(pub)
-
-ny %>>% 
-    select(ano_old, ano, issn, titulo.do.periodico.ou.revista, titulo.do.artigo) %>>% 
-    head
+files <- fs::dir_ls(path = '../data/', regexp = '*.xml|*.zip')
 ```
 
-To type less, we can do:
+Import the listed curricula to R memory as `xml2::read_xml` object.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getArtigosPublicados) %>>% 
-    bind_rows %>>% 
-    as_tibble %>>% 
-    normalizeByDoi %>>% 
-    normalizeJournals %>>% 
-    normalizeYears %>>% 
-    select(titulo.do.artigo,ano.do.artigo,issn,titulo.do.periodico.ou.revista,id) %>>% 
-    slice(1:10)
+curriculos <- lapply(files, read_xml)
+```
+
+The `lapply()` function is a well-known and widely used alternative in the `R` world. However, it does not natively handle errors, which makes the `map` function from the `purrr` package an excellent alternative. 
+
+Adding an extra layer of complexity, I will use pipe `%>>%` operator from `pipeR` package. Programming using the pipe operator `%>>%` allows faster coding and clearer syntax.
+Where `. -> curriculos` means the result was saved to `curriculos` object.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+files %>>%
+    purrr::map(safely(read_xml)) %>>% 
+    purrr::map(pluck, 'result') %>>%
+    (. -> curriculos)
+```
+
+### `get` functions
+
+To read data from only one curriculum any function `get` can be executed singly, but to import data from two or more curricula is easier to use `get*` functions with `lapply()` or `map()`.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+curriculos %>>%
+    purrr::map(safely(getDadosGerais)) %>>%
+    purrr::map(pluck, 'result') %>>%
+    (. -> dados_gerais)
+
+dados_gerais
+```
+
+Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with `bind_rows()`.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+
+curriculos %>>%
+    purrr::map(safely(getDadosGerais)) %>>%
+    purrr::map(pluck, 'result') %>>%
+    dplyr::bind_rows() %>>%
+    (. -> dados_gerais)
+
+dados_gerais
+```
+
+It is worth remembering that all variable names obtained by `get*` functions are the transcription of the field names in the `XML` file, the `-` being replaced with `_` and the capital letters replaced with lower case letters.
+
+## Publications
+
+```{r eval=T, warning=FALSE, message=FALSE}
+curriculos %>>%
+    purrr::map(safely(getArtigosPublicados)) %>>%
+    purrr::map(pluck, 'result') %>>%
+    dplyr::bind_rows() %>>%
+    (. -> artigos_publicados)
+
+artigos_publicados %>>%
+    dplyr::arrange(desc(ano_do_artigo)) %>>%
+    dplyr::select(titulo_do_artigo, ano_do_artigo, titulo_do_periodico_ou_revista) 
+
+curriculos %>>%
+    purrr::map(safely(getLivrosPublicados)) %>>%
+    purrr::map(pluck, 'result') %>>%
+    dplyr::bind_rows() %>>%
+    (. -> livros_publicados)
+
+curriculos %>>%
+    purrr::map(safely(getCapitulosLivros)) %>>%
+    purrr::map(pluck, 'result') %>>%
+    dplyr::bind_rows() %>>%
+    (. -> capitulos_livros)
+```
+
+## Grouping data
+
+To group the data key variable is `id`, which is a unique 16 digit code. 
+
+```{r eval=T, warning=FALSE, message=FALSE}
+
+artigos_publicados %>>%
+    group_by(id) %>>%
+    tally(name = 'artigos') %>>%
+    (. -> artigos_publicados2)
+
+artigos_publicados2
+
+livros_publicados %>>%
+    group_by(id) %>>%
+    tally(name = 'livros') %>>%
+    (. -> livros_publicados2)
+
+livros_publicados2
+
+capitulos_livros %>>%
+    group_by(id) %>>%
+    tally(name = 'capitulos') %>>%
+    (. -> capitulos_livros2)
+
+capitulos_livros2
 ```
 
 ## Merge data
 
-To join the data from different tables the key is the variable `id`, which is a unique 16 digit code. 
+to join the data from different tables the recommended variable is `id`, which is a unique 16 digit code. 
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-lapply(xmlsLattes, getArtigosPublicados) %>>% 
-    bind_rows %>>% 
-    as_tibble %>>% 
-    normalizeByDoi %>>% 
-    normalizeJournals %>>% 
-    normalizeYears %>>% 
-    select(titulo.do.artigo,ano.do.artigo,issn,titulo.do.periodico.ou.revista,id) %>>% 
-    left_join( lapply(xmlsLattes, getDadosGerais) %>>% bind_rows %>>% select(id,nome.completo,pais.de.nascimento)) %>>%   
-    slice(1:10)
+
+artigos_publicados2 %>>%
+    left_join(livros_publicados2) %>>%
+    left_join(capitulos_livros2)
 ```
 
+Add information from a different tables.
+
+```{r eval=T, warning=FALSE, message=FALSE}
+
+artigos_publicados2 %>>%
+    left_join(livros_publicados2) %>>%
+    left_join(capitulos_livros2) %>>%
+    left_join(dados_gerais %>>% select(id, nome_completo)) %>>%
+    relocate(nome_completo) 
+```
 

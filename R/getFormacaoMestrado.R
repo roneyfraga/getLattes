@@ -5,15 +5,25 @@
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
-#'  data(xmlsLattes)
+#'  
 #'  # to import from one curriculum 
-#'  getFormacao(xmlsLattes[[2]])
-#'
-#'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getFormacao)
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getFormacaoMestrado(curriculo)
+#'  
 #'  }
+#' @seealso 
+#'  \code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}},\code{\link[xml2]{xml_children}}
+#'  \code{\link[purrr]{map}},\code{\link[purrr]{map2}}
+#'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}}
+#'  \code{\link[janitor]{clean_names}}
+#'  \code{\link[tibble]{tibble}}
 #' @rdname getFormacaoMestrado
 #' @export 
+#' @importFrom xml2 xml_find_all xml_attrs xml_children
+#' @importFrom purrr map pmap
+#' @importFrom dplyr bind_rows mutate
+#' @importFrom janitor clean_names
+#' @importFrom tibble tibble
 #' @importFrom pipeR "%>>%"
 getFormacaoMestrado <- function(curriculo) {
 

@@ -5,16 +5,25 @@
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
-#'  data(xmlsLattes)
-#'  # to import from one curriculum 
-#'  getBancasGraduacao(xmlsLattes[[2]])
 #'
-#'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getBancasGraduacao)
-#'  head(bind_rows(lt))
+#'  # to import from one curriculum 
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getBancasGraduacao(curriculo)
+#'
 #'  }
+#' @seealso 
+#'  \code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}}
+#'  \code{\link[purrr]{map}},\code{\link[purrr]{map2}}
+#'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}}
+#'  \code{\link[janitor]{clean_names}}
+#'  \code{\link[tibble]{tibble}}
 #' @rdname getBancasGraduacao
 #' @export 
+#' @importfrom xml2 xml_find_all xml_attrs
+#' @importfrom purrr map map2 pmap
+#' @importfrom dplyr bind_rows bind_cols mutate
+#' @importfrom janitor clean_names
+#' @importfrom tibble tibble
 #' @importFrom pipeR "%>>%"
 getBancasGraduacao <- function(curriculo) {
 

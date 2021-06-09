@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">getLattes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -54,15 +54,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/Introduction_getLattes.html">Introduction to getLattes</a>
+      <a href="../articles/introduction_getLattes.html">Introduction to getLattes</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/roneyfraga/getLattes/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -76,28 +79,345 @@
 
       
 
-      </header><script src="Introduction_getLattes_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="introduction_getLattes_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Introduction to getLattes</h1>
-                        <h4 class="author">Roney Fraga Souza</h4>
             
-            <h4 class="date">2020-04-29</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/roneyfraga/getLattes/blob/master/vignettes/Introduction_getLattes.Rmd"><code>vignettes/Introduction_getLattes.Rmd</code></a></small>
-      <div class="hidden name"><code>Introduction_getLattes.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/roneyfraga/getLattes/blob/master/vignettes/introduction_getLattes.Rmd"><code>vignettes/introduction_getLattes.Rmd</code></a></small>
+      <div class="hidden name"><code>introduction_getLattes.Rmd</code></div>
 
     </div>
 
     
     
-<p>A plataforma <a href="http://lattes.cnpq.br/">Lattes</a> hospeda os currículos dos pesquisadores brasileiros desde o final dos anos 1990, contendo mais de 5 milhões de currículos. Os dados dos currículos Lattes podem ser baixados para o formato <code>XML</code> e lidos em qualquer software que tenha suporte para tal formato. O pacote <code>getLattes</code> permite importar as informações dos arquivos <code>XML</code> para lista no software <code>R</code> e então tabular os dados do Lattes para <code>data.frame</code>.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">getLattes</span>)</pre></body></html></div>
+<!--
+Opções no chunk
+
+eval        incluir o resultado do código executado, pode ser logico ou numérico
+echo        mostrar o código 
+warning     mostrar mensagens de aviso
+error       mostrar mensagens de erro
+message     mostrar mensagens
+tidy        mostrar ajustar o código ao display, ignora identação
+comment     '##' ou qq símbolo, para os resultados dos códigos serem antecedidos por ##
+include     se falso, executa mas não inclui o chunk no relatório
+-->
+<p>The <a href="http://lattes.cnpq.br/">Lattes</a> platform has been hosting curricula of Brazilian researchers since the late 1990s, containing more than 5 million curricula. The data from the Lattes curricula can be downloaded to <code>XML</code> format, the complexity of this reading process motivated the development of the <code>getLattes</code> package, which imports the information from the <code>XML</code> files to a list in the <code>R</code> software and then tabulates the Lattes data to a <code>data.frame</code>.</p>
+<p>The main information contained in <code>XML</code> files, and imported via <code>getLattes</code>, are:</p>
+<ul>
+<li>Research Area <code><a href="../reference/getAreasAtuacao.html">getAreasAtuacao()</a></code><br>
+</li>
+<li>Published Papers <code><a href="../reference/getArtigosPublicados.html">getArtigosPublicados()</a></code><br>
+</li>
+<li>Profissional Links <code><a href="../reference/getAtuacoesProfissionais.html">getAtuacoesProfissionais()</a></code><br>
+</li>
+<li>Ph.D. Examination Board’s <code><a href="../reference/getBancasDoutorado.html">getBancasDoutorado()</a></code><br>
+</li>
+<li>Undergraduate Examination Board’s <code><a href="../reference/getBancasGraduacao.html">getBancasGraduacao()</a></code><br>
+</li>
+<li>Master Examination Board’s <code><a href="../reference/getBancasMestrado.html">getBancasMestrado()</a></code><br>
+</li>
+<li>Books Chapters <code><a href="../reference/getCapitulosLivros.html">getCapitulosLivros()</a></code><br>
+</li>
+<li>General Data <code><a href="../reference/getDadosGerais.html">getDadosGerais()</a></code><br>
+</li>
+<li>Profissional Address <code><a href="../reference/getEnderecoProfissional.html">getEnderecoProfissional()</a></code><br>
+</li>
+<li>Events and Congresses <code><a href="../reference/getEventosCongressos.html">getEventosCongressos()</a></code><br>
+</li>
+<li>Profissional Formation (Ph.D. Thesis) <code><a href="../reference/getFormacaoDoutorado.html">getFormacaoDoutorado()</a></code><br>
+</li>
+<li>Profissional Formation (Master Thesis) <code><a href="../reference/getFormacaoMestrado.html">getFormacaoMestrado()</a></code><br>
+</li>
+<li>Profissional Formation (Undergraduation) <code><a href="../reference/getFormacaoGraduacao.html">getFormacaoGraduacao()</a></code><br>
+</li>
+<li>Languages <code><a href="../reference/getIdiomas.html">getIdiomas()</a></code><br>
+</li>
+<li>Research Lines <code><a href="../reference/getLinhaPesquisa.html">getLinhaPesquisa()</a></code><br>
+</li>
+<li>Published Books <code><a href="../reference/getLivrosPublicados.html">getLivrosPublicados()</a></code><br>
+</li>
+<li>Event’s Organization <code>getOrganizacaoEvento()</code>
+</li>
+<li>Academic Advisory (Ph.D. Thesis) <code><a href="../reference/getOrientacoesDoutorado.html">getOrientacoesDoutorado()</a></code><br>
+</li>
+<li>Academic Advisory (Master Thesis) <code><a href="../reference/getOrientacoesMestrado.html">getOrientacoesMestrado()</a></code><br>
+</li>
+<li>Academic Advisory (Post Doctorate) <code><a href="../reference/getOrientacoesPosDoutorado.html">getOrientacoesPosDoutorado()</a></code><br>
+</li>
+<li>Other Technical Productions <code><a href="../reference/getOutrasProducoesTecnicas.html">getOutrasProducoesTecnicas()</a></code><br>
+</li>
+<li>Participation in Projects <code><a href="../reference/getParticipacaoProjeto.html">getParticipacaoProjeto()</a></code><br>
+</li>
+<li>Technical Production <code><a href="../reference/getProducaoTecnica.html">getProducaoTecnica()</a></code><br>
+</li>
+<li>Patents <code><a href="../reference/getPatentes.html">getPatentes()</a></code><br>
+</li>
+<li>Personal Lattes 16 digits identification <code><a href="../reference/getId.html">getId()</a></code>
+</li>
+</ul>
+<p>From the functionalities presented in this package, the main challenge to work with the Lattes curriculum data is now to download the data, as there are Captchas. To download a lot of curricula I suggest the use of <a href="https://github.com/josefson/CNPQ">Captchas Negated by Python reQuests - CNPQ</a>. The second barrier to be overcome is the management and processing of a large volume of data, the whole Lattes platform in <code>XML</code> files totals over 200 GB. In this tutorial we will focus on the <code>getLattes</code> package features, being the reader responsible for download and manage the files.</p>
+<p>Follow an example of how to search and download data from the <a href="http://lattes.cnpq.br/">Lattes</a> website.</p>
+<p><img src="http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif"></p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>To install the released version of getLattes from <a href="https://CRAN.R-project.org">github</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="co"># install and load devtools from CRAN</span>
+<span class="co"># install.packages("devtools")</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
+
+<span class="co"># install and load getLattes</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"roneyfraga/getLattes"</span><span class="op">)</span></code></pre></div>
+<p>Load <code>getLattes</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/roneyfraga/getLattes">getLattes</a></span><span class="op">)</span>
+
+<span class="co"># support packages</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://renkun.me/pipeR">pipeR</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/">xml2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="single-curriculum" class="section level2">
+<h2 class="hasAnchor">
+<a href="#single-curriculum" class="anchor"></a>Single curriculum</h2>
+<div id="import" class="section level3">
+<h3 class="hasAnchor">
+<a href="#import" class="anchor"></a>Import</h3>
+<p>Using the <code>get*</code> functions to import data from a single curriculum is straightforward. The curriculum need to be imported into <code>R</code> by the <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml()</a></code> function from the <code>xml2</code> package.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="get-functions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#get-functions" class="anchor"></a><code>get</code> functions</h3>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getArtigosPublicados.html">getArtigosPublicados</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="co"># getAreasAtuacao(curriculo)</span>
+<span class="co"># getArtigosPublicados(curriculo)</span>
+<span class="co"># getAtuacoesProfissionais(curriculo)</span>
+<span class="co"># getBancasDoutorado(curriculo)</span>
+<span class="co"># getBancasGraduacao(curriculo)</span>
+<span class="co"># getBancasMestrado(curriculo)</span>
+<span class="co"># getCapitulosLivros(curriculo)</span>
+<span class="co"># getDadosGerais(curriculo)</span>
+<span class="co"># getEnderecoProfissional(curriculo)</span>
+<span class="co"># getEventosCongressos(curriculo)</span>
+<span class="co"># getFormacaoDoutorado(curriculo)</span>
+<span class="co"># getFormacaoMestrado(curriculo)</span>
+<span class="co"># getFormacaoGraduacao(curriculo)</span>
+<span class="co"># getIdiomas(curriculo)</span>
+<span class="co"># getLinhaPesquisa(curriculo)</span>
+<span class="co"># getLivrosPublicados(curriculo)</span>
+<span class="co"># getOrganizacaoEventos(curriculo)</span>
+<span class="co"># getOrientacoesDoutorado(curriculo)</span>
+<span class="co"># getOrientacoesMestrado(curriculo)</span>
+<span class="co"># getOrientacoesPosDoutorado(curriculo)</span>
+<span class="co"># getOutrasProducoesTecnicas(curriculo)</span>
+<span class="co"># getParticipacaoProjeto(curriculo)</span>
+<span class="co"># getProducaoTecnica(curriculo)</span>
+<span class="co"># getId(curriculo)</span></code></pre></div>
+</div>
+</div>
+<div id="several-curricula" class="section level2">
+<h2 class="hasAnchor">
+<a href="#several-curricula" class="anchor"></a>Several curricula</h2>
+<div id="import-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#import-1" class="anchor"></a>Import</h3>
+<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code>dir_ls()</code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files, we can insert both options in <code>pattern</code> argument.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../data/'</span>, pattern <span class="op">=</span> <span class="st">'*.xml$|*.zip'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+
+<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../data/'</span>, regexp <span class="op">=</span> <span class="st">'*.xml|*.zip'</span><span class="op">)</span></code></pre></div>
+<p>Import the listed curricula to R memory as <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml</a></code> object.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">read_xml</span><span class="op">)</span></code></pre></div>
+<p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function is a well-known and widely used alternative in the <code>R</code> world. However, it does not natively handle errors, which makes the <code>map</code> function from the <code>purrr</code> package an excellent alternative.</p>
+<p>Adding an extra layer of complexity, I will use pipe <code><a href="https://rdrr.io/pkg/pipeR/man/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> operator from <code>pipeR</code> package. Programming using the pipe operator <code><a href="https://rdrr.io/pkg/pipeR/man/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> allows faster coding and clearer syntax. Where <code>. -&gt; curriculos</code> means the result was saved to <code>curriculos</code> object.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">files</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">read_xml</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">curriculos</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="get-functions-1" class="section level3">
+<h3 class="hasAnchor">
+<a href="#get-functions-1" class="anchor"></a><code>get</code> functions</h3>
+<p>To read data from only one curriculum any function <code>get</code> can be executed singly, but to import data from two or more curricula is easier to use <code>get*</code> functions with <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> or <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">dados_gerais</span><span class="op">)</span>
+
+<span class="va">dados_gerais</span>
+<span class="co">#&gt; $`../data/3051627641386529.zip`</span>
+<span class="co">#&gt; # A tibble: 1 x 12</span>
+<span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 Antonio Marci… BUAINAIN, Antonio… B             Brasil           MS           </span>
+<span class="co">#&gt; # … with 7 more variables: cidade_nascimento &lt;chr&gt;,</span>
+<span class="co">#&gt; #   permissao_de_divulgacao &lt;chr&gt;, data_falecimento &lt;chr&gt;,</span>
+<span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
+<span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $`../data/4984859173592703.zip`</span>
+<span class="co">#&gt; # A tibble: 1 x 12</span>
+<span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 Jose Maria Fe… SILVEIRA, José Ma… B             Brasil           SP           </span>
+<span class="co">#&gt; # … with 7 more variables: cidade_nascimento &lt;chr&gt;,</span>
+<span class="co">#&gt; #   permissao_de_divulgacao &lt;chr&gt;, data_falecimento &lt;chr&gt;,</span>
+<span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
+<span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span></code></pre></div>
+<p>Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">dados_gerais</span><span class="op">)</span>
+
+<span class="va">dados_gerais</span>
+<span class="co">#&gt; # A tibble: 2 x 12</span>
+<span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
+<span class="co">#&gt; 1 Antonio Marci… BUAINAIN, Antonio… B             Brasil           MS           </span>
+<span class="co">#&gt; 2 Jose Maria Fe… SILVEIRA, José Ma… B             Brasil           SP           </span>
+<span class="co">#&gt; # … with 7 more variables: cidade_nascimento &lt;chr&gt;,</span>
+<span class="co">#&gt; #   permissao_de_divulgacao &lt;chr&gt;, data_falecimento &lt;chr&gt;,</span>
+<span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
+<span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span></code></pre></div>
+<p>It is worth remembering that all variable names obtained by <code>get*</code> functions are the transcription of the field names in the <code>XML</code> file, the <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> being replaced with <code>_</code> and the capital letters replaced with lower case letters.</p>
+</div>
+</div>
+<div id="publications" class="section level2">
+<h2 class="hasAnchor">
+<a href="#publications" class="anchor"></a>Publications</h2>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getArtigosPublicados</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">artigos_publicados</span><span class="op">)</span>
+
+<span class="va">artigos_publicados</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">ano_do_artigo</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">titulo_do_artigo</span>, <span class="va">ano_do_artigo</span>, <span class="va">titulo_do_periodico_ou_revista</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 192 x 3</span>
+<span class="co">#&gt;    titulo_do_artigo                      ano_do_artigo titulo_do_periodico_ou_r…</span>
+<span class="co">#&gt;    &lt;chr&gt;                                 &lt;chr&gt;         &lt;chr&gt;                    </span>
+<span class="co">#&gt;  1 An Analysis of Collaboration Network… 2021          REVISTA DE ADMINISTRAÇÃO…</span>
+<span class="co">#&gt;  2 Patent network analysis in agricultu… 2021          ECONOMICS OF INNOVATION …</span>
+<span class="co">#&gt;  3 GENETICALLY MODIFIED CORN ADOPTION I… 2021          REVISTA DE ECONOMIA E AG…</span>
+<span class="co">#&gt;  4 Avaliação do Programa Nacional de Pr… 2020          Desenvolvimento em Debat…</span>
+<span class="co">#&gt;  5 Agro brasileiro em evolução: complex… 2020          Revista de Política Agrí…</span>
+<span class="co">#&gt;  6 Classe média rural?                   2020          Revista de Politica Agrí…</span>
+<span class="co">#&gt;  7 International trade in GMOs: have ma… 2020          Revista de economia e so…</span>
+<span class="co">#&gt;  8 Governance and financial efficiency … 2020          RAUSP Management Journal </span>
+<span class="co">#&gt;  9 The Role of Participation in the Res… 2020          Sustainability           </span>
+<span class="co">#&gt; 10 The impact of sugarcane expansion in… 2020          JOURNAL OF RURAL STUDIES </span>
+<span class="co">#&gt; # … with 182 more rows</span>
+
+<span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getLivrosPublicados</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">livros_publicados</span><span class="op">)</span>
+
+<span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getCapitulosLivros</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">capitulos_livros</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="grouping-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#grouping-data" class="anchor"></a>Grouping data</h2>
+<p>To group the data key variable is <code>id</code>, which is a unique 16 digit code.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">artigos_publicados</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'artigos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">artigos_publicados2</span><span class="op">)</span>
+
+<span class="va">artigos_publicados2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id               artigos</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;</span>
+<span class="co">#&gt; 1 3051627641386529     101</span>
+<span class="co">#&gt; 2 4984859173592703      91</span>
+
+<span class="va">livros_publicados</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'livros'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">livros_publicados2</span><span class="op">)</span>
+
+<span class="va">livros_publicados2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id               livros</span>
+<span class="co">#&gt;   &lt;chr&gt;             &lt;int&gt;</span>
+<span class="co">#&gt; 1 3051627641386529     45</span>
+<span class="co">#&gt; 2 4984859173592703      8</span>
+
+<span class="va">capitulos_livros</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'capitulos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">capitulos_livros2</span><span class="op">)</span>
+
+<span class="va">capitulos_livros2</span>
+<span class="co">#&gt; # A tibble: 2 x 2</span>
+<span class="co">#&gt;   id               capitulos</span>
+<span class="co">#&gt;   &lt;chr&gt;                &lt;int&gt;</span>
+<span class="co">#&gt; 1 3051627641386529        81</span>
+<span class="co">#&gt; 2 4984859173592703        48</span></code></pre></div>
+</div>
+<div id="merge-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#merge-data" class="anchor"></a>Merge data</h2>
+<p>to join the data from different tables the recommended variable is <code>id</code>, which is a unique 16 digit code.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">artigos_publicados2</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   id               artigos livros capitulos</span>
+<span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;  &lt;int&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 3051627641386529     101     45        81</span>
+<span class="co">#&gt; 2 4984859173592703      91      8        48</span></code></pre></div>
+<p>Add information from a different tables.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">artigos_publicados2</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dados_gerais</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">nome_completo</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">nome_completo</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 2 x 5</span>
+<span class="co">#&gt;   nome_completo                         id              artigos livros capitulos</span>
+<span class="co">#&gt;   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 Antonio Marcio Buainain               30516276413865…     101     45        81</span>
+<span class="co">#&gt; 2 Jose Maria Ferreira Jardim da Silvei… 49848591735927…      91      8        48</span></code></pre></div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
@@ -108,7 +428,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

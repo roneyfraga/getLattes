@@ -5,16 +5,25 @@
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
-#'  data(xmlsLattes)
+#'  
 #'  # to import from one curriculum 
-#'  getOutrasProducoesTecnicas(xmlsLattes[[2]])
-#'
-#'  # to import from two or more curricula
-#'  lt <- lapply(xmlsLattes, getOutrasProducoesTecnicas)
-#'  head(bind_rows(lt))
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getOutrasProducoesTecnicas(curriculo)
+#'  
 #'  }
+#' @seealso 
+#'  \code{\link[xml2]{xml_find_all}},\code{\link[xml2]{xml_attr}},\code{\link[xml2]{xml_children}}
+#'  \code{\link[purrr]{map}},\code{\link[purrr]{map2}}
+#'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{mutate}}
+#'  \code{\link[janitor]{clean_names}}
+#'  \code{\link[tibble]{tibble}}
 #' @rdname getOutrasProducoesTecnicas
 #' @export 
+#' @importFrom xml2 xml_find_all xml_attrs xml_children
+#' @importFrom purrr map map2 pmap
+#' @importFrom dplyr bind_rows bind_cols mutate
+#' @importFrom janitor clean_names
+#' @importFrom tibble tibble
 #' @importFrom pipeR "%>>%"
 getOutrasProducoesTecnicas <- function(curriculo) {
 
@@ -24,31 +33,31 @@ getOutrasProducoesTecnicas <- function(curriculo) {
 
     xml2::xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
         purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DE-OUTRA-PRODUCAO-TECNICA")) %>>%
-        purrr::map(~ xml2::xml_attrs()) %>>%
-        purrr::map(~ dplyr::bind_rows()) %>>%
-        purrr::map(~ janitor::clean_names()) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> dados_basicos)
 
     xml2::xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
         purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA")) %>>%
-        purrr::map(~ xml2::xml_attrs()) %>>%
-        purrr::map(~ dplyr::bind_rows()) %>>%
-        purrr::map(~ janitor::clean_names()) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> detalhamento)
 
     xml2::xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
         purrr::map(~ xml2::xml_find_all(., ".//AUTORES")) %>>%
-        purrr::map(~ xml2::xml_attrs()) %>>%
-        purrr::map(~ dplyr::bind_rows()) %>>%
-        purrr::map(~ janitor::clean_names()) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> autores)
 
     xml2::xml_find_all(curriculo, ".//OUTRA-PRODUCAO-TECNICA") %>>%
         purrr::map(~ xml2::xml_find_all(., ".//AREAS-DO-CONHECIMENTO")) %>>%
-        purrr::map(~ xml2::xml_children()) %>>%
-        purrr::map(~ xml2::xml_attrs()) %>>%
-        purrr::map(~ dplyr::bind_rows()) %>>%
-        purrr::map(~ janitor::clean_names()) %>>%
+        purrr::map(~ xml2::xml_children(.)) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         purrr::map(~ if (nrow(.x) == 0) { tibble::tibble(areas_conhecimento = NA) } else {.x})  %>>%
         (. -> areas_conhecimento)
 
