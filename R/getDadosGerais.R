@@ -15,17 +15,17 @@
 #'  }
 #' @rdname getDadosGerais
 #' @export 
-#' @importFrom dplyr mutate_if
+#' @importFrom pipeR "%>>%"
 getDadosGerais <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml_find_all(curriculo, ".//DADOS-GERAIS") %>>%
-        xml_attrs() %>>%
-        bind_rows() %>>%
+    xml2::xml_find_all(curriculo, ".//DADOS-GERAIS") %>>%
+        xml2::xml_attrs() %>>%
+        dplyr::bind_rows() %>>%
         janitor::clean_names() %>>%
-        mutate(id = getId(curriculo)) 
+        dplyr::mutate(id = getId(curriculo)) 
 
 }

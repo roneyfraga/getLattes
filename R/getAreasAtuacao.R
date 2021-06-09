@@ -4,7 +4,7 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' if(interactive()){
+#' if(interactive()) {
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
 #'  getAreasAtuacao(xmlsLattes[[2]])
@@ -15,16 +15,17 @@
 #'  }
 #' @rdname getAreasAtuacao
 #' @export 
+#' @importFrom pipeR "%>>%"
 getAreasAtuacao <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml_find_all(curriculo, ".//AREAS-DE-ATUACAO/AREA-DE-ATUACAO") %>>%
-        xml_attrs() %>>%
-        bind_rows() %>>%
+    xml2::xml_find_all(curriculo, ".//AREAS-DE-ATUACAO/AREA-DE-ATUACAO") %>>%
+        xml2::xml_attrs() %>>%
+        dplyr::bind_rows() %>>%
         janitor::clean_names() %>>%
-        mutate(id = getId(curriculo)) 
+        dplyr::mutate(id = getId(curriculo)) 
 
 }

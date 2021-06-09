@@ -15,57 +15,28 @@
 #'  }
 #' @rdname getOrientacoesDoutorado
 #' @export 
-getOrientacoesDoutorado <- function(curriculo){
+getOrientacoesDoutorado <- function(curriculo) {
 
-  #print(curriculo$id)
 
-  ll <- curriculo$`OUTRA-PRODUCAO`
-  nm <- names(ll)
-  encontro <- FALSE
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+    }
 
-  if(any( nm %in% 'ORIENTACOES-CONCLUIDAS')){
-    ll2 <- ll$`ORIENTACOES-CONCLUIDAS`
-    nmll2 <- names(ll2)
-    if(any( nmll2 %in% 'ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO')){
+    xml2::xml_find_all(curriculo, ".//ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO")) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
+        (. -> dados_basicos)
 
-      tnmll2 <- length(ll2)
-      if(tnmll2 > 0){
-        testelista <- list()
+    xml2::xml_find_all(curriculo, ".//ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO")) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
+        (. -> detalhamento)
 
-        ll3 <- lapply(ll2, function(x){
-
-          if(any( names(x) %in% 'DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO')){
-
-            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO`),
-                             if(any(names(x) %in% 'DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO')){
-                               if(length(x$`DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO`) != 0){
-                                 getCharacter(x$`DETALHAMENTO-DE-ORIENTACOES-CONCLUIDAS-PARA-DOUTORADO`)
-                               }
-                             }
-            )
-
-            id1 <-  getCharacter(curriculo$id)
-            names(id1) <- "id"
-            ll6 <- bind_cols(ll4,id1)
-
-          }
-        })
-
-        if(length(ll3) > 1 || length(ll3)  == 1  ){
-          ll3 <- bind_rows(ll3)
-        }
-
-      }
-
-      return(ll3)
-
-    }else{
-      ll3 <- NULL
-      return(ll3)
-    } #AQUI
-  }else{
-    ll3 <- NULL
-    return(ll3)
-  }
-    if(length(ll3)>=1){ ll3 <- dplyr::mutate_if(ll3, is.factor, as.character) }
+    purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) %>>%
+        dplyr::bind_rows() %>>%
+        dplyr::mutate(id = getId(curriculo)) 
 }

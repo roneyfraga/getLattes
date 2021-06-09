@@ -19,7 +19,7 @@ Extract published papers from XML file converted to R list.
 Curriculum without this information will return NULL.
 }
 \examples{
-if(interactive()){
+if(interactive()) {
  data(xmlsLattes)
  # to import from one curriculum 
  getArtigosPublicados(xmlsLattes[[2]])

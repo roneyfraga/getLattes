@@ -1,7 +1,7 @@
 Package: getLattes
 Type: Package
 Title: Import and Process Data from the 'Lattes' Curriculum Platform
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: 
     c(person(given = "Roney",
              family = "Fraga Souza",
@@ -17,7 +17,7 @@ Description: Tool for import and process data from 'Lattes' curriculum platform 
 License: GPL-3
 Encoding: UTF-8
 LazyData: TRUE
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 URL: https://github.com/roneyfraga/getLattes
 BugReports: https://github.com/roneyfraga/getLattes/issues
 Suggests: 
@@ -25,14 +25,11 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports: 
-    XML,
-    utils,
+    xml2,
     dplyr,
     tibble,
     pipeR,
     rlang,
-    rlist,
-    stringr,
-    stringi
+    janitor
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1.0)

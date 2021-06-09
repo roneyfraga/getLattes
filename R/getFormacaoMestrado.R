@@ -4,7 +4,7 @@
 #' @return list
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' if(interactive()){
+#' if(interactive()) {
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
 #'  getFormacao(xmlsLattes[[2]])
@@ -14,34 +14,35 @@
 #'  }
 #' @rdname getFormacaoMestrado
 #' @export 
+#' @importFrom pipeR "%>>%"
 getFormacaoMestrado <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
-            stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml_find_all(curriculo, ".//FORMACAO-ACADEMICA-TITULACAO/MESTRADO") %>>%
-        map(~ xml_attrs(.)) %>>%
-        map(~ bind_rows(.)) %>>%
-        map(~ janitor::clean_names(.)) %>>%
+    xml2::xml_find_all(curriculo, ".//FORMACAO-ACADEMICA-TITULACAO/MESTRADO") %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> mestrado)
 
-    xml_find_all(curriculo, ".//FORMACAO-ACADEMICA-TITULACAO/MESTRADO") %>>%
-        map(~ xml_find_all(., ".//AREAS-DO-CONHECIMENTO")) %>>%
-        map(~ xml_children(.)) %>>%
-        map(~ xml_attrs(.)) %>>%
-        map(~ bind_rows(.)) %>>%
-        map(~ janitor::clean_names(.)) %>>%
+    xml2::xml_find_all(curriculo, ".//FORMACAO-ACADEMICA-TITULACAO/MESTRADO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//AREAS-DO-CONHECIMENTO")) %>>%
+        purrr::map(~ xml2::xml_children(.)) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> mestrado_area)
 
     if (nrow(mestrado_area[[1]]) == 0) mestrado_area <- tibble::tibble(nome_grande_area_do_conhecimento = NA, 
-                                                                         nome_da_area_do_conhecimento = NA, 
-                                                                         nome_da_sub_area_do_conhecimento = NA, 
-                                                                         nome_da_especialidade = NA)
+                                                                       nome_da_area_do_conhecimento = NA, 
+                                                                       nome_da_sub_area_do_conhecimento = NA, 
+                                                                       nome_da_especialidade = NA)
 
     mestrado  %>>%  
-        (pmap(list(., mestrado_area), function(x, y) tibble(x, area = list(y)))) %>>%
-        bind_rows() %>>%
+        (purrr::pmap(list(., mestrado_area), function(x, y) tibble::tibble(x, area = list(y)))) %>>%
+        dplyr::bind_rows() %>>%
         dplyr::mutate(id = getId(curriculo)) 
 
 }

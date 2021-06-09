@@ -4,7 +4,7 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' if(interactive()){
+#' if(interactive()) {
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
 #'  getParticipacaoProjeto(xmlsLattes[[2]])
@@ -15,37 +15,38 @@
 #'  }
 #' @rdname getParticipacaoProjeto
 #' @export 
+#' @importFrom pipeR "%>>%"
 getParticipacaoProjeto <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml_find_all(curriculo, ".//PARTICIPACAO-EM-PROJETO") %>>%
-        map(~ xml_find_all(., ".//PROJETO-DE-PESQUISA")) %>>%
-        map(~ xml_attrs(.)) %>>%
-        map(~ bind_rows(.)) %>>%
-        map(~ janitor::clean_names(.)) %>>%
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-PROJETO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//PROJETO-DE-PESQUISA")) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> dados_basicos)
-        
-    xml_find_all(curriculo, ".//PARTICIPACAO-EM-PROJETO") %>>%
-        map(~ xml_find_all(., ".//EQUIPE-DO-PROJETO")) %>>%
-        map(~ xml_children(.)) %>>%
-        map(~ xml_attrs(.)) %>>%
-        map(~ bind_rows(.)) %>>%
-        map(~ janitor::clean_names(.)) %>>%
+
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-PROJETO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//EQUIPE-DO-PROJETO")) %>>%
+        purrr::map(~ xml2::xml_children(.)) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> equipe)
 
-    xml_find_all(curriculo, ".//PARTICIPACAO-EM-PROJETO") %>>%
-        map(~ xml_find_all(., ".//FINANCIADORES-DO-PROJETO")) %>>%
-        map(~ xml_children(.)) %>>%
-        map(~ xml_attrs(.)) %>>%
-        map(~ bind_rows(.)) %>>%
-        map(~ janitor::clean_names(.)) %>>%
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-PROJETO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//FINANCIADORES-DO-PROJETO")) %>>%
+        purrr::map(~ xml2::xml_children(.)) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
         (. -> financiadores)
 
-    pmap(list(dados_basicos, equipe), function(x, y) tibble(x, equipe = list(y))) %>>%
-        (pmap(list(., financiadores), function(x, y) tibble(x, financiadores = list(y)))) %>>%
-        bind_rows() %>>%
+    pmap(list(dados_basicos, equipe), function(x, y) tibble::tibble(x, equipe = list(y))) %>>%
+        (purrr::pmap(list(., financiadores), function(x, y) tibble::tibble(x, financiadores = list(y)))) %>>%
+        dplyr::bind_rows() %>>%
         dplyr::mutate(id = getId(curriculo)) 
 }

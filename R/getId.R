@@ -8,6 +8,7 @@
 #'  
 #' @rdname getId
 #' @export 
+#' @importFrom pipeR "%>>%"
 getId <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {

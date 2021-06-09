@@ -4,7 +4,7 @@
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' if(interactive()){
+#' if(interactive()) {
 #'  data(xmlsLattes)
 #'  # to import from one curriculum 
 #'  getBancasDoutorado(xmlsLattes[[2]])
@@ -15,90 +15,44 @@
 #'  }
 #' @rdname getBancasDoutorado
 #' @export 
-getBancasDoutorado <- function(curriculo){
+#' @importFrom pipeR "%>>%"
+getBancasDoutorado <- function(curriculo) {
 
-  #print(curriculo$id)
+    if (!any(class(curriculo) == 'xml_document')) {
+        stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
+    }
 
-  ll <- curriculo$`DADOS-COMPLEMENTARES`
-  nm <- names(ll)
-  encontro <- FALSE
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-DOUTORADO") %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
+        (. -> sequencia)
 
-  if(any( nm %in% 'PARTICIPACAO-EM-BANCA-TRABALHOS-CONCLUSAO')){
-    ll2 <- ll$`PARTICIPACAO-EM-BANCA-TRABALHOS-CONCLUSAO`
-    nmll2 <- names(ll2)
-    if(any( nmll2 %in% 'PARTICIPACAO-EM-BANCA-DE-DOUTORADO')){
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-DOUTORADO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO")) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
+        (. -> dados_basicos)
 
-      tnmll2 <- length(ll2)
-      if(tnmll2 > 0){
-        testelista <- list()
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-DOUTORADO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO")) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
+        (. -> detalhamento)
 
-        ll3 <- lapply(ll2, function(x){
+    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-DOUTORADO") %>>%
+        purrr::map(~ xml2::xml_find_all(., ".//PARTICIPANTE-BANCA")) %>>%
+        purrr::map(~ xml2::xml_attrs(.)) %>>%
+        purrr::map(~ dplyr::bind_rows(.)) %>>%
+        purrr::map(~ janitor::clean_names(.)) %>>%
+        (. -> participantes)
 
-          if(any( names(x) %in% 'DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO')){
+    purrr::map2(sequencia, dados_basicos, dplyr::bind_cols) %>>%
+        purrr::map2(detalhamento, dplyr::bind_cols) %>>%
+        (purrr::pmap(list(., participantes), function(x, y) tibble::tibble(x, participantes = list(y)))) %>>%
+        dplyr::bind_rows() %>>%
+        dplyr::mutate(id = getId(curriculo)) 
 
-            ll4 <- bind_cols(getCharacter(x$`DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO`),
-                             if(any(names(x) %in% 'DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO')){
-                               if(length(x$`DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO`) != 0){
-                                 getCharacter(x$`DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-DOUTORADO`)
-                               }
-                             }
-            )
-
-            a <- which(names(x) == "PARTICIPANTE-BANCA" )
-
-            autores <- lapply(a, function(z){ getCharacter(x[[z]])  })
-
-            autores1 <- data.frame(autores = "", autores.citacoes ="", autores.id="")
-
-            for(i in 1:length(autores)){
-              if (i == 1){
-                autores1$autores <- paste0(autores[[i]]$nome.completo.do.participante.da.banca)
-                autores1$autores.citacoes<- paste0(autores[[i]]$nome.para.citacao.do.participante.da.banca)
-                if (any(names(autores[[i]]) %in% "nro.id.cnpq")){
-                  if (autores[[i]]$nro.id.cnpq == ""){
-                    autores1$autores.id <- paste0("No.id")
-                  }else{
-                    autores1$autores.id <- paste0(autores[[i]]$nro.id.cnpq)
-                  }
-                }else{
-                  autores1$autores.id <- paste0("No.id")
-                }
-              }else{
-                autores1$autores <- paste0(autores1$autores, ", " , autores[[i]]$nome.completo.do.participante.da.banca)
-                autores1$autores.citacoes <- paste0(autores1$autores.citacoes, "/ " , autores[[i]]$nome.para.citacao.do.participante.da.banca)
-                if (any(names(autores[[i]]) %in% "nro.id.cnpq")){
-                  if (autores[[i]]$nro.id.cnpq == ""){
-                    autores1$autores.id <- paste0(autores1$autores.id, ", " , "No.id")
-                  }else{
-                    autores1$autores.id <- paste0(autores1$autores.id, ", " , autores[[i]]$nro.id.cnpq)
-                  }
-                }else{
-                  autores1$autores.id <- paste0(autores1$autores.id, ", " , "No.id")
-                }
-              }
-            }
-
-            id1 <-  getCharacter(curriculo$id)
-            names(id1) <- "id"
-            ll6 <- bind_cols(ll4, autores1, id1)
-
-          }
-        })
-
-        if(length(ll3) > 1 || length(ll3)  == 1  ){
-          ll3 <- bind_rows(ll3)
-        }
-
-      }
-
-      return(ll3)
-
-    }else{
-      ll3 <- NULL
-      return(ll3)
-    } #AQUI
-  }else{
-    ll3 <- NULL
-    return(ll3)
-  }
 }
