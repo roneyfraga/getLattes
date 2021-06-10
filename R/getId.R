@@ -26,6 +26,6 @@ getId <- function(curriculo) {
     curriculo %>>%
         xml2::xml_attrs() %>>%
         dplyr::bind_rows() %>>%
-        dplyr::select(id = `NUMERO-IDENTIFICADOR`) %>>%
+        dplyr::mutate(id = as.character(`NUMERO-IDENTIFICADOR`)) %>>%
         dplyr::pull(id)
 }
