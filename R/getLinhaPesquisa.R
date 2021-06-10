@@ -1,13 +1,13 @@
 #' @title getLinhaPesquisa
-#' @description Extract Research Lines from XML file converted to R list.
-#' @param curriculo XML exported from Lattes imported to R as list.
+#' @description Extract Research Lines from 'Lattes' XML file. 
+#' @param curriculo 'Lattes' XML imported as `xml2::read_xml()`.
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
 #'  
 #'  # to import from one curriculum 
-#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # curriculo <- xml2::read_xml()('file.xml')
 #'  # getLinhaPesquisa(curriculo)
 #'  
 #'  }

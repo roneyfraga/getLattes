@@ -2,28 +2,30 @@
 % Please edit documentation in R/getId.R
 \name{getId}
 \alias{getId}
-\title{FUNCTION_TITLE}
+\title{getId}
 \usage{
 getId(curriculo)
 }
 \arguments{
-\item{curriculo}{PARAM_DESCRIPTION}
+\item{curriculo}{'Lattes' XML imported as `xml2::read_xml()`.}
 }
 \value{
-OUTPUT_DESCRIPTION
+character
 }
 \description{
-FUNCTION_DESCRIPTION
+Extract the unique 16 digits identification from 'Lattes' XML file.
 }
 \details{
-DETAILS
+Curriculum without this information will return NULL.
 }
 \examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
+if(interactive()) {
+ 
+ # to import from one curriculum 
+ # curriculo <- xml2::read_xml('file.xml')
+ # getId(curriculo)
+
  }
-}
 }
 \seealso{
 \code{\link[xml2]{xml_attr}}

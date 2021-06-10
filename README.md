@@ -14,9 +14,7 @@ Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was
 built to extract data from the [Lattes](http://lattes.cnpq.br/)
 curriculum platform exported as `XML`.
 
-![](http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif)
-
-The `XML` file needs to be extracted from `.zip`.
+![](http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif)
 
 To automate the download process, please see [Captchas Negated by Python
 reQuests - CNPQ](https://github.com/josefson/CNPQ).
@@ -35,7 +33,7 @@ Development version from
 
 ``` r
 # install and load devtools from CRAN
-install.packages("devtools")
+# install.packages("devtools")
 library(devtools)
 
 # install and load getLattes
@@ -45,8 +43,10 @@ library(getLattes)
 
 ## Import XML file
 
+The Lattes XML file can be compressed inside a `.zip`.
+
 ``` r
-curriculo <- read_xml('data/4984859173592703.zip')
+curriculo <- xml2::read_xml('extdata/4984859173592703.zip')
 ```
 
 ## Extract data

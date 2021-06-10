@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="getFormacaoDoutorado — getFormacaoDoutorado" />
-<meta property="og:description" content="Extract Profissional Formation from XML file converted to R list." />
+<meta property="og:description" content="Extract Profissional Formation from 'Lattes' XML file." />
 
 
 
@@ -129,7 +129,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Extract Profissional Formation from XML file converted to R list.</p>
+    <p>Extract Profissional Formation from 'Lattes' XML file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>getFormacaoDoutorado</span><span class='op'>(</span><span class='va'>curriculo</span><span class='op'>)</span></pre>
@@ -139,13 +139,13 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>curriculo</th>
-      <td><p>XML exported from Lattes imported to R as list.</p></td>
+      <td><p>'Lattes' XML imported as `xml2::read_xml()`.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>list</p>
+    <p>data frame</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Curriculum without this information will return NULL.</p>

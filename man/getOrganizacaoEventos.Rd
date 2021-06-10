@@ -7,13 +7,13 @@
 getOrganizacaoEventos(curriculo)
 }
 \arguments{
-\item{curriculo}{XML exported from Lattes imported to R as list.}
+\item{curriculo}{'Lattes' XML imported as `xml2::read_xml()`.}
 }
 \value{
 data frame
 }
 \description{
-Extract Event's Organization from XML file converted to R list.
+Extract Event's Organization from 'Lattes' XML file.
 }
 \details{
 Curriculum without this information will return NULL.

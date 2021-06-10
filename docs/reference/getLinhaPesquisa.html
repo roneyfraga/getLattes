@@ -40,7 +40,7 @@
 
 
 <meta property="og:title" content="getLinhaPesquisa — getLinhaPesquisa" />
-<meta property="og:description" content="Extract Research Lines from XML file converted to R list." />
+<meta property="og:description" content="Extract Research Lines from 'Lattes' XML file." />
 
 
 
@@ -129,7 +129,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Extract Research Lines from XML file converted to R list.</p>
+    <p>Extract Research Lines from 'Lattes' XML file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>getLinhaPesquisa</span><span class='op'>(</span><span class='va'>curriculo</span><span class='op'>)</span></pre>
@@ -139,7 +139,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>curriculo</th>
-      <td><p>XML exported from Lattes imported to R as list.</p></td>
+      <td><p>'Lattes' XML imported as `xml2::read_xml()`.</p></td>
     </tr>
     </table>
 
@@ -160,7 +160,7 @@
     <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
  
  <span class='co'># to import from one curriculum </span>
- <span class='co'># curriculo &lt;- xml2::read_xml('file.xml')</span>
+ <span class='co'># curriculo &lt;- xml2::read_xml()('file.xml')</span>
  <span class='co'># getLinhaPesquisa(curriculo)</span>
  
  <span class='op'>}</span>

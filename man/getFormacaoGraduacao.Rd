@@ -7,13 +7,13 @@
 getFormacaoGraduacao(curriculo)
 }
 \arguments{
-\item{curriculo}{XML exported from Lattes imported to R as list.}
+\item{curriculo}{'Lattes' XML imported as `xml2::read_xml()`.}
 }
 \value{
-list
+data frame
 }
 \description{
-Extract Profissional Formation from XML file converted to R list.
+Extract Profissional Formation from 'Lattes' XML file.
 }
 \details{
 Curriculum without this information will return NULL.

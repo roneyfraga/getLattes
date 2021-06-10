@@ -1,14 +1,16 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param curriculo PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @title getId
+#' @description Extract the unique 16 digits identification from 'Lattes' XML file.
+#' @param curriculo 'Lattes' XML imported as `xml2::read_xml()`.
+#' @return character
+#' @details Curriculum without this information will return NULL. 
 #' @examples 
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
+#' if(interactive()) {
+#'  
+#'  # to import from one curriculum 
+#'  # curriculo <- xml2::read_xml('file.xml')
+#'  # getId(curriculo)
+#'
 #'  }
-#' }
 #' @seealso 
 #'  \code{\link[xml2]{xml_attr}}
 #'  \code{\link[dplyr]{bind}},\code{\link[dplyr]{select}},\code{\link[dplyr]{pull}}

@@ -7,13 +7,13 @@
 getOrientacoesMestrado(curriculo)
 }
 \arguments{
-\item{curriculo}{XML exported from Lattes imported to R as list.}
+\item{curriculo}{'Lattes' XML imported as `xml2::read_xml()`.}
 }
 \value{
 data frame
 }
 \description{
-Extract Academic Advisory (Master Thesis) from XML file converted to R list.
+Extract Academic Advisory (Master Thesis) from 'Lattes' XML file.
 }
 \details{
 Curriculum without this information will return NULL.

@@ -7,13 +7,13 @@
 getCapitulosLivros(curriculo)
 }
 \arguments{
-\item{curriculo}{XML exported from Lattes imported to R as list.}
+\item{curriculo}{'Lattes' XML imported as `xml2::read_xml()`.}
 }
 \value{
 data frame
 }
 \description{
-Extract Books Chapter from XML file converted to R list.
+Extract Books Chapter from 'Lattes' XML file.
 }
 \details{
 Curriculum without this information will return NULL.

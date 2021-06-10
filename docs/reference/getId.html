@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FUNCTION_TITLE — getId • getLattes</title>
+<title>getId — getId • getLattes</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="FUNCTION_TITLE — getId" />
-<meta property="og:description" content="FUNCTION_DESCRIPTION" />
+<meta property="og:title" content="getId — getId" />
+<meta property="og:description" content="Extract the unique 16 digits identification from 'Lattes' XML file." />
 
 
 
@@ -123,13 +123,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>FUNCTION_TITLE</h1>
+    <h1>getId</h1>
     <small class="dont-index">Source: <a href='https://github.com/roneyfraga/getLattes/blob/master/R/getId.R'><code>R/getId.R</code></a></small>
     <div class="hidden name"><code>getId.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>FUNCTION_DESCRIPTION</p>
+    <p>Extract the unique 16 digits identification from 'Lattes' XML file.</p>
     </div>
 
     <pre class="usage"><span class='fu'>getId</span><span class='op'>(</span><span class='va'>curriculo</span><span class='op'>)</span></pre>
@@ -139,27 +139,29 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>curriculo</th>
-      <td><p>PARAM_DESCRIPTION</p></td>
+      <td><p>'Lattes' XML imported as `xml2::read_xml()`.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>OUTPUT_DESCRIPTION</p>
+    <p>character</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>DETAILS</p>
+    <p>Curriculum without this information will return NULL.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='http://xml2.r-lib.org/reference/xml_attr.html'>xml_attr</a></code>
  <code><a href='https://dplyr.tidyverse.org/reference/bind.html'>bind</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></code>,<code><a href='https://dplyr.tidyverse.org/reference/pull.html'>pull</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
- <span class='co'>#EXAMPLE1</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+ 
+ <span class='co'># to import from one curriculum </span>
+ <span class='co'># curriculo &lt;- xml2::read_xml('file.xml')</span>
+ <span class='co'># getId(curriculo)</span>
+
  <span class='op'>}</span>
-<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

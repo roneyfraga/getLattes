@@ -87,8 +87,7 @@
 <!-- badges: start -->
 
 <p>The <code>getLattes</code> <code>R</code> package, written by <a href="http://roneyfraga.com">Roney Fraga Souza</a> and <a href="https://stackoverflow.com/users/9278241/winicius-sabino">Winicius Sabino</a>, was built to extract data from the <a href="http://lattes.cnpq.br/">Lattes</a> curriculum platform exported as <code>XML</code>.</p>
-<p><img src="http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif"></p>
-<p>The <code>XML</code> file needs to be extracted from <code>.zip</code>.</p>
+<p><img src="http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif"></p>
 <p>To automate the download process, please see <a href="https://github.com/josefson/CNPQ">Captchas Negated by Python reQuests - CNPQ</a>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
@@ -100,7 +99,7 @@
 <p>Development version from <a href="https://github.com/roneyfraga/getLattes">GitHub</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install and load devtools from CRAN</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span>
+<span class="co"># install.packages("devtools")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
 
 <span class="co"># install and load getLattes</span>
@@ -110,8 +109,9 @@
 <div id="import-xml-file" class="section level2">
 <h2 class="hasAnchor">
 <a href="#import-xml-file" class="anchor"></a>Import XML file</h2>
+<p>The Lattes XML file can be compressed inside a <code>.zip</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">read_xml</span><span class="op">(</span><span class="st">'data/4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="extract-data" class="section level2">
 <h2 class="hasAnchor">

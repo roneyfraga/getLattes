@@ -182,7 +182,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/">xml2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://fs.r-lib.org">fs</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="single-curriculum" class="section level2">
 <h2 class="hasAnchor">
@@ -192,7 +193,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <a href="#import" class="anchor"></a>Import</h3>
 <p>Using the <code>get*</code> functions to import data from a single curriculum is straightforward. The curriculum need to be imported into <code>R</code> by the <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml()</a></code> function from the <code>xml2</code> package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'../inst/extdata/4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="get-functions" class="section level3">
 <h3 class="hasAnchor">
@@ -200,30 +201,30 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
 <span class="fu"><a href="../reference/getArtigosPublicados.html">getArtigosPublicados</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
-<span class="co"># getAreasAtuacao(curriculo)</span>
-<span class="co"># getArtigosPublicados(curriculo)</span>
-<span class="co"># getAtuacoesProfissionais(curriculo)</span>
-<span class="co"># getBancasDoutorado(curriculo)</span>
-<span class="co"># getBancasGraduacao(curriculo)</span>
-<span class="co"># getBancasMestrado(curriculo)</span>
-<span class="co"># getCapitulosLivros(curriculo)</span>
-<span class="co"># getDadosGerais(curriculo)</span>
-<span class="co"># getEnderecoProfissional(curriculo)</span>
-<span class="co"># getEventosCongressos(curriculo)</span>
-<span class="co"># getFormacaoDoutorado(curriculo)</span>
-<span class="co"># getFormacaoMestrado(curriculo)</span>
-<span class="co"># getFormacaoGraduacao(curriculo)</span>
-<span class="co"># getIdiomas(curriculo)</span>
-<span class="co"># getLinhaPesquisa(curriculo)</span>
-<span class="co"># getLivrosPublicados(curriculo)</span>
-<span class="co"># getOrganizacaoEventos(curriculo)</span>
-<span class="co"># getOrientacoesDoutorado(curriculo)</span>
-<span class="co"># getOrientacoesMestrado(curriculo)</span>
-<span class="co"># getOrientacoesPosDoutorado(curriculo)</span>
-<span class="co"># getOutrasProducoesTecnicas(curriculo)</span>
-<span class="co"># getParticipacaoProjeto(curriculo)</span>
-<span class="co"># getProducaoTecnica(curriculo)</span>
-<span class="co"># getId(curriculo)</span></code></pre></div>
+<span class="fu"><a href="../reference/getAreasAtuacao.html">getAreasAtuacao</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getArtigosPublicados.html">getArtigosPublicados</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getAtuacoesProfissionais.html">getAtuacoesProfissionais</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getBancasDoutorado.html">getBancasDoutorado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getBancasGraduacao.html">getBancasGraduacao</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getBancasMestrado.html">getBancasMestrado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getCapitulosLivros.html">getCapitulosLivros</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getEnderecoProfissional.html">getEnderecoProfissional</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getEventosCongressos.html">getEventosCongressos</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getFormacaoDoutorado.html">getFormacaoDoutorado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getFormacaoMestrado.html">getFormacaoMestrado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getFormacaoGraduacao.html">getFormacaoGraduacao</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getIdiomas.html">getIdiomas</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getLinhaPesquisa.html">getLinhaPesquisa</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getLivrosPublicados.html">getLivrosPublicados</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getOrganizacaoEventos.html">getOrganizacaoEventos</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getOrientacoesDoutorado.html">getOrientacoesDoutorado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getOrientacoesMestrado.html">getOrientacoesMestrado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getOrientacoesPosDoutorado.html">getOrientacoesPosDoutorado</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getOutrasProducoesTecnicas.html">getOutrasProducoesTecnicas</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getParticipacaoProjeto.html">getParticipacaoProjeto</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getProducaoTecnica.html">getProducaoTecnica</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
+<span class="fu"><a href="../reference/getId.html">getId</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
 <div id="several-curricula" class="section level2">
@@ -232,12 +233,12 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div id="import-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#import-1" class="anchor"></a>Import</h3>
-<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code>dir_ls()</code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files, we can insert both options in <code>pattern</code> argument.</p>
+<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code><a href="http://fs.r-lib.org/reference/dir_ls.html">dir_ls()</a></code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files, we can insert both options in <code>pattern</code> argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../data/'</span>, pattern <span class="op">=</span> <span class="st">'*.xml$|*.zip'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../inst/extdata/'</span>, pattern <span class="op">=</span> <span class="st">'*.xml|*.zip'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 
-<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../data/'</span>, regexp <span class="op">=</span> <span class="st">'*.xml|*.zip'</span><span class="op">)</span></code></pre></div>
+<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="http://fs.r-lib.org/reference/dir_ls.html">dir_ls</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../inst/extdata/'</span>, regexp <span class="op">=</span> <span class="st">'*.xml|*.zip'</span><span class="op">)</span></code></pre></div>
 <p>Import the listed curricula to R memory as <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml</a></code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">read_xml</span><span class="op">)</span></code></pre></div>
@@ -260,7 +261,7 @@ include     se falso, executa mas não inclui o chunk no relatório
     <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">dados_gerais</span><span class="op">)</span>
 
 <span class="va">dados_gerais</span>
-<span class="co">#&gt; $`../data/3051627641386529.zip`</span>
+<span class="co">#&gt; $`../inst/extdata/3051627641386529.zip`</span>
 <span class="co">#&gt; # A tibble: 1 x 12</span>
 <span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
@@ -270,7 +271,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
 <span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $`../data/4984859173592703.zip`</span>
+<span class="co">#&gt; $`../inst/extdata/4984859173592703.zip`</span>
 <span class="co">#&gt; # A tibble: 1 x 12</span>
 <span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
@@ -288,16 +289,21 @@ include     se falso, executa mas não inclui o chunk no relatório
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
     <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">dados_gerais</span><span class="op">)</span>
 
-<span class="va">dados_gerais</span>
-<span class="co">#&gt; # A tibble: 2 x 12</span>
-<span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 Antonio Marci… BUAINAIN, Antonio… B             Brasil           MS           </span>
-<span class="co">#&gt; 2 Jose Maria Fe… SILVEIRA, José Ma… B             Brasil           SP           </span>
-<span class="co">#&gt; # … with 7 more variables: cidade_nascimento &lt;chr&gt;,</span>
-<span class="co">#&gt; #   permissao_de_divulgacao &lt;chr&gt;, data_falecimento &lt;chr&gt;,</span>
-<span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
-<span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span></code></pre></div>
+<span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dados_gerais</span><span class="op">)</span>
+<span class="co">#&gt; Rows: 2</span>
+<span class="co">#&gt; Columns: 12</span>
+<span class="co">#&gt; $ nome_completo                   &lt;chr&gt; "Antonio Marcio Buainain", "Jose Maria…</span>
+<span class="co">#&gt; $ nome_em_citacoes_bibliograficas &lt;chr&gt; "BUAINAIN, Antonio Marcio;Buainain, An…</span>
+<span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B"</span>
+<span class="co">#&gt; $ pais_de_nascimento              &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ uf_nascimento                   &lt;chr&gt; "MS", "SP"</span>
+<span class="co">#&gt; $ cidade_nascimento               &lt;chr&gt; "Campo Grande", "São Paulo"</span>
+<span class="co">#&gt; $ permissao_de_divulgacao         &lt;chr&gt; "NAO", "NAO"</span>
+<span class="co">#&gt; $ data_falecimento                &lt;chr&gt; "", ""</span>
+<span class="co">#&gt; $ sigla_pais_nacionalidade        &lt;chr&gt; "BRA", "BRA"</span>
+<span class="co">#&gt; $ pais_de_nacionalidade           &lt;chr&gt; "Brasil", "Brasil"</span>
+<span class="co">#&gt; $ orcid_id                        &lt;chr&gt; "https://orcid.org/0000-0002-1779-5589…</span>
+<span class="co">#&gt; $ id                              &lt;chr&gt; "3051627641386529", "4984859173592703"</span></code></pre></div>
 <p>It is worth remembering that all variable names obtained by <code>get*</code> functions are the transcription of the field names in the <code>XML</code> file, the <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> being replaced with <code>_</code> and the capital letters replaced with lower case letters.</p>
 </div>
 </div>
@@ -348,8 +354,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">artigos_publicados</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'artigos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'artigos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
     <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">artigos_publicados2</span><span class="op">)</span>
 
 <span class="va">artigos_publicados2</span>
@@ -360,8 +366,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 2 4984859173592703      91</span>
 
 <span class="va">livros_publicados</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'livros'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'livros'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
     <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">livros_publicados2</span><span class="op">)</span>
 
 <span class="va">livros_publicados2</span>
@@ -372,8 +378,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 2 4984859173592703      8</span>
 
 <span class="va">capitulos_livros</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'capitulos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'capitulos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
     <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">capitulos_livros2</span><span class="op">)</span>
 
 <span class="va">capitulos_livros2</span>
@@ -390,8 +396,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">artigos_publicados2</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   id               artigos livros capitulos</span>
 <span class="co">#&gt;   &lt;chr&gt;              &lt;int&gt;  &lt;int&gt;     &lt;int&gt;</span>
@@ -401,15 +407,15 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">artigos_publicados2</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dados_gerais</span> <span class="op">%&gt;&gt;%</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">nome_completo</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html">relocate</a></span><span class="op">(</span><span class="va">nome_completo</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 2 x 5</span>
-<span class="co">#&gt;   nome_completo                         id              artigos livros capitulos</span>
-<span class="co">#&gt;   &lt;chr&gt;                                 &lt;chr&gt;             &lt;int&gt;  &lt;int&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 Antonio Marcio Buainain               30516276413865…     101     45        81</span>
-<span class="co">#&gt; 2 Jose Maria Ferreira Jardim da Silvei… 49848591735927…      91      8        48</span></code></pre></div>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dados_gerais</span> <span class="op">%&gt;&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">nome_completo</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">nome_completo</span>, <span class="va">artigos</span>, <span class="va">livros</span>, <span class="va">capitulos</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 2 x 4</span>
+<span class="co">#&gt;   nome_completo                          artigos livros capitulos</span>
+<span class="co">#&gt;   &lt;chr&gt;                                    &lt;int&gt;  &lt;int&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 Antonio Marcio Buainain                    101     45        81</span>
+<span class="co">#&gt; 2 Jose Maria Ferreira Jardim da Silveira      91      8        48</span></code></pre></div>
 </div>
   </div>
 

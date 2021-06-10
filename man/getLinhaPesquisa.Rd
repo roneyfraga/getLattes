@@ -7,13 +7,13 @@
 getLinhaPesquisa(curriculo)
 }
 \arguments{
-\item{curriculo}{XML exported from Lattes imported to R as list.}
+\item{curriculo}{'Lattes' XML imported as `xml2::read_xml()`.}
 }
 \value{
 data frame
 }
 \description{
-Extract Research Lines from XML file converted to R list.
+Extract Research Lines from 'Lattes' XML file.
 }
 \details{
 Curriculum without this information will return NULL.
@@ -22,7 +22,7 @@ Curriculum without this information will return NULL.
 if(interactive()) {
  
  # to import from one curriculum 
- # curriculo <- xml2::read_xml('file.xml')
+ # curriculo <- xml2::read_xml()('file.xml')
  # getLinhaPesquisa(curriculo)
  
  }

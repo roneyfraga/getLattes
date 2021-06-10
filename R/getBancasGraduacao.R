@@ -1,6 +1,6 @@
 #' @title getBancasGraduacao
-#' @description Extract Undergraduate Examination Board's from XML file converted to R list.
-#' @param curriculo XML exported from Lattes imported to R as list.
+#' @description Extract Undergraduate Examination Board's from 'Lattes' XML file.
+#' @param curriculo 'Lattes' XML imported as `xml2::read_xml()`.
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
@@ -19,11 +19,11 @@
 #'  \code{\link[tibble]{tibble}}
 #' @rdname getBancasGraduacao
 #' @export 
-#' @importfrom xml2 xml_find_all xml_attrs
-#' @importfrom purrr map map2 pmap
-#' @importfrom dplyr bind_rows bind_cols mutate
-#' @importfrom janitor clean_names
-#' @importfrom tibble tibble
+#' @importFrom xml2 xml_find_all xml_attrs
+#' @importFrom purrr map map2 pmap
+#' @importFrom dplyr bind_rows bind_cols mutate
+#' @importFrom janitor clean_names
+#' @importFrom tibble tibble
 #' @importFrom pipeR "%>>%"
 getBancasGraduacao <- function(curriculo) {
 

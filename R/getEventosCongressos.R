@@ -1,6 +1,6 @@
 #' @title getEventosCongressos
-#' @description Extract Events and Congresses from XML file converted to R list.
-#' @param curriculo XML exported from Lattes imported to R as list.
+#' @description Extract Events and Congresses from 'Lattes' XML file.
+#' @param curriculo 'Lattes' XML imported as `xml2::read_xml()`.
 #' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 

@@ -88,6 +88,7 @@ library(xml2)
 library(dplyr)
 library(tibble)
 library(purrr)
+library(fs)
 ```
 
 ## Single curriculum
@@ -96,8 +97,8 @@ library(purrr)
 
 Using the `get*` functions to import data from a single curriculum is straightforward. The curriculum need to be imported into `R` by the `read_xml()` function from the `xml2` package. 
 
-```{r eval=F, include=T}
-curriculo <- xml2::read_xml('4984859173592703.zip')
+```{r eval=T, include=T}
+curriculo <- xml2::read_xml('../inst/extdata/4984859173592703.zip')
 ```
 
 ### `get` functions
@@ -139,9 +140,9 @@ To import data from two or more curricula it is easier to use `list.files()`, a 
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 
-files <- list.files(path = '../data/', pattern = '*.xml$|*.zip', full.names = T)
+files <- list.files(path = '../inst/extdata/', pattern = '*.xml|*.zip', full.names = T)
 
-files <- fs::dir_ls(path = '../data/', regexp = '*.xml|*.zip')
+files <- fs::dir_ls(path = '../inst/extdata/', regexp = '*.xml|*.zip')
 ```
 
 Import the listed curricula to R memory as `xml2::read_xml` object.
@@ -185,7 +186,7 @@ curriculos %>>%
     dplyr::bind_rows() %>>%
     (. -> dados_gerais)
 
-dados_gerais
+glimpse(dados_gerais)
 ```
 
 It is worth remembering that all variable names obtained by `get*` functions are the transcription of the field names in the `XML` file, the `-` being replaced with `_` and the capital letters replaced with lower case letters.
@@ -223,22 +224,22 @@ To group the data key variable is `id`, which is a unique 16 digit code.
 ```{r eval=T, warning=FALSE, message=FALSE}
 
 artigos_publicados %>>%
-    group_by(id) %>>%
-    tally(name = 'artigos') %>>%
+    dplyr::group_by(id) %>>%
+    dplyr::tally(name = 'artigos') %>>%
     (. -> artigos_publicados2)
 
 artigos_publicados2
 
 livros_publicados %>>%
-    group_by(id) %>>%
-    tally(name = 'livros') %>>%
+    dplyr::group_by(id) %>>%
+    dplyr::tally(name = 'livros') %>>%
     (. -> livros_publicados2)
 
 livros_publicados2
 
 capitulos_livros %>>%
-    group_by(id) %>>%
-    tally(name = 'capitulos') %>>%
+    dplyr::group_by(id) %>>%
+    dplyr::tally(name = 'capitulos') %>>%
     (. -> capitulos_livros2)
 
 capitulos_livros2
@@ -251,8 +252,8 @@ to join the data from different tables the recommended variable is `id`, which i
 ```{r eval=T, warning=FALSE, message=FALSE}
 
 artigos_publicados2 %>>%
-    left_join(livros_publicados2) %>>%
-    left_join(capitulos_livros2)
+    dplyr::left_join(livros_publicados2) %>>%
+    dplyr::left_join(capitulos_livros2)
 ```
 
 Add information from a different tables.
@@ -260,9 +261,9 @@ Add information from a different tables.
 ```{r eval=T, warning=FALSE, message=FALSE}
 
 artigos_publicados2 %>>%
-    left_join(livros_publicados2) %>>%
-    left_join(capitulos_livros2) %>>%
-    left_join(dados_gerais %>>% select(id, nome_completo)) %>>%
-    relocate(nome_completo) 
+    dplyr::left_join(livros_publicados2) %>>%
+    dplyr::left_join(capitulos_livros2) %>>%
+    dplyr::left_join(dados_gerais %>>% dplyr::select(id, nome_completo)) %>>%
+    dplyr::select(nome_completo, artigos, livros, capitulos) 
 ```
 

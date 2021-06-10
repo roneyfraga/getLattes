@@ -1,7 +1,7 @@
 #' @title getFormacaoGraduacao
-#' @description Extract Profissional Formation from XML file converted to R list.
-#' @param curriculo XML exported from Lattes imported to R as list.
-#' @return list
+#' @description Extract Profissional Formation from 'Lattes' XML file.
+#' @param curriculo 'Lattes' XML imported as `xml2::read_xml()`.
+#' @return data frame 
 #' @details Curriculum without this information will return NULL. 
 #' @examples 
 #' if(interactive()) {
