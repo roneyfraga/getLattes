@@ -61,7 +61,7 @@ From the functionalities presented in this package, the main challenge to work w
 
 Follow an example of how to search and download data from the [Lattes](http://lattes.cnpq.br/) website.
 
-![](http://roneyfraga.com/volume/getLattes_data/lattes_xml_download.gif)
+![](http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif)
 
 ## Installation
 
