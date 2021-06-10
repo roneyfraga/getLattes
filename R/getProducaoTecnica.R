@@ -24,46 +24,49 @@
 #' @importFrom dplyr bind_rows mutate select bind_cols
 #' @importFrom janitor clean_names
 #' @importFrom tibble tibble
-#' @importFrom pipeR "%>>%"
 getProducaoTecnica <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DO-TRABALHO-TECNICO")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> dados_basicos)
+    dados_basicos <- 
+        xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DO-TRABALHO-TECNICO")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DO-TRABALHO-TECNICO")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> detalhamento)
+    detalhamento <- 
+        xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DO-TRABALHO-TECNICO")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//AUTORES")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> autores)
+    autores <- 
+        xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//AUTORES")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//PALAVRAS-CHAVE")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        purrr::map(~ .x %>>% dplyr::mutate(palavras_chave = paste(., collapse = ';'))) %>>%
-        purrr::map(~ .x %>>% dplyr::select(palavras_chave)) %>>%
-        (. -> palavras_chave)
+    palavras_chave <- 
+        xml2::xml_find_all(curriculo, ".//TRABALHO-TECNICO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//PALAVRAS-CHAVE")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) |>
+        purrr::map(~ .x |> dplyr::mutate(palavras_chave = paste(., collapse = ';'))) |>
+        purrr::map(~ .x |> dplyr::select(palavras_chave)) 
 
-    purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) %>>%
-        purrr::map2(palavras_chave, dplyr::bind_cols) %>>%
-        (purrr::pmap(list(., autores), function(x, y) tibble::tibble(x, autores = list(y)))) %>>%
-        dplyr::bind_rows() %>>%
+    a <- 
+        purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) 
+
+    b <- 
+        purrr::map2(a, palavras_chave, dplyr::bind_cols) 
+
+    purrr::pmap(list(b, autores), function(x, y) tibble::tibble(x, autores = list(y))) |>
+        dplyr::bind_rows() |>
         dplyr::mutate(id = getId(curriculo)) 
 }

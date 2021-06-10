@@ -31,7 +31,6 @@ Imports:
     pipeR,
     rlang,
     janitor,
-    purrr,
-    fs
+    purrr
 Depends: 
     R (>= 4.1.0)

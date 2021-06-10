@@ -178,12 +178,10 @@ include     se falso, executa mas não inclui o chunk no relatório
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/roneyfraga/getLattes">getLattes</a></span><span class="op">)</span>
 
 <span class="co"># support packages</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://renkun.me/pipeR">pipeR</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://xml2.r-lib.org/">xml2</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tibble.tidyverse.org/">tibble</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://fs.r-lib.org">fs</a></span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span></code></pre></div>
 </div>
 <div id="single-curriculum" class="section level2">
 <h2 class="hasAnchor">
@@ -233,35 +231,30 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div id="import-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#import-1" class="anchor"></a>Import</h3>
-<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code><a href="https://rdrr.io/pkg/fs/man/dir_ls.html">dir_ls()</a></code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files, we can insert both options in <code>pattern</code> argument.</p>
+<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code>dir_ls()</code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files, we can insert both options in <code>pattern</code> argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../inst/extdata/'</span>, pattern <span class="op">=</span> <span class="st">'*.xml|*.zip'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
-
-<span class="va">files</span> <span class="op">&lt;-</span> <span class="fu">fs</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/fs/man/dir_ls.html">dir_ls</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../inst/extdata/'</span>, regexp <span class="op">=</span> <span class="st">'*.xml|*.zip'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../inst/extdata/'</span>, pattern <span class="op">=</span> <span class="st">'*.xml|*.zip'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p>Import the listed curricula to R memory as <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml</a></code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">read_xml</span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function is a well-known and widely used alternative in the <code>R</code> world. However, it does not natively handle errors, which makes the <code>map</code> function from the <code>purrr</code> package an excellent alternative.</p>
-<p>Adding an extra layer of complexity, I will use pipe <code><a href="https://rdrr.io/pkg/pipeR/man/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> operator from <code>pipeR</code> package. Programming using the pipe operator <code><a href="https://rdrr.io/pkg/pipeR/man/grapes-greater-than-greater-than-grapes.html">%&gt;&gt;%</a></code> allows faster coding and clearer syntax. Where <code>. -&gt; curriculos</code> means the result was saved to <code>curriculos</code> object.</p>
+<p>Adding an extra layer of complexity, I will use pipe <code>|&gt;</code>. Programming using the pipe operator <code>|&gt;</code> allows faster coding and clearer syntax.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">files</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">read_xml</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span> 
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">curriculos</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">files</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">read_xml</span><span class="op">)</span><span class="op">)</span> |&gt; 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> </code></pre></div>
 </div>
 <div id="get-functions-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#get-functions-1" class="anchor"></a><code>get</code> functions</h3>
 <p>To read data from only one curriculum any function <code>get</code> can be executed singly, but to import data from two or more curricula is easier to use <code>get*</code> functions with <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> or <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">dados_gerais</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">dados_gerais</span> <span class="op">&lt;-</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> 
 
 <span class="va">dados_gerais</span>
-<span class="co">#&gt; $`../inst/extdata/3051627641386529.zip`</span>
+<span class="co">#&gt; [[1]]</span>
 <span class="co">#&gt; # A tibble: 1 x 12</span>
 <span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
@@ -271,7 +264,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
 <span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $`../inst/extdata/4984859173592703.zip`</span>
+<span class="co">#&gt; [[2]]</span>
 <span class="co">#&gt; # A tibble: 1 x 12</span>
 <span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
@@ -283,11 +276,10 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p>Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code>.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">dados_gerais</span><span class="op">)</span>
+<span class="va">dados_gerais</span> <span class="op">&lt;-</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> 
 
 <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dados_gerais</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 2</span>
@@ -311,14 +303,13 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h2 class="hasAnchor">
 <a href="#publications" class="anchor"></a>Publications</h2>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getArtigosPublicados</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">artigos_publicados</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">artigos_publicados</span> <span class="op">&lt;-</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getArtigosPublicados</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> 
 
-<span class="va">artigos_publicados</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">ano_do_artigo</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+<span class="va">artigos_publicados</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">ano_do_artigo</span><span class="op">)</span><span class="op">)</span> |&gt;
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">titulo_do_artigo</span>, <span class="va">ano_do_artigo</span>, <span class="va">titulo_do_periodico_ou_revista</span><span class="op">)</span> 
 <span class="co">#&gt; # A tibble: 192 x 3</span>
 <span class="co">#&gt;    titulo_do_artigo                      ano_do_artigo titulo_do_periodico_ou_r…</span>
@@ -335,17 +326,15 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 10 The impact of sugarcane expansion in… 2020          JOURNAL OF RURAL STUDIES </span>
 <span class="co">#&gt; # … with 182 more rows</span>
 
-<span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getLivrosPublicados</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">livros_publicados</span><span class="op">)</span>
+<span class="va">livros_publicados</span> <span class="op">&lt;-</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getLivrosPublicados</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> 
 
-<span class="va">curriculos</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getCapitulosLivros</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">capitulos_livros</span><span class="op">)</span></code></pre></div>
+<span class="va">capitulos_livros</span> <span class="op">&lt;-</span> 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getCapitulosLivros</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows</a></span><span class="op">(</span><span class="op">)</span> </code></pre></div>
 </div>
 <div id="grouping-data" class="section level2">
 <h2 class="hasAnchor">
@@ -353,10 +342,9 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p>To group the data key variable is <code>id</code>, which is a unique 16 digit code.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">artigos_publicados</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'artigos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">artigos_publicados2</span><span class="op">)</span>
+<span class="va">artigos_publicados2</span> <span class="op">&lt;-</span> 
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">artigos_publicados</span>, <span class="va">id</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'artigos'</span><span class="op">)</span> 
 
 <span class="va">artigos_publicados2</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
@@ -365,10 +353,9 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 1 3051627641386529     101</span>
 <span class="co">#&gt; 2 4984859173592703      91</span>
 
-<span class="va">livros_publicados</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'livros'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">livros_publicados2</span><span class="op">)</span>
+<span class="va">livros_publicados2</span> <span class="op">&lt;-</span> 
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">livros_publicados</span>, <span class="va">id</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'livros'</span><span class="op">)</span> 
 
 <span class="va">livros_publicados2</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
@@ -377,10 +364,9 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 1 3051627641386529     45</span>
 <span class="co">#&gt; 2 4984859173592703      8</span>
 
-<span class="va">capitulos_livros</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">id</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'capitulos'</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="op">(</span><span class="va">.</span> <span class="op">-&gt;</span> <span class="va">capitulos_livros2</span><span class="op">)</span>
+<span class="va">capitulos_livros2</span> <span class="op">&lt;-</span> 
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">capitulos_livros</span>, <span class="va">id</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'capitulos'</span><span class="op">)</span> 
 
 <span class="va">capitulos_livros2</span>
 <span class="co">#&gt; # A tibble: 2 x 2</span>
@@ -395,8 +381,8 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p>to join the data from different tables the recommended variable is <code>id</code>, which is a unique 16 digit code.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">artigos_publicados2</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+<span class="va">artigos_publicados2</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> |&gt;
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   id               artigos livros capitulos</span>
@@ -406,10 +392,10 @@ include     se falso, executa mas não inclui o chunk no relatório
 <p>Add information from a different tables.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
-<span class="va">artigos_publicados2</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
-    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dados_gerais</span> <span class="op">%&gt;&gt;%</span> <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">nome_completo</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;&gt;%</span>
+<span class="va">artigos_publicados2</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">capitulos_livros2</span><span class="op">)</span> |&gt;
+    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">dados_gerais</span> |&gt; <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">id</span>, <span class="va">nome_completo</span><span class="op">)</span><span class="op">)</span> |&gt;
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">nome_completo</span>, <span class="va">artigos</span>, <span class="va">livros</span>, <span class="va">capitulos</span><span class="op">)</span> 
 <span class="co">#&gt; # A tibble: 2 x 4</span>
 <span class="co">#&gt;   nome_completo                          artigos livros capitulos</span>

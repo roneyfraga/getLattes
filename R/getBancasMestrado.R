@@ -24,44 +24,44 @@
 #' @importFrom dplyr bind_rows bind_cols mutate
 #' @importFrom janitor clean_names
 #' @importFrom tibble tibble
-#' @importFrom pipeR "%>>%"
 getBancasMestrado <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> sequencia)
+    sequencia <- 
+        xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADO")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> dados_basicos)
+    dados_basicos <- 
+        xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADO")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADO")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> detalhamento)
+    detalhamento <- 
+        xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DA-PARTICIPACAO-EM-BANCA-DE-MESTRADO")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//PARTICIPANTE-BANCA")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> participantes)
+    participantes <- 
+        xml2::xml_find_all(curriculo, ".//PARTICIPACAO-EM-BANCA-DE-MESTRADO") |>
+        purrr::map(~ xml2::xml_find_all(., ".//PARTICIPANTE-BANCA")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    purrr::map2(sequencia, dados_basicos, dplyr::bind_cols) %>>%
-        purrr::map2(detalhamento, dplyr::bind_cols) %>>%
-        (purrr::pmap(list(., participantes), function(x, y) tibble::tibble(x, participantes = list(y)))) %>>%
-        dplyr::bind_rows() %>>%
+    a <- 
+        purrr::map2(sequencia, dados_basicos, dplyr::bind_cols) |>
+        purrr::map2(detalhamento, dplyr::bind_cols) 
+
+    purrr::pmap(list(a, participantes), function(x, y) tibble::tibble(x, participantes = list(y))) |>
+        dplyr::bind_rows() |>
         dplyr::mutate(id = getId(curriculo)) 
-
 }

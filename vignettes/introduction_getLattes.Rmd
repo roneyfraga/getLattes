@@ -83,12 +83,10 @@ Load `getLattes`.
 library(getLattes)
 
 # support packages
-library(pipeR)
 library(xml2)
 library(dplyr)
 library(tibble)
 library(purrr)
-library(fs)
 ```
 
 ## Single curriculum
@@ -96,6 +94,12 @@ library(fs)
 ### Import 
 
 Using the `get*` functions to import data from a single curriculum is straightforward. The curriculum need to be imported into `R` by the `read_xml()` function from the `xml2` package. 
+
+```{r eval = F, echo = F, include=F}
+# esse executo para testar meu código
+# o próximo chunk é só para aparecer o código no html
+curriculo <- xml2::read_xml('inst/extdata/4984859173592703.zip')
+```
 
 ```{r eval=T, include=T}
 curriculo <- xml2::read_xml('../inst/extdata/4984859173592703.zip')
@@ -138,11 +142,15 @@ getId(curriculo)
 
 To import data from two or more curricula it is easier to use `list.files()`, a native R function, or `dir_ls()` from `fs` package. As `xml2::read_xml()` allow to read a `xml` curriculum inside a `zip` files, we can insert both options in `pattern` argument.
 
+```{r eval = F, echo = F, include=F}
+# esse executo para testar meu código
+# o próximo chunk é só para aparecer o código no html
+files <- list.files(path = 'inst/extdata/', pattern = '*.xml|*.zip', full.names = T)
+system.file("extdata", "4984859173592703.zip", package = "getLattes")
+```
+
 ```{r eval=T, warning=FALSE, message=FALSE}
-
 files <- list.files(path = '../inst/extdata/', pattern = '*.xml|*.zip', full.names = T)
-
-files <- fs::dir_ls(path = '../inst/extdata/', regexp = '*.xml|*.zip')
 ```
 
 Import the listed curricula to R memory as `xml2::read_xml` object.
@@ -153,14 +161,12 @@ curriculos <- lapply(files, read_xml)
 
 The `lapply()` function is a well-known and widely used alternative in the `R` world. However, it does not natively handle errors, which makes the `map` function from the `purrr` package an excellent alternative. 
 
-Adding an extra layer of complexity, I will use pipe `%>>%` operator from `pipeR` package. Programming using the pipe operator `%>>%` allows faster coding and clearer syntax.
-Where `. -> curriculos` means the result was saved to `curriculos` object.
+Adding an extra layer of complexity, I will use pipe `|>`. Programming using the pipe operator `|>` allows faster coding and clearer syntax.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-files %>>%
-    purrr::map(safely(read_xml)) %>>% 
-    purrr::map(pluck, 'result') %>>%
-    (. -> curriculos)
+curriculos <- 
+    purrr::map(files, safely(read_xml)) |> 
+    purrr::map(pluck, 'result') 
 ```
 
 ### `get` functions
@@ -168,10 +174,9 @@ files %>>%
 To read data from only one curriculum any function `get` can be executed singly, but to import data from two or more curricula is easier to use `get*` functions with `lapply()` or `map()`.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-curriculos %>>%
-    purrr::map(safely(getDadosGerais)) %>>%
-    purrr::map(pluck, 'result') %>>%
-    (. -> dados_gerais)
+dados_gerais <- 
+    purrr::map(curriculos, safely(getDadosGerais)) |>
+    purrr::map(pluck, 'result') 
 
 dados_gerais
 ```
@@ -180,11 +185,10 @@ Import general data from 2 curricula. The output is a list of data frames, conve
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 
-curriculos %>>%
-    purrr::map(safely(getDadosGerais)) %>>%
-    purrr::map(pluck, 'result') %>>%
-    dplyr::bind_rows() %>>%
-    (. -> dados_gerais)
+dados_gerais <- 
+    purrr::map(curriculos, safely(getDadosGerais)) |>
+    purrr::map(pluck, 'result') |>
+    dplyr::bind_rows() 
 
 glimpse(dados_gerais)
 ```
@@ -194,27 +198,24 @@ It is worth remembering that all variable names obtained by `get*` functions are
 ## Publications
 
 ```{r eval=T, warning=FALSE, message=FALSE}
-curriculos %>>%
-    purrr::map(safely(getArtigosPublicados)) %>>%
-    purrr::map(pluck, 'result') %>>%
-    dplyr::bind_rows() %>>%
-    (. -> artigos_publicados)
+artigos_publicados <- 
+    purrr::map(curriculos, safely(getArtigosPublicados)) |>
+    purrr::map(pluck, 'result') |>
+    dplyr::bind_rows() 
 
-artigos_publicados %>>%
-    dplyr::arrange(desc(ano_do_artigo)) %>>%
+artigos_publicados |>
+    dplyr::arrange(desc(ano_do_artigo)) |>
     dplyr::select(titulo_do_artigo, ano_do_artigo, titulo_do_periodico_ou_revista) 
 
-curriculos %>>%
-    purrr::map(safely(getLivrosPublicados)) %>>%
-    purrr::map(pluck, 'result') %>>%
-    dplyr::bind_rows() %>>%
-    (. -> livros_publicados)
+livros_publicados <- 
+    purrr::map(curriculos, safely(getLivrosPublicados)) |>
+    purrr::map(pluck, 'result') |>
+    dplyr::bind_rows() 
 
-curriculos %>>%
-    purrr::map(safely(getCapitulosLivros)) %>>%
-    purrr::map(pluck, 'result') %>>%
-    dplyr::bind_rows() %>>%
-    (. -> capitulos_livros)
+capitulos_livros <- 
+    purrr::map(curriculos, safely(getCapitulosLivros)) |>
+    purrr::map(pluck, 'result') |>
+    dplyr::bind_rows() 
 ```
 
 ## Grouping data
@@ -223,24 +224,21 @@ To group the data key variable is `id`, which is a unique 16 digit code.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 
-artigos_publicados %>>%
-    dplyr::group_by(id) %>>%
-    dplyr::tally(name = 'artigos') %>>%
-    (. -> artigos_publicados2)
+artigos_publicados2 <- 
+    dplyr::group_by(artigos_publicados, id) |>
+    dplyr::tally(name = 'artigos') 
 
 artigos_publicados2
 
-livros_publicados %>>%
-    dplyr::group_by(id) %>>%
-    dplyr::tally(name = 'livros') %>>%
-    (. -> livros_publicados2)
+livros_publicados2 <- 
+    dplyr::group_by(livros_publicados, id) |>
+    dplyr::tally(name = 'livros') 
 
 livros_publicados2
 
-capitulos_livros %>>%
-    dplyr::group_by(id) %>>%
-    dplyr::tally(name = 'capitulos') %>>%
-    (. -> capitulos_livros2)
+capitulos_livros2 <- 
+    dplyr::group_by(capitulos_livros, id) |>
+    dplyr::tally(name = 'capitulos') 
 
 capitulos_livros2
 ```
@@ -251,8 +249,8 @@ to join the data from different tables the recommended variable is `id`, which i
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 
-artigos_publicados2 %>>%
-    dplyr::left_join(livros_publicados2) %>>%
+artigos_publicados2 |>
+    dplyr::left_join(livros_publicados2) |>
     dplyr::left_join(capitulos_livros2)
 ```
 
@@ -260,10 +258,10 @@ Add information from a different tables.
 
 ```{r eval=T, warning=FALSE, message=FALSE}
 
-artigos_publicados2 %>>%
-    dplyr::left_join(livros_publicados2) %>>%
-    dplyr::left_join(capitulos_livros2) %>>%
-    dplyr::left_join(dados_gerais %>>% dplyr::select(id, nome_completo)) %>>%
+artigos_publicados2 |>
+    dplyr::left_join(livros_publicados2) |>
+    dplyr::left_join(capitulos_livros2) |>
+    dplyr::left_join(dados_gerais |> dplyr::select(id, nome_completo)) |>
     dplyr::select(nome_completo, artigos, livros, capitulos) 
 ```
 

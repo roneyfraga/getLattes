@@ -22,28 +22,26 @@
 #' @importFrom purrr map map2
 #' @importFrom dplyr bind_rows bind_cols mutate
 #' @importFrom janitor clean_names
-#' @importFrom pipeR "%>>%"
 getAtuacoesProfissionais <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml2::xml_find_all(curriculo, ".//ATUACOES-PROFISSIONAIS/ATUACAO-PROFISSIONAL") %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> dados_basicos)
+    dados_basicos <- 
+        xml2::xml_find_all(curriculo, ".//ATUACOES-PROFISSIONAIS/ATUACAO-PROFISSIONAL") |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//ATUACOES-PROFISSIONAIS/ATUACAO-PROFISSIONAL") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//VINCULOS")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> detalhamento)
+    detalhamento <- 
+        xml2::xml_find_all(curriculo, ".//ATUACOES-PROFISSIONAIS/ATUACAO-PROFISSIONAL") |>
+        purrr::map(~ xml2::xml_find_all(., ".//VINCULOS")) |>
+        purrr::map(~ xml2::xml_attrs(.)) |>
+        purrr::map(~ dplyr::bind_rows(.)) |>
+        purrr::map(~ janitor::clean_names(.)) 
 
-    purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) %>>%
-        dplyr::bind_rows() %>>%
+    purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) |>
+        dplyr::bind_rows() |>
         dplyr::mutate(id = getId(curriculo)) 
-
 }

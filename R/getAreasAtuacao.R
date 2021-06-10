@@ -20,17 +20,17 @@
 #' @importFrom xml2 xml_find_all xml_attrs
 #' @importFrom dplyr bind_rows mutate
 #' @importFrom janitor clean_names
-#' @importFrom pipeR "%>>%"
 getAreasAtuacao <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml2::xml_find_all(curriculo, ".//AREAS-DE-ATUACAO/AREA-DE-ATUACAO") %>>%
-        xml2::xml_attrs() %>>%
-        dplyr::bind_rows() %>>%
-        janitor::clean_names() %>>%
+    curriculo |>
+        xml2::xml_find_all(".//AREAS-DE-ATUACAO/AREA-DE-ATUACAO") |>
+        xml2::xml_attrs() |>
+        dplyr::bind_rows() |>
+        janitor::clean_names() |>
         dplyr::mutate(id = getId(curriculo)) 
 
 }

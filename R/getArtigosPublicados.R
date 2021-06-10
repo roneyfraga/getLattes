@@ -23,37 +23,39 @@
 #' @importFrom purrr map map2 pmap
 #' @importFrom dplyr bind_rows bind_cols mutate
 #' @importFrom janitor clean_names
-#' @importFrom tibble tibble
-#' @importFrom pipeR "%>>%"
 getArtigosPublicados <- function(curriculo) {
 
     if (!any(class(curriculo) == 'xml_document')) {
         stop("The input file must be XML, imported from `xml2` package.", call. = FALSE)
     }
 
-    xml2::xml_find_all(curriculo, ".//ARTIGO-PUBLICADO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DO-ARTIGO")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> dados_basicos)
+    dados_basicos <- 
+        curriculo |>
+            xml2::xml_find_all(".//ARTIGO-PUBLICADO") |> 
+            purrr::map(~ xml2::xml_find_all(., ".//DADOS-BASICOS-DO-ARTIGO")) |>
+            purrr::map(~ xml2::xml_attrs(.)) |>
+            purrr::map(~ dplyr::bind_rows(.)) |>
+            purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//ARTIGO-PUBLICADO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DO-ARTIGO")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> detalhamento)
+    detalhamento <- 
+        curriculo |>
+            xml2::xml_find_all(".//ARTIGO-PUBLICADO") |>
+            purrr::map(~ xml2::xml_find_all(., ".//DETALHAMENTO-DO-ARTIGO")) |>
+            purrr::map(~ xml2::xml_attrs(.)) |>
+            purrr::map(~ dplyr::bind_rows(.)) |>
+            purrr::map(~ janitor::clean_names(.)) 
 
-    xml2::xml_find_all(curriculo, ".//ARTIGO-PUBLICADO") %>>%
-        purrr::map(~ xml2::xml_find_all(., ".//AUTORES")) %>>%
-        purrr::map(~ xml2::xml_attrs(.)) %>>%
-        purrr::map(~ dplyr::bind_rows(.)) %>>%
-        purrr::map(~ janitor::clean_names(.)) %>>%
-        (. -> autores)
+    autores <- 
+        curriculo |> 
+            xml2::xml_find_all(".//ARTIGO-PUBLICADO") |>
+            purrr::map(~ xml2::xml_find_all(., ".//AUTORES")) |>
+            purrr::map(~ xml2::xml_attrs(.)) |>
+            purrr::map(~ dplyr::bind_rows(.)) |>
+            purrr::map(~ janitor::clean_names(.)) 
 
-    purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) %>>%
-        (purrr::pmap(list(., autores), function(x, y) tibble::tibble(x, autores = list(y)))) %>>%
-        dplyr::bind_rows() %>>%
+    a <- purrr::map2(dados_basicos, detalhamento, dplyr::bind_cols) 
+
+    purrr::pmap(list(a, autores), function(x, y) tibble::tibble(x, autores = list(y))) |>
+        dplyr::bind_rows() |>
         dplyr::mutate(id = getId(curriculo)) 
 }
