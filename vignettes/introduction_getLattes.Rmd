@@ -65,16 +65,21 @@ Follow an example of how to search and download data from the [Lattes](http://la
 
 ## Installation
 
-To install the released version of getLattes from [github](https://CRAN.R-project.org).
+To install the newest released version of getLattes from [github](https://CRAN.R-project.org).
 
 ```{r eval=F}
-
 # install and load devtools from CRAN
 # install.packages("devtools")
 library(devtools)
 
 # install and load getLattes
 devtools::install_github("roneyfraga/getLattes")
+```
+
+Stable version from [CRAN](https://cran.r-project.org/).
+
+```{r eval=F, include=T}
+install.packages('getLattes')
 ```
 
 Load `getLattes`.

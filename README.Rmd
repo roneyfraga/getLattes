@@ -30,8 +30,8 @@ To automate the download process, please see [Captchas Negated by Python reQuest
 Stable version from [CRAN](https://cran.r-project.org/).
 
 ```{r eval=F, include=T}
-# install.packages('getLattes')
-# library(getLattes)
+install.packages('getLattes')
+library(getLattes)
 ```
 
 Development version from [GitHub](https://github.com/roneyfraga/getLattes).

@@ -164,17 +164,19 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>To install the released version of getLattes from <a href="https://CRAN.R-project.org">github</a>.</p>
+<p>To install the newest released version of getLattes from <a href="https://CRAN.R-project.org">github</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># install and load devtools from CRAN</span>
+<code class="sourceCode R"><span class="co"># install and load devtools from CRAN</span>
 <span class="co"># install.packages("devtools")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/">devtools</a></span><span class="op">)</span>
 
 <span class="co"># install and load getLattes</span>
 <span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"roneyfraga/getLattes"</span><span class="op">)</span></code></pre></div>
-<p>Load <code>getLattes</code>.</p>
+<p>Stable version from <a href="https://cran.r-project.org/">CRAN</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">'getLattes'</span><span class="op">)</span></code></pre></div>
+<p>Load <code>getLattes</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/roneyfraga/getLattes">getLattes</a></span><span class="op">)</span>
 
 <span class="co"># support packages</span>
@@ -190,7 +192,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h3 class="hasAnchor">
 <a href="#import" class="anchor"></a>Import</h3>
 <p>Using the <code>get*</code> functions to import data from a single curriculum is straightforward. The curriculum need to be imported into <code>R</code> by the <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml()</a></code> function from the <code>xml2</code> package.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># find the file in system</span>
 <span class="va">zip_xml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span>
 
@@ -199,7 +201,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div id="get-functions" class="section level3">
 <h3 class="hasAnchor">
 <a href="#get-functions" class="anchor"></a><code>get</code> functions</h3>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/getDadosGerais.html">getDadosGerais</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
 <span class="fu"><a href="../reference/getArtigosPublicados.html">getArtigosPublicados</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
 <span class="fu"><a href="../reference/getAreasAtuacao.html">getAreasAtuacao</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
@@ -235,16 +237,16 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h3 class="hasAnchor">
 <a href="#import-1" class="anchor"></a>Import</h3>
 <p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code>dir_ls()</code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># find the files in system</span>
 <span class="va">zips_xmls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span>,
                <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/3051627641386529.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Import the listed curricula to R memory as <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml</a></code> object.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">zips_xmls</span>, <span class="va">read_xml</span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function is a well-known and widely used alternative in the <code>R</code> world. However, it does not natively handle errors, which makes the <code>map</code> function from the <code>purrr</code> package an excellent alternative.</p>
 <p>Adding an extra layer of complexity, I will use pipe <code>|&gt;</code>. Programming using the pipe operator <code>|&gt;</code> allows faster coding and clearer syntax.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> 
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">zips_xmls</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">read_xml</span><span class="op">)</span><span class="op">)</span> |&gt; 
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> </code></pre></div>
@@ -253,7 +255,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h3 class="hasAnchor">
 <a href="#get-functions-1" class="anchor"></a><code>get</code> functions</h3>
 <p>To read data from only one curriculum any function <code>get</code> can be executed singly, but to import data from two or more curricula is easier to use <code>get*</code> functions with <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> or <code><a href="https://purrr.tidyverse.org/reference/map.html">map()</a></code>.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dados_gerais</span> <span class="op">&lt;-</span> 
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> |&gt;
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> 
@@ -279,7 +281,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
 <span class="co">#&gt; #   orcid_id &lt;chr&gt;, id &lt;chr&gt;</span></code></pre></div>
 <p>Import general data from 2 curricula. The output is a list of data frames, converted by a unique data frame with <code><a href="https://dplyr.tidyverse.org/reference/bind.html">bind_rows()</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">dados_gerais</span> <span class="op">&lt;-</span> 
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getDadosGerais</span><span class="op">)</span><span class="op">)</span> |&gt;
@@ -307,7 +309,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div id="publications" class="section level2">
 <h2 class="hasAnchor">
 <a href="#publications" class="anchor"></a>Publications</h2>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">artigos_publicados</span> <span class="op">&lt;-</span> 
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">getArtigosPublicados</span><span class="op">)</span><span class="op">)</span> |&gt;
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> |&gt;
@@ -345,7 +347,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h2 class="hasAnchor">
 <a href="#grouping-data" class="anchor"></a>Grouping data</h2>
 <p>To group the data key variable is <code>id</code>, which is a unique 16 digit code.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">artigos_publicados2</span> <span class="op">&lt;-</span> 
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">artigos_publicados</span>, <span class="va">id</span><span class="op">)</span> |&gt;
@@ -384,7 +386,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <h2 class="hasAnchor">
 <a href="#merge-data" class="anchor"></a>Merge data</h2>
 <p>to join the data from different tables the recommended variable is <code>id</code>, which is a unique 16 digit code.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">artigos_publicados2</span> |&gt;
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> |&gt;
@@ -395,7 +397,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; 1 3051627641386529     101     45        81</span>
 <span class="co">#&gt; 2 4984859173592703      91      8        48</span></code></pre></div>
 <p>Add information from a different tables.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">artigos_publicados2</span> |&gt;
     <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> |&gt;

@@ -24,8 +24,8 @@ reQuests - CNPQ](https://github.com/josefson/CNPQ).
 Stable version from [CRAN](https://cran.r-project.org/).
 
 ``` r
-# install.packages('getLattes')
-# library(getLattes)
+install.packages('getLattes')
+library(getLattes)
 ```
 
 Development version from
