@@ -111,13 +111,16 @@
 <a href="#import-xml-file" class="anchor"></a>Import XML file</h2>
 <p>The Lattes XML file can be compressed inside a <code>.zip</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># find the file in system</span>
+<span class="va">zip_xml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span>
+
+<span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="va">zip_xml</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="extract-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extract-data" class="anchor"></a>Extract data</h2>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># to import from one curriculum </span>
+<code class="sourceCode R"><span class="co"># to extract data from one curriculum </span>
 <span class="fu"><a href="reference/getDadosGerais.html">getDadosGerais</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
 <span class="fu"><a href="reference/getArtigosPublicados.html">getArtigosPublicados</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>
 <span class="fu"><a href="reference/getAreasAtuacao.html">getAreasAtuacao</a></span><span class="op">(</span><span class="va">curriculo</span><span class="op">)</span>

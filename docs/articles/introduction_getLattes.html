@@ -191,7 +191,10 @@ include     se falso, executa mas não inclui o chunk no relatório
 <a href="#import" class="anchor"></a>Import</h3>
 <p>Using the <code>get*</code> functions to import data from a single curriculum is straightforward. The curriculum need to be imported into <code>R</code> by the <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml()</a></code> function from the <code>xml2</code> package.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="st">'../inst/extdata/4984859173592703.zip'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># find the file in system</span>
+<span class="va">zip_xml</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span>
+
+<span class="va">curriculo</span> <span class="op">&lt;-</span> <span class="fu">xml2</span><span class="fu">::</span><span class="fu"><a href="http://xml2.r-lib.org/reference/read_xml.html">read_xml</a></span><span class="op">(</span><span class="va">zip_xml</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="get-functions" class="section level3">
 <h3 class="hasAnchor">
@@ -231,17 +234,19 @@ include     se falso, executa mas não inclui o chunk no relatório
 <div id="import-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#import-1" class="anchor"></a>Import</h3>
-<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code>dir_ls()</code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files, we can insert both options in <code>pattern</code> argument.</p>
+<p>To import data from two or more curricula it is easier to use <code><a href="https://rdrr.io/r/base/list.files.html">list.files()</a></code>, a native R function, or <code>dir_ls()</code> from <code>fs</code> package. As <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml()</a></code> allow to read a <code>xml</code> curriculum inside a <code>zip</code> files.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.files.html">list.files</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">'../inst/extdata/'</span>, pattern <span class="op">=</span> <span class="st">'*.xml|*.zip'</span>, full.names <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="co"># find the files in system</span>
+<span class="va">zips_xmls</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/4984859173592703.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span>,
+               <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'extdata/3051627641386529.zip'</span>, package <span class="op">=</span> <span class="st">'getLattes'</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Import the listed curricula to R memory as <code><a href="http://xml2.r-lib.org/reference/read_xml.html">xml2::read_xml</a></code> object.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">files</span>, <span class="va">read_xml</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">zips_xmls</span>, <span class="va">read_xml</span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="https://rdrr.io/r/base/lapply.html">lapply()</a></code> function is a well-known and widely used alternative in the <code>R</code> world. However, it does not natively handle errors, which makes the <code>map</code> function from the <code>purrr</code> package an excellent alternative.</p>
 <p>Adding an extra layer of complexity, I will use pipe <code>|&gt;</code>. Programming using the pipe operator <code>|&gt;</code> allows faster coding and clearer syntax.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">curriculos</span> <span class="op">&lt;-</span> 
-    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">files</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">read_xml</span><span class="op">)</span><span class="op">)</span> |&gt; 
+    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">zips_xmls</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html">safely</a></span><span class="op">(</span><span class="va">read_xml</span><span class="op">)</span><span class="op">)</span> |&gt; 
     <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> </code></pre></div>
 </div>
 <div id="get-functions-1" class="section level3">
@@ -258,7 +263,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; # A tibble: 1 x 12</span>
 <span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 Antonio Marci… BUAINAIN, Antonio… B             Brasil           MS           </span>
+<span class="co">#&gt; 1 Jose Maria Fe… SILVEIRA, José Ma… B             Brasil           SP           </span>
 <span class="co">#&gt; # … with 7 more variables: cidade_nascimento &lt;chr&gt;,</span>
 <span class="co">#&gt; #   permissao_de_divulgacao &lt;chr&gt;, data_falecimento &lt;chr&gt;,</span>
 <span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
@@ -268,7 +273,7 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt; # A tibble: 1 x 12</span>
 <span class="co">#&gt;   nome_completo  nome_em_citacoes_… nacionalidade pais_de_nascime… uf_nascimento</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;chr&gt;              &lt;chr&gt;         &lt;chr&gt;            &lt;chr&gt;        </span>
-<span class="co">#&gt; 1 Jose Maria Fe… SILVEIRA, José Ma… B             Brasil           SP           </span>
+<span class="co">#&gt; 1 Antonio Marci… BUAINAIN, Antonio… B             Brasil           MS           </span>
 <span class="co">#&gt; # … with 7 more variables: cidade_nascimento &lt;chr&gt;,</span>
 <span class="co">#&gt; #   permissao_de_divulgacao &lt;chr&gt;, data_falecimento &lt;chr&gt;,</span>
 <span class="co">#&gt; #   sigla_pais_nacionalidade &lt;chr&gt;, pais_de_nacionalidade &lt;chr&gt;,</span>
@@ -284,18 +289,18 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">dados_gerais</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 2</span>
 <span class="co">#&gt; Columns: 12</span>
-<span class="co">#&gt; $ nome_completo                   &lt;chr&gt; "Antonio Marcio Buainain", "Jose Maria…</span>
-<span class="co">#&gt; $ nome_em_citacoes_bibliograficas &lt;chr&gt; "BUAINAIN, Antonio Marcio;Buainain, An…</span>
+<span class="co">#&gt; $ nome_completo                   &lt;chr&gt; "Jose Maria Ferreira Jardim da Silveir…</span>
+<span class="co">#&gt; $ nome_em_citacoes_bibliograficas &lt;chr&gt; "SILVEIRA, José Maria F. J.;Silveira, …</span>
 <span class="co">#&gt; $ nacionalidade                   &lt;chr&gt; "B", "B"</span>
 <span class="co">#&gt; $ pais_de_nascimento              &lt;chr&gt; "Brasil", "Brasil"</span>
-<span class="co">#&gt; $ uf_nascimento                   &lt;chr&gt; "MS", "SP"</span>
-<span class="co">#&gt; $ cidade_nascimento               &lt;chr&gt; "Campo Grande", "São Paulo"</span>
+<span class="co">#&gt; $ uf_nascimento                   &lt;chr&gt; "SP", "MS"</span>
+<span class="co">#&gt; $ cidade_nascimento               &lt;chr&gt; "São Paulo", "Campo Grande"</span>
 <span class="co">#&gt; $ permissao_de_divulgacao         &lt;chr&gt; "NAO", "NAO"</span>
 <span class="co">#&gt; $ data_falecimento                &lt;chr&gt; "", ""</span>
 <span class="co">#&gt; $ sigla_pais_nacionalidade        &lt;chr&gt; "BRA", "BRA"</span>
 <span class="co">#&gt; $ pais_de_nacionalidade           &lt;chr&gt; "Brasil", "Brasil"</span>
-<span class="co">#&gt; $ orcid_id                        &lt;chr&gt; "https://orcid.org/0000-0002-1779-5589…</span>
-<span class="co">#&gt; $ id                              &lt;chr&gt; "3051627641386529", "4984859173592703"</span></code></pre></div>
+<span class="co">#&gt; $ orcid_id                        &lt;chr&gt; "https://orcid.org/0000-0003-3680-875X…</span>
+<span class="co">#&gt; $ id                              &lt;chr&gt; "4984859173592703", "3051627641386529"</span></code></pre></div>
 <p>It is worth remembering that all variable names obtained by <code>get*</code> functions are the transcription of the field names in the <code>XML</code> file, the <code><a href="https://rdrr.io/r/base/Arithmetic.html">-</a></code> being replaced with <code>_</code> and the capital letters replaced with lower case letters.</p>
 </div>
 </div>
@@ -317,13 +322,13 @@ include     se falso, executa mas não inclui o chunk no relatório
 <span class="co">#&gt;  1 An Analysis of Collaboration Network… 2021          REVISTA DE ADMINISTRAÇÃO…</span>
 <span class="co">#&gt;  2 Patent network analysis in agricultu… 2021          ECONOMICS OF INNOVATION …</span>
 <span class="co">#&gt;  3 GENETICALLY MODIFIED CORN ADOPTION I… 2021          REVISTA DE ECONOMIA E AG…</span>
-<span class="co">#&gt;  4 Avaliação do Programa Nacional de Pr… 2020          Desenvolvimento em Debat…</span>
-<span class="co">#&gt;  5 Agro brasileiro em evolução: complex… 2020          Revista de Política Agrí…</span>
-<span class="co">#&gt;  6 Classe média rural?                   2020          Revista de Politica Agrí…</span>
-<span class="co">#&gt;  7 International trade in GMOs: have ma… 2020          Revista de economia e so…</span>
-<span class="co">#&gt;  8 Governance and financial efficiency … 2020          RAUSP Management Journal </span>
-<span class="co">#&gt;  9 The Role of Participation in the Res… 2020          Sustainability           </span>
-<span class="co">#&gt; 10 The impact of sugarcane expansion in… 2020          JOURNAL OF RURAL STUDIES </span>
+<span class="co">#&gt;  4 International trade in GMOs: have ma… 2020          Revista de economia e so…</span>
+<span class="co">#&gt;  5 Governance and financial efficiency … 2020          RAUSP Management Journal </span>
+<span class="co">#&gt;  6 The Role of Participation in the Res… 2020          Sustainability           </span>
+<span class="co">#&gt;  7 The impact of sugarcane expansion in… 2020          JOURNAL OF RURAL STUDIES </span>
+<span class="co">#&gt;  8 Innovation in GMOs, technological ga… 2020          Agribusiness             </span>
+<span class="co">#&gt;  9 Avaliação do Programa Nacional de Pr… 2020          Desenvolvimento em Debat…</span>
+<span class="co">#&gt; 10 Agro brasileiro em evolução: complex… 2020          Revista de Política Agrí…</span>
 <span class="co">#&gt; # … with 182 more rows</span>
 
 <span class="va">livros_publicados</span> <span class="op">&lt;-</span> 

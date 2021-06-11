@@ -46,13 +46,16 @@ library(getLattes)
 The Lattes XML file can be compressed inside a `.zip`.
 
 ``` r
-curriculo <- xml2::read_xml('extdata/4984859173592703.zip')
+# find the file in system
+zip_xml <- system.file('extdata/4984859173592703.zip', package = 'getLattes')
+
+curriculo <- xml2::read_xml(zip_xml)
 ```
 
 ## Extract data
 
 ``` r
-# to import from one curriculum 
+# to extract data from one curriculum 
 getDadosGerais(curriculo)
 getArtigosPublicados(curriculo)
 getAreasAtuacao(curriculo)
