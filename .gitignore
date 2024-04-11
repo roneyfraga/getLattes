@@ -9,3 +9,5 @@ datatest
 doc
 Meta
 support.R
+._*
+.DS_Store
