@@ -81,5 +81,7 @@ getOrientacoesPosDoutorado(curriculo)
 getOutrasProducoesTecnicas(curriculo)
 getParticipacaoProjeto(curriculo)
 getProducaoTecnica(curriculo)
+getProducaoTecnica(curriculo)
+getTrabalhosEmEventos()
 getId(curriculo)
 ```

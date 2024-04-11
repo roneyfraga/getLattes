@@ -55,6 +55,7 @@ The main information contained in `XML` files, and imported via `getLattes`, are
 - Participation in Projects `getParticipacaoProjeto()`  
 - Technical Production `getProducaoTecnica()`  
 - Patents `getPatentes()`  
+- Patents `getTrabalhosEmEventos()`  
 - Personal Lattes 16 digits identification `getId()`  
 
 From the functionalities presented in this package, the main challenge to work with the Lattes curriculum data is now to download the data, as there are Captchas. To download a lot of curricula I suggest the use of [Captchas Negated by Python reQuests - CNPQ](https://github.com/josefson/CNPQ). The second barrier to be overcome is the management and processing of a large volume of data, the whole Lattes platform in `XML` files totals over 200 GB. In this tutorial we will focus on the `getLattes` package features, being the reader responsible for download and manage the files.
@@ -111,7 +112,6 @@ curriculo <- xml2::read_xml(zip_xml)
 
 ```{r eval=F}
 getDadosGerais(curriculo)
-getArtigosPublicados(curriculo)
 getAreasAtuacao(curriculo)
 getArtigosPublicados(curriculo)
 getAtuacoesProfissionais(curriculo)
@@ -123,8 +123,8 @@ getDadosGerais(curriculo)
 getEnderecoProfissional(curriculo)
 getEventosCongressos(curriculo)
 getFormacaoDoutorado(curriculo)
-getFormacaoMestrado(curriculo)
 getFormacaoGraduacao(curriculo)
+getFormacaoMestrado(curriculo)
 getIdiomas(curriculo)
 getLinhaPesquisa(curriculo)
 getLivrosPublicados(curriculo)
@@ -134,7 +134,9 @@ getOrientacoesMestrado(curriculo)
 getOrientacoesPosDoutorado(curriculo)
 getOutrasProducoesTecnicas(curriculo)
 getParticipacaoProjeto(curriculo)
+getPatentes()
 getProducaoTecnica(curriculo)
+getTrabalhosEmEventos()
 getId(curriculo)
 ```
 
