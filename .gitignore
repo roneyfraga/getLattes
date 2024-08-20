@@ -5,8 +5,10 @@ cran-comments.md
 .RData
 .Ruserdata
 inst/doc
+inst/docs
 datatest
 docs
+doc
 Meta
 support.R
 ._*
