@@ -33,6 +33,7 @@ The main information contained in `XML` files, and imported via `getLattes`, are
 
 - Research Area `getAreasAtuacao()`  
 - Published Papers `getArtigosPublicados()`  
+- Accepted Papers `getArtigosAceitos()`  
 - Profissional Links `getAtuacoesProfissionais()`  
 - Ph.D. Examination Board's `getBancasDoutorado()`  
 - Undergraduate Examination Board's `getBancasGraduacao()`  
@@ -63,6 +64,15 @@ From the functionalities presented in this package, the main challenge to work w
 Follow an example of how to search and download data from the [Lattes](http://lattes.cnpq.br/) website.
 
 ![](http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif)
+
+## getLattesWeb
+
+Alternative for no-coders:
+
+- link 1 [https://roneyfraga.shinyapps.io/getlattesweb/](https://roneyfraga.shinyapps.io/getlattesweb/)
+- link 2 [http://roneyfraga.com/getLattesWeb/](http://roneyfraga.com/getLattesWeb/)
+
+![](http://roneyfraga.com/volume/keep_it/getLattesWeb_exemplo.gif)
 
 ## Installation
 
@@ -262,5 +272,36 @@ artigos_publicados2 |>
     dplyr::left_join(capitulos_livros2) |>
     dplyr::left_join(dados_gerais |> dplyr::select(id, nome_completo)) |>
     dplyr::select(nome_completo, artigos, livros, capitulos) 
+```
+
+## Export to RIS format
+
+```{r eval=F, echo=T, warning=FALSE, message=FALSE}
+
+writePublicationsRis(artigos_publicados, 
+                     filename = '~/Desktop/artigos_nome_citacao.ris', 
+                     citationName = T, 
+                     append = F, 
+                     tableLattes = 'ArtigosPublicados')
+
+# full author name, ex: Antonio Marcio Buainain
+writePublicationsRis(artigos_publicados, 
+                     filename = '~/Desktop/artigos_nome_completo.ris', 
+                     citationName = F, 
+                     append = F,
+                     tableLattes = 'ArtigosPublicados')
+
+writePublicationsRis(livros_publicados, 
+               filename = '~/Desktop/livros.ris', 
+               append = F, 
+               citationName = T, 
+               tableLattes = 'Livros')
+
+writePublicationsRis(capitulos_livros, 
+                     filename = '~/Desktop/capitulos_livros.ris', 
+                     append = T,
+                     citationName = F, 
+                     tableLattes = 'CapitulosLivros')
+
 ```
 

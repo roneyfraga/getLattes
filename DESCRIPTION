@@ -1,7 +1,7 @@
 Package: getLattes
 Type: Package
 Title: Import and Process Data from the 'Lattes' Curriculum Platform
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: 
     c(person(given = "Roney",
              family = "Fraga Souza",
@@ -11,7 +11,11 @@ Authors@R:
       person(given = "Winicius",
              family = "Sabino",
              role = c("aut"),
-             email = "winiciuss15@gmail.com"))
+             email = "winiciuss15@gmail.com"),
+      person(given = "Luis Felipe",
+             family = "de Souza Rodrigues",
+             role = c("aut"),
+             email = "lfsouza25@gmail.com"))
 Maintainer: Roney Fraga Souza <roneyfraga@gmail.com>
 Description: Tool for import and process data from 'Lattes' curriculum platform (<http://lattes.cnpq.br/>). The Brazilian government keeps an extensive base of curricula for academics from all over the country, with over 5 million registrations. The academic life of the Brazilian researcher, or related to Brazilian universities, is documented in 'Lattes'. Some information that can be obtained: professional formation, research area, publications, academics advisories, projects, etc. 'getLattes' package allows work with 'Lattes' data exported to XML format.
 License: GPL-3
@@ -22,13 +26,13 @@ URL: https://github.com/roneyfraga/getLattes
 BugReports: https://github.com/roneyfraga/getLattes/issues
 Suggests: 
     knitr,
+    rlang,
     rmarkdown
 VignetteBuilder: knitr
 Imports: 
     xml2,
     dplyr,
     tibble,
-    rlang,
     janitor,
     purrr
 Depends: 

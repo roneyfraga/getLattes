@@ -9,9 +9,11 @@
 <!-- badges: end -->
 
 The `getLattes` `R` package, written by [Roney Fraga
-Souza](http://roneyfraga.com) and [Winicius
-Sabino](https://stackoverflow.com/users/9278241/winicius-sabino), was
-built to extract data from the [Lattes](http://lattes.cnpq.br/)
+Souza](http://roneyfraga.com), [Winicius
+Sabino](https://stackoverflow.com/users/9278241/winicius-sabino) and
+[Luis Felipe de Souza
+Rodrigues](https://www.linkedin.com/in/luis-felipe-de-souza-rodrigues-535a34180/),
+was built to extract data from the [Lattes](http://lattes.cnpq.br/)
 curriculum platform exported as `XML`.
 
 ![](http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif)
@@ -19,7 +21,18 @@ curriculum platform exported as `XML`.
 To automate the download process, please see [Captchas Negated by Python
 reQuests - CNPQ](https://github.com/josefson/CNPQ).
 
-## Installation
+## getLattesWeb
+
+Non-programmers alternative, use the `getLattesWeb` graphical interface:
+
+- link 1 <https://roneyfraga.shinyapps.io/getlattesweb/>
+- link 2 <http://roneyfraga.com/getLattesWeb/>
+
+![](http://roneyfraga.com/volume/keep_it/getLattesWeb_exemplo.gif)
+
+## Programmers
+
+### Installation
 
 Stable version from [CRAN](https://cran.r-project.org/).
 
@@ -41,7 +54,7 @@ devtools::install_github("roneyfraga/getLattes")
 library(getLattes)
 ```
 
-## Import XML file
+### Import XML file
 
 The Lattes XML file can be compressed inside a `.zip`.
 
@@ -52,11 +65,12 @@ zip_xml <- system.file('extdata/4984859173592703.zip', package = 'getLattes')
 curriculo <- xml2::read_xml(zip_xml)
 ```
 
-## Extract data
+### Extract data
 
 ``` r
 # to extract data from one curriculum 
 getDadosGerais(curriculo)
+getArtigosAceitos(curriculo)
 getArtigosPublicados(curriculo)
 getAreasAtuacao(curriculo)
 getArtigosPublicados(curriculo)

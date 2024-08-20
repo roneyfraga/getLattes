@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Introduction to getLattes • getLattes</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">getLattes</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0</span>
       </span>
     </div>
 
@@ -115,6 +115,8 @@ imported via <code>getLattes</code>, are:</p>
 </li>
 <li>Published Papers <code><a href="../reference/getArtigosPublicados.html">getArtigosPublicados()</a></code><br>
 </li>
+<li>Accepted Papers <code><a href="../reference/getArtigosAceitos.html">getArtigosAceitos()</a></code><br>
+</li>
 <li>Profissional Links <code><a href="../reference/getAtuacoesProfissionais.html">getAtuacoesProfissionais()</a></code><br>
 </li>
 <li>Ph.D. Examination Board’s <code><a href="../reference/getBancasDoutorado.html">getBancasDoutorado()</a></code><br>
@@ -184,6 +186,18 @@ we will focus on the <code>getLattes</code> package features, being the
 reader responsible for download and manage the files.</p>
 <p>Follow an example of how to search and download data from the <a href="http://lattes.cnpq.br/" class="external-link">Lattes</a> website.</p>
 <p><img src="http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif"></p>
+<div class="section level2">
+<h2 id="getlattesweb">getLattesWeb<a class="anchor" aria-label="anchor" href="#getlattesweb"></a>
+</h2>
+<p>Alternative for no-coders:</p>
+<ul>
+<li>link 1 <a href="https://roneyfraga.shinyapps.io/getlattesweb/" class="external-link">https://roneyfraga.shinyapps.io/getlattesweb/</a>
+</li>
+<li>link 2 <a href="http://roneyfraga.com/getLattesWeb/" class="external-link">http://roneyfraga.com/getLattesWeb/</a>
+</li>
+</ul>
+<p><img src="http://roneyfraga.com/volume/keep_it/getLattesWeb_exemplo.gif"></p>
+</div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -381,8 +395,9 @@ letters.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Avaliação do Programa Nacional de Produ… 2020          Desenvolvimento em De…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Agro brasileiro em evolução: complexida… 2020          Revista de Política A…</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 182 more rows</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​titulo_do_periodico_ou_revista</span></span></span>
-<span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ abbreviated name: ¹​titulo_do_periodico_ou_revista</span></span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">livros_publicados</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">curriculos</span>, <span class="fu"><a href="https://purrr.tidyverse.org/reference/safely.html" class="external-link">safely</a></span><span class="op">(</span><span class="va">getLivrosPublicados</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">purrr</span><span class="fu">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html" class="external-link">map</a></span><span class="op">(</span><span class="va">pluck</span>, <span class="st">'result'</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -398,7 +413,7 @@ letters.</p>
 </h2>
 <p>To group the data key variable is <code>id</code>, which is a unique
 16 digit code.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">artigos_publicados2</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">artigos_publicados</span>, <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -409,8 +424,9 @@ letters.</p>
 <span><span class="co">#&gt;   id               artigos</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 3051627641386529     101</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 4984859173592703      91</span></span>
-<span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 4984859173592703      91</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">livros_publicados2</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">livros_publicados</span>, <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'livros'</span><span class="op">)</span> </span>
@@ -420,8 +436,9 @@ letters.</p>
 <span><span class="co">#&gt;   id               livros</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 3051627641386529     45</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 4984859173592703      8</span></span>
-<span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 4984859173592703      8</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
 <span><span class="va">capitulos_livros2</span> <span class="op">&lt;-</span> </span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">capitulos_livros</span>, <span class="va">id</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/count.html" class="external-link">tally</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">'capitulos'</span><span class="op">)</span> </span>
@@ -438,7 +455,7 @@ letters.</p>
 </h2>
 <p>to join the data from different tables the recommended variable is
 <code>id</code>, which is a unique 16 digit code.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">artigos_publicados2</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -449,7 +466,7 @@ letters.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 3051627641386529     101     45        81</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 4984859173592703      91      8        48</span></span></code></pre></div>
 <p>Add information from a different tables.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">artigos_publicados2</span> <span class="op">|&gt;</span></span>
 <span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">livros_publicados2</span><span class="op">)</span> <span class="op">|&gt;</span></span>
@@ -461,6 +478,36 @@ letters.</p>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Antonio Marcio Buainain                    101     45        81</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Jose Maria Ferreira Jardim da Silveira      91      8        48</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="export-to-ris-format">Export to RIS format<a class="anchor" aria-label="anchor" href="#export-to-ris-format"></a>
+</h2>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/writePublicationsRis.html">writePublicationsRis</a></span><span class="op">(</span><span class="va">artigos_publicados</span>, </span>
+<span>                     filename <span class="op">=</span> <span class="st">'~/Desktop/artigos_nome_citacao.ris'</span>, </span>
+<span>                     citationName <span class="op">=</span> <span class="cn">T</span>, </span>
+<span>                     append <span class="op">=</span> <span class="cn">F</span>, </span>
+<span>                     tableLattes <span class="op">=</span> <span class="st">'ArtigosPublicados'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># full author name, ex: Antonio Marcio Buainain</span></span>
+<span><span class="fu"><a href="../reference/writePublicationsRis.html">writePublicationsRis</a></span><span class="op">(</span><span class="va">artigos_publicados</span>, </span>
+<span>                     filename <span class="op">=</span> <span class="st">'~/Desktop/artigos_nome_completo.ris'</span>, </span>
+<span>                     citationName <span class="op">=</span> <span class="cn">F</span>, </span>
+<span>                     append <span class="op">=</span> <span class="cn">F</span>,</span>
+<span>                     tableLattes <span class="op">=</span> <span class="st">'ArtigosPublicados'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/writePublicationsRis.html">writePublicationsRis</a></span><span class="op">(</span><span class="va">livros_publicados</span>, </span>
+<span>               filename <span class="op">=</span> <span class="st">'~/Desktop/livros.ris'</span>, </span>
+<span>               append <span class="op">=</span> <span class="cn">F</span>, </span>
+<span>               citationName <span class="op">=</span> <span class="cn">T</span>, </span>
+<span>               tableLattes <span class="op">=</span> <span class="st">'Livros'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/writePublicationsRis.html">writePublicationsRis</a></span><span class="op">(</span><span class="va">capitulos_livros</span>, </span>
+<span>                     filename <span class="op">=</span> <span class="st">'~/Desktop/capitulos_livros.ris'</span>, </span>
+<span>                     append <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                     citationName <span class="op">=</span> <span class="cn">F</span>, </span>
+<span>                     tableLattes <span class="op">=</span> <span class="st">'CapitulosLivros'</span><span class="op">)</span></span></code></pre></div>
 </div>
   </div>
 
@@ -476,12 +523,12 @@ letters.</p>
 
       <footer><div class="copyright">
   <p></p>
-<p>Developed by Roney Fraga Souza, Winicius Sabino.</p>
+<p>Developed by Roney Fraga Souza, Winicius Sabino, Luis Felipe de Souza Rodrigues.</p>
 </div>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>

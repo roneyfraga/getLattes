@@ -52,6 +52,9 @@
     <loc>/reference/getAreasAtuacao.html</loc>
   </url>
   <url>
+    <loc>/reference/getArtigosAceitos.html</loc>
+  </url>
+  <url>
     <loc>/reference/getArtigosPublicados.html</loc>
   </url>
   <url>
@@ -197,6 +200,12 @@
   </url>
   <url>
     <loc>/reference/unzipLattes.html</loc>
+  </url>
+  <url>
+    <loc>/reference/writePublicationsRis.html</loc>
+  </url>
+  <url>
+    <loc>/reference/writeRisLattes.html</loc>
   </url>
   <url>
     <loc>/reference/xmlsLattes.html</loc>
