@@ -26,7 +26,8 @@ reQuests - CNPQ](https://github.com/josefson/CNPQ).
 Non-programmers alternative, use the `getLattesWeb` graphical interface:
 
 - link 1 <https://roneyfraga.shinyapps.io/getlattesweb/>
-- link 2 <http://roneyfraga.com/getLattesWeb/>
+- link 2
+  [http://roneyfraga.com/shiny/getLattesWeb/](http://roneyfraga.com/getLattesWeb/)
 
 ![](http://roneyfraga.com/volume/keep_it/getLattesWeb_exemplo.gif)
 

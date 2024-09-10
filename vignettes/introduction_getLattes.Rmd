@@ -70,7 +70,7 @@ Follow an example of how to search and download data from the [Lattes](http://la
 Alternative for no-coders:
 
 - link 1 [https://roneyfraga.shinyapps.io/getlattesweb/](https://roneyfraga.shinyapps.io/getlattesweb/)
-- link 2 [http://roneyfraga.com/getLattesWeb/](http://roneyfraga.com/getLattesWeb/)
+- link 2 [http://roneyfraga.com/shiny/getLattesWeb/](http://roneyfraga.com/getLattesWeb/)
 
 ![](http://roneyfraga.com/volume/keep_it/getLattesWeb_exemplo.gif)
 
