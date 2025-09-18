@@ -1,18 +1,23 @@
 citHeader("To cite getLattes in publications use:")
 
-citEntry(entry = "Misc",
-	title = "{getLattes}: Read and process data from {Lattes} currriculum platform",
-    shorttitle = "getLattes",
-	author = as.person(c("Roney Fraga Souza", "Winicius Sabino")),
-	url = "https://zenodo.org/record/3782764",
-	publisher = "Zenodo",
-	year = "2020",
-	doi = "10.5281/ZENODO.3782764",
-	copyright = "Open Access",
-
-  textVersion  =
-  paste("Roney Fraga Souza & Winicius Sabino (2020).",
-        "getLattes: Read and process data from Lattes currriculum platform.",
-        "Zenodo.",
-        "http://doi.org/10.5281/zenodo.3782764")
+bibentry(
+  bibtype = "Misc",
+  title = "{getLattes}: Import and Process Data from the {Lattes} Curriculum Platform",
+  author = c(
+    person("Roney", "Fraga Souza"),
+    person("Winicius", "Sabino"),
+    person("Luis Felipe", "de Souza Rodrigues")
+  ),
+  year = "2024",
+  publisher = "Zenodo",
+  url = "https://zenodo.org/record/3782764",
+  doi = "10.5281/zenodo.3782764",
+  copyright = "Open Access",
+  note = "R package version 0.3.0",
+  textVersion = paste(
+    "Roney Fraga Souza, Winicius Sabino & Luis Felipe de Souza Rodrigues (2024).",
+    "getLattes: Import and Process Data from the Lattes Curriculum Platform.",
+    "R package version 0.4.0. Zenodo.",
+    "https://doi.org/10.5281/zenodo.3782764"
+  )
 )

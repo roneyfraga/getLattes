@@ -12,9 +12,9 @@ The `getLattes` `R` package, written by [Roney Fraga
 Souza](http://roneyfraga.com), [Winicius
 Sabino](https://stackoverflow.com/users/9278241/winicius-sabino) and
 [Luis Felipe de Souza
-Rodrigues](https://www.linkedin.com/in/luis-felipe-de-souza-rodrigues-535a34180/),
-was built to extract data from the [Lattes](http://lattes.cnpq.br/)
-curriculum platform exported as `XML`.
+Rodrigues](http://lattes.cnpq.br/5404832707334563/), was built to
+extract data from the [Lattes](http://lattes.cnpq.br/) curriculum
+platform exported as `XML`.
 
 ![](http://roneyfraga.com/volume/keep_it/lattes_busca_curriculo.gif)
 
