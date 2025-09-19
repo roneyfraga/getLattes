@@ -13,3 +13,4 @@ Meta
 support.R
 ._*
 .DS_Store
+^README.html$

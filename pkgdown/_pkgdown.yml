@@ -1,0 +1,20 @@
+
+url: https://roneyfraga.com/getLattes
+
+template:
+  favicon: favicon
+  bootstrap: 5
+  light-switch: false
+  bslib:
+    primary: "#163D4E" # solarized dark
+    success: "#2e7d32"
+    info:    "#246A7A"
+    warning: "#C79E42"
+    danger:  "#c62828"
+    # texto e fundo no claro
+    bg: "#ffffff"
+    fg: "#2B2B2B"
+
+navbar:
+  title: "<img src='logo.png' alt='getLattes' style='height:24px;vertical-align:middle;margin-right:.4rem'> getLattes"
+

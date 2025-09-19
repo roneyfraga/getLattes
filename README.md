@@ -1,11 +1,23 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# getLattes
+# getLattes <a href="https://roneyfraga.com/getLattes/"><img src="man/figures/logo.png" align="right" alt="birddog logo" style="height: 180px;"></a>
 
 <!-- badges: start -->
 
 [![DOI](https://zenodo.org/badge/258844181.svg)](https://zenodo.org/badge/latestdoi/258844181)
+[![getLattes: An R package for analyzing Lattes CV
+data.](https://img.shields.io/badge/getLattes-Analyzing%20Lattes%20CV%20data-00667E.svg)](https://cran.r-project.org/package=getLattes)
+[![Status:
+Active](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+[![R-CMD-check](https://github.com/roneyfraga/getLattes/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/roneyfraga/getLattes/actions/workflows/R-CMD-check.yaml)
+[![CRAN
+version](https://www.r-pkg.org/badges/version/getLattes)](https://cran.r-project.org/package=getLattes)
+[![Downloads](https://cranlogs.r-pkg.org/badges/getLattes)](https://cran.r-project.org/package=getLattes)
+[![Total
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/getLattes?color=blue)](https://cran.r-project.org/package=getLattes)
+[![License:
+GPL-3](https://img.shields.io/badge/License-GPL--3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 <!-- badges: end -->
 
 The `getLattes` `R` package, written by [Roney Fraga

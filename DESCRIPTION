@@ -17,7 +17,7 @@ Authors@R:
       person(
         given = c("Luis", "Felipe"),
         family = "de Souza Rodrigues",
-        role = "ctb",
+        role = "aut",
         email = "lfsouza25@gmail.com"
     ))
 Maintainer: Roney Fraga Souza <roneyfraga@gmail.com>
