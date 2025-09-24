@@ -1,10 +1,9 @@
 pandoc: 3.1.12.1
-pkgdown: 2.0.9
+pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   introduction_getLattes: introduction_getLattes.html
-last_built: 2025-09-19T16:10Z
+last_built: 2025-09-24T19:29Z
 urls:
   reference: https://roneyfraga.com/getLattes/reference
   article: https://roneyfraga.com/getLattes/articles
-

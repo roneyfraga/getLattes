@@ -1,3 +1,7 @@
+Version 1.0.0
+===
+CRAN version. 
+
 Version 0.3.0
 ===
 Added `getLattesWeb`, `getArtigosAceitos`, `writePublicationsRis`.
